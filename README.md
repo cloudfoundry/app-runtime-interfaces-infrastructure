@@ -1,5 +1,6 @@
 # App Runtime Interfaces - Concourse on GCP Kubernetes
----
+
+
 # Background
 Based on [cloudfoundry/bosh-community-stemcell-ci-infra](https://github.com/cloudfoundry/bosh-community-stemcell-ci-infra)
 ## Requirements
@@ -97,7 +98,6 @@ The following command needs to be run from within your root directory (containin
 terragrunt run-all apply
 ```
 
----
 # Recommendations
 ## Cloud SQL Instance deletion protection
 Terraform hashicorp provider includes a deletion protection flag however in some cases it's misleading as it's not setting it on Google Cloud.
@@ -110,7 +110,6 @@ Please see [developer notes](docs/developer_notes.md) about `vendir sync` and de
 
 # Notes and known limitations
 
----
 ## Carvel kapp terraform provider not available for Apple M1
 https://github.com/vmware-tanzu/terraform-provider-carvel/issues/30#issuecomment-1311465417
 
