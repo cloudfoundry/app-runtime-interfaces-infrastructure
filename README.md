@@ -52,44 +52,16 @@ This is necessary if you want to be able to authenticate with your GitHub profil
     As "Authorization callback URL", enter the Concourse URL followed by `/sky/issuer/`callback` also beginning with **https**://**.
 
 
- 2. Create Google Secret - use a correct naming convention
-The created secret name will be used by terraform scripts and needs to conform to the following convention `${gke_name}-concourse-github-oauth`. By default, `gke_name` is `wg-ci` (working group CI system).
+ 2. Create Google Secret
 
-    ```sh
+    Open [scripts/create-github-oauth-gcp.sh](scripts/create-github-oauth-gcp.sh) and enter you credetials for **id** and **secret**.
+
+    Run
+    ```
     cd <folder with config.yaml>
+    ../scripts/create-github-oauth-gcp.sh
     ```
-
-    ```sh
-    secret_id="$(yq .gke_name config.yaml)-concourse-github-oauth"
-    secret_region="$(yq .region config.yaml)"
-    project="$(yq .project config.yaml)"
-    gcloud secrets create ${secret_id} \
-     --replication-policy="user-managed" \
-     --locations=${secret_region}\
-     --project=${project}
-    ```
-
-
-3. Please create a version for google secret using gcloud command or webui, with a following key-value format
-
-    ```yaml
-    id: your Client ID
-    secret: your Client secret
-    ```
-   *gcloud* cli example
-    ```sh
-    cd <folder with config.yaml>
-    ```
-    ```sh
-    secret_id="$(yq .gke_name config.yaml)-concourse-github-oauth"
-    project="$(yq .project config.yaml)"
-    id="your Client ID"
-    secret="your Client secret"
-    echo -n "id: ${id}\nsecret: ${secret}" | \
-    gcloud secrets versions add ${secret_id} --data-file=- --project=${project}
-    ```
-
-    For more information please refer to [gcloud documentation](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets).
+ For more information please refer to [gcloud documentation](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets).
 ## 4. Apply terrgrunt for the entire stack
 The following command needs to be run from within your root directory (containing `config.yaml` file).
 
@@ -112,10 +84,6 @@ Please see [developer notes](docs/developer_notes.md) about `vendir sync` and de
 
 ## Carvel kapp terraform provider not available for Apple M1
 https://github.com/vmware-tanzu/terraform-provider-carvel/issues/30#issuecomment-1311465417
-
-
-## Carvel kapp terraform provider not showing diffs during plan and apply
-https://github.com/vmware-tanzu/terraform-provider-carvel/issues/17
 
 ## Destroy the project
 Since we protect a backup of credhub encryption key (stored in GCP Secret Manager) to fully destroy the project it needs to be removed from terraform state first.
@@ -170,7 +138,7 @@ kubectl config current-context
 ```
 
 ## DR scenario
-Please see [DR scenario](docs/disaster_recovery.md) for a fully automated recovery procedure.
+Please see [DR scenario](docs/disaster_recovery.md) for fully automated recovery procedure.
 
 ### DR credhub encryption check
 

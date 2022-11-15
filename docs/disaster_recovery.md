@@ -17,11 +17,9 @@
 Fully automated restore with:
 ```
 cd <folder witg config.yaml>
-../scripts/dr_restore.sh
+../scripts/dr-restore.sh
 ```
 
-
----
 # Troubleshooting
 ### Unexpected credhub encryption-key-in k8s secrets
 Providing GKE cluster or application was removed recovery is not expecting credhub-encryption-key stored in kubernetes secrets. Please remove it from k8s since it will be restored from GCP Secret Manager.
