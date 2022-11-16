@@ -9,7 +9,7 @@ Based on [cloudfoundry/bosh-community-stemcell-ci-infra](https://github.com/clou
 ## Requirements
 
 ### Required tools
-We use [asdf](https://asdf-vm.com/) with versions [.tools-versions](./.tools-versions) file
+We use [asdf](https://asdf-vm.com/) with versions [.tool-versions](./.tool-versions) file
 * glcoud
 * helm
 * terraform
@@ -19,15 +19,7 @@ We use [asdf](https://asdf-vm.com/) with versions [.tools-versions](./.tools-ver
 * vendir
 * yq
 
-Install asdf then:
-```
-# add required plugin as defined in asdf .tool-versions
-for p in $(cat .tool-versions | awk '{ print $1 }'); do asdf plugin add $p &&  asdf install $p; done
-
-# verify the install tools
-asdf current
-```
-
+Install asdf then execute [./terragrunt/scripts/asdf-plugin-install.sh](./terragrunt/scritps/asdf-plugin-install.sh)
 ### Permissions
 
 Users who are required to perform operations need to be added in the Role `WG CI Manage` via IAM in the Google Cloud console.

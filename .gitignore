@@ -39,3 +39,6 @@ terraform.rc
 # Draw.io app bkp and temp files
 *.drawio.bkp
 *.drawio.dtmp
+
+# macos
+.DS_Store
