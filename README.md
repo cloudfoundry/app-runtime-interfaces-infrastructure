@@ -3,10 +3,13 @@
 
 # Background
 Based on [cloudfoundry/bosh-community-stemcell-ci-infra](https://github.com/cloudfoundry/bosh-community-stemcell-ci-infra)
+
+# Architecture
+![](./docs/concourse-architecture.drawio.png)
 ## Requirements
 
 ### Required tools
-We use asdf with the version stored in `.tools-versions` file
+We use [asdf](https://asdf-vm.com/) with versions [.tools-versions](./.tools-versions) file
 * glcoud
 * helm
 * terraform
@@ -16,7 +19,7 @@ We use asdf with the version stored in `.tools-versions` file
 * vendir
 * yq
 
-The required tools are defined in the .tool-versions file
+Install asdf then:
 ```
 # add required plugin as defined in asdf .tool-versions
 for p in $(cat .tool-versions | awk '{ print $1 }'); do asdf plugin add $p &&  asdf install $p; done
@@ -31,11 +34,22 @@ Users who are required to perform operations need to be added in the Role `WG CI
 
 # Prerequisites for a fresh project
 ## 1. Configuration
-Adjust `config.yml`
 
-For your project:
+### Adjust `config.yml`
+
+You should at least look at the following variables:
+
+* `project / region / zone / secondary_zone`
+* `gcs_bucket`
+* `dns_record / dns_zone / dns_domain`
+* `gke_name`
+* `concourse_github_mainTeam`
+
+For your version of the project:
 * Copy terragrunt code from `terragrunt/concourse-wg-ci'
-* Use git resource for terraform modules (or copy `terraform-modules` folder)
+* Use git resource for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](./terragrunt/concourse-wg-ci-test/config.yaml)
+  * or copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](./terragrunt/concourse-wg-ci/config.yaml)
+
 ## 2. Logon to your GCP account
 ```
 gcloud auth login && gcloud auth application-default login
