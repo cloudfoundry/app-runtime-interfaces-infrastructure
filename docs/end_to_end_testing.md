@@ -19,3 +19,12 @@ gcloud auth login && gcloud auth application-default login
 
 ## Execute
 Use terraform or see example terragrunt code in [terragrunt/concourse-wg-ci-test](../terragrunt/concourse-wg-ci-test/e2e-test/)
+
+## Troubleshooting
+
+Failure due to wrong credhub encryption key.
+```
+failed to interpolate task config:
+Get "https://credhub.concourse.svc.cluster.local:9000/api/v1/data?name-like=%2Fconcourse%2Fmain%2Fe2e-test%2Fcredhub-cli-tf-81a16e": 
+dial tcp 10.108.6.95:9000: connect: connection refused (after 5 retries)
+```
