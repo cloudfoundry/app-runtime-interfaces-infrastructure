@@ -33,8 +33,9 @@ tf_modules:
   app:        "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/app?ref=1.0.1"
   dr_create:  "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/dr_create?ref=1.0.1"
   dr_restore: "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/dr_restore?ref=1.0.1"
+  e2e_test:   "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/e2e_test?ref=1.0.0"
 
-
+fly_team: main
 
 # ---------------------------------------------------------
 # In most cases settings below are safe to keep as defaults

@@ -1,5 +1,5 @@
 dependencies {
-  paths = ["../e2e-test"]
+  paths = ["../app"]
 }
 
 locals {
@@ -15,7 +15,7 @@ remote_state {
   }
   config = {
     bucket         = "${local.config.gcs_bucket}"
-    prefix         = "${local.config.gcs_prefix}/concourse-dr-create"
+    prefix         = "${local.config.gcs_prefix}/e2e-test-pipeline"
     project        = "${local.config.project}"
     location       = "${local.config.region}"
     # use for uniform bucket-level access
@@ -24,10 +24,10 @@ remote_state {
   }
 }
 
-# git for teams
 terraform {
-  source = local.config.tf_modules.dr_create
-}
+  source = local.config.tf_modules.e2e_test
+  }
+
 
 inputs = {
   project = local.config.project
@@ -35,4 +35,12 @@ inputs = {
   zone    = local.config.zone
 
   gke_name = local.config.gke_name
+
+  fly_target = local.config.gke_name
+  fly_team = local.config.fly_team
+
+  pipeline = "e2e-test"
+  pipeline_job = "e2e-${local.config.gke_name}"
+
+  credhub-test-secret-path = "/concourse/${local.config.fly_team}"
 }

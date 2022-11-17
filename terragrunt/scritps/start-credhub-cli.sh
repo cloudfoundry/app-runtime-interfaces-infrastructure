@@ -22,8 +22,6 @@ credhub_client="credhub_admin_client"
 credhub_secret="$(kubectl --namespace concourse get secret credhub-admin-client-credentials -o json | jq  -r .data.password | base64 --decode)"
 
 kubectl run credhub-cli-$(openssl rand -hex 4) \
-        --rm -i -t \
-        --restart=Never \
         --image=yatzek/credhub-cli:2.9.0 \
         --env="CREDHUB_SERVER=$credhub_server" \
         --env="CREDHUB_CA_CERT=$credhub_ca_cert" \
