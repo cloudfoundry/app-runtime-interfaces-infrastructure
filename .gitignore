@@ -37,8 +37,8 @@ terraform.rc
 **/.terragrunt-cache/
 
 # Draw.io app bkp and temp files
-*.drawio.bkp
-*.drawio.dtmp
+*.drawio.svg.bkp
+*.drawio.svg.dtmp
 
 # macos
 .DS_Store
