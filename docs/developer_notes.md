@@ -28,3 +28,11 @@ File [app/files/config/uaa/_ytt_lib/uaa/k8s/templates/deployment.star](../terraf
 When present, this parameter will prevent uaa pod to populate `UAA_POSTGRES_HOST` env variable
 
 **When running `vendor sync` for new version the parameter will need to be removed again**
+
+## Drawio editable png diagram
+
+We use png format to keep white background (svg doesn't provide it)
+
+When exporting please use *Include a copy of my diagram* option.
+
+Saving existing png should already include the diagram for future edits.
