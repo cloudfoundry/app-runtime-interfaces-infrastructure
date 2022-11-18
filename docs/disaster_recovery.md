@@ -1,4 +1,5 @@
-# Prerequisites
+# Disaster Recovery
+## Prerequisites
 
 1. The backup of credhub encryption key has been stored in GCP Secret Manager - this part is handled automatically with `dr_creste` terragrunt part of the stack
 2. The secret in GCP was not deleted/altered manually.
@@ -13,14 +14,39 @@
 
 
 
-# Steps
+## Steps
 Fully automated restore with:
 ```
 cd <folder witg config.yaml>
 ../scripts/dr-restore.sh
 ```
 
-# Troubleshooting
+## Troubleshooting
+
+### DR credhub encryption check
+
+The dr_create module will check for the existence and integrity of the Credhub encryption key. Following errors may appear if the user does not execute dr-create
+1. Crehub encryption key does not exist in google secret manager or has no version
+   ```
+   │ Error: Error retrieving available secret manager secret versions: googleapi: Error 404: Secret [projects/899763165748/secrets/wg-ci-test-credhub-encryption-key] not found or has no versions.
+   │
+   │   with data.google_secret_manager_secret_version.credhub_encryption_key,
+   │   on credhub_dr_check.tf line 2, in data "google_secret_manager_secret_version" "credhub_encryption_key":
+   │    2: data "google_secret_manager_secret_version" "credhub_encryption_key" {
+   │
+   ```
+2. Credhub encryption keys stored in google secrets manager is different to the one stored in kubernetes secret 
+    ```
+    │ Error: Call to unknown function
+    │ 
+    │   on .terraform/modules/assertion_encryption_key_identical/.tf line 6, in locals:
+    │    6:   content = var.condition ? "" : SEE_ABOVE_ERROR_MESSAGE(true ? null : "ERROR: ${var.error_message}")
+    │     ├────────────────
+    │     │ var.error_message is "*** Encryption keys in GCP Secret Manager and kubernetes secrets do not match ***"
+    │ 
+    │ There is no function named "SEE_ABOVE_ERROR_MESSAGE".
+    ```
+
 ### Unexpected credhub encryption-key-in k8s secrets
 Providing GKE cluster or application was removed recovery is not expecting credhub-encryption-key stored in kubernetes secrets. Please remove it from k8s since it will be restored from GCP Secret Manager.
 

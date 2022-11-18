@@ -1,0 +1,40 @@
+---
+resource_types:
+- name: credhub
+  type: docker-image
+  source:
+    repository: cfcommunity/credhub-resource
+
+jobs:
+- name: "${pipeline_job}"
+  public: true
+  plan:
+  - task: validate-test-credhub-secret
+    params:
+      SECRET_NAME: "((${credhub-test-secret-name}))"
+      SECRET_K8S_POD_VALUE: "${credhub-test-secret-value}"
+      SECRET_PATH: "${credhub-test-secret-path}"
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: yatzek/credhub-cli
+          tag: 2.9.0
+      run:
+        path: bash
+        args:
+          - -ec
+          - |
+            set -euo pipefail
+
+            echo ">> Get test-secret value: $SECRET_NAME"
+
+            echo ">> Validate secret value against credhub: $SECRET_NAME vs $SECRET_K8S_POD_VALUE"
+            if [ "$SECRET_NAME" != "$SECRET_K8S_POD_VALUE" ]; then
+              echo "ERROR: secrets value mismatch!"
+              exit 1
+            else
+              echo "OK: secret validated"
+            fi
+

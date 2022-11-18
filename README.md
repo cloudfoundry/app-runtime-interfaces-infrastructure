@@ -1,14 +1,16 @@
 # App Runtime Interfaces - Concourse on GCP Kubernetes
 
+## Background
 
-# Background
 Based on [cloudfoundry/bosh-community-stemcell-ci-infra](https://github.com/cloudfoundry/bosh-community-stemcell-ci-infra)
 
-# Architecture
-![](./docs/concourse-architecture.drawio.png)
-## Requirements
+## Architecture
 
-### Required tools
+![editable drawio png bitmap](./docs/concourse-architecture.drawio.png)
+### Requirements
+
+#### Required tools
+
 We use [asdf](https://asdf-vm.com/) with versions [.tool-versions](./.tool-versions) file
 * glcoud
 * helm
@@ -20,14 +22,15 @@ We use [asdf](https://asdf-vm.com/) with versions [.tool-versions](./.tool-versi
 * yq
 
 Install asdf then execute [./terragrunt/scripts/asdf-plugin-install.sh](./terragrunt/scritps/asdf-plugin-install.sh)
-### Permissions
+#### Permissions
 
 Users who are required to perform operations need to be added in the Role `WG CI Manage` via IAM in the Google Cloud console.
 
-# Prerequisites for a fresh project
-## 1. Configuration
+## Prerequisites for a fresh project
 
-### Adjust `config.yml`
+### 1. Configuration
+
+#### Adjust `config.yml`
 
 You should at least look at the following variables:
 
@@ -42,12 +45,13 @@ For your version of the project:
 * Use git resource for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](./terragrunt/concourse-wg-ci-test/config.yaml)
   * or copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](./terragrunt/concourse-wg-ci/config.yaml)
 
-## 2. Logon to your GCP account
+#### 2. Logon to your GCP account
 ```
 gcloud auth login && gcloud auth application-default login
 ```
 
-## 3. Create Github OAuth App and supply as a Google Secret
+#### 3. Create Github OAuth App and supply as a Google Secret
+
 This is necessary if you want to be able to authenticate with your GitHub profile.
  1. Create Github OAuth App
 
@@ -68,30 +72,36 @@ This is necessary if you want to be able to authenticate with your GitHub profil
     ../scripts/create-github-oauth-gcp.sh
     ```
  For more information please refer to [gcloud documentation](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets).
-## 4. Apply terrgrunt for the entire stack
+#### 4. Apply terrgrunt for the entire stack
+
 The following command needs to be run from within your root directory (containing `config.yaml` file).
 
 *NOTE: it's not possible to `plan` for a fresh project due to the fact we can't test kubernetes resources against non-existing cluster*
+
+*NOTE: `terragrunt run-all` commands **do not** show changes before applying*
+
 ```sh
 terragrunt run-all apply
 ```
 
-# Recommendations
-## Cloud SQL Instance deletion protection
+## Recommendations
+### Cloud SQL Instance deletion protection
+
 Terraform hashicorp provider includes a deletion protection flag however in some cases it's misleading as it's not setting it on Google Cloud.
 To avoid confusion we do not set it in the code and recommend altering your production SQL Instance to protect from the deletion on the cloud side.
 
 https://console.cloud.google.com/sql/instances/ -> select instance name -> edit ->  Data Protection -> tick: Enable delete protection
 
-# Developer notes
+### End-to-end testing
+
+Please see [end to end testing](./docs/end_to_end_testing.md)
+### Developer notes
 Please see [developer notes](docs/developer_notes.md) about `vendir sync` and developing modules with `terragrunt`.
 
-# Notes and known limitations
+## Notes and known limitations
 
-## Carvel kapp terraform provider not available for Apple M1
-https://github.com/vmware-tanzu/terraform-provider-carvel/issues/30#issuecomment-1311465417
 
-## Destroy the project
+### Destroy the project
 Since we protect a backup of credhub encryption key (stored in GCP Secret Manager) to fully destroy the project it needs to be removed from terraform state first.
 
 ```
@@ -114,7 +124,10 @@ terragrunt run-all destroy
 
 Delete terraform state gcp bucket from GCP console or via `gsutil`
 
-## Plan/apply terragrunt for a specific component of the stack
+### Carvel kapp terraform provider not available for Apple M1
+https://github.com/vmware-tanzu/terraform-provider-carvel/issues/30#issuecomment-1311465417
+
+### Plan/apply terragrunt for a specific component of the stack
 
 ```sh
 cd concourse/app
@@ -124,7 +137,7 @@ terragrunt apply
 
 
 
-## How to obtain GKE credentials for your terminal
+### How to obtain GKE credentials for your terminal
 Terraform code is fetching GKE credentials automatically. In case you need to access the cluster with `kubectl` (or other kube clients) or to connect to Credhub instance (via `scripts/start-credhub-cli.sh`)
 
 ```sh
@@ -146,29 +159,6 @@ kubectl config current-context
 ## DR scenario
 Please see [DR scenario](docs/disaster_recovery.md) for fully automated recovery procedure.
 
-### DR credhub encryption check
-
-The dr_create module will check for the existence and integrity of the Credhub encryption key. Following errors may appear if the user does not execute dr-create
-1. Crehub encryption key does not exist in google secret manager or has no version
-   ```
-   │ Error: Error retrieving available secret manager secret versions: googleapi: Error 404: Secret [projects/899763165748/secrets/wg-ci-test-credhub-encryption-key] not found or has no versions.
-   │
-   │   with data.google_secret_manager_secret_version.credhub_encryption_key,
-   │   on credhub_dr_check.tf line 2, in data "google_secret_manager_secret_version" "credhub_encryption_key":
-   │    2: data "google_secret_manager_secret_version" "credhub_encryption_key" {
-   │
-   ```
-2. Credhub encryption keys stored in google secrets manager is different to the one stored in kubernetes secret 
-    ```
-    │ Error: Call to unknown function
-    │ 
-    │   on .terraform/modules/assertion_encryption_key_identical/.tf line 6, in locals:
-    │    6:   content = var.condition ? "" : SEE_ABOVE_ERROR_MESSAGE(true ? null : "ERROR: ${var.error_message}")
-    │     ├────────────────
-    │     │ var.error_message is "*** Encryption keys in GCP Secret Manager and kubernetes secrets do not match ***"
-    │ 
-    │ There is no function named "SEE_ABOVE_ERROR_MESSAGE".
-    ```
 
 ## Secrets rotation
 * Currently not implemented
