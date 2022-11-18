@@ -33,6 +33,4 @@ When present, this parameter will prevent uaa pod to populate `UAA_POSTGRES_HOST
 
 We use png format to keep white background (svg doesn't provide it)
 
-When exporting please use *Include a copy of my diagram* option.
-
-Saving existing png should already include the diagram for future edits.
+Use `export -> PNG` and tick *Include a copy of my diagram* option.
