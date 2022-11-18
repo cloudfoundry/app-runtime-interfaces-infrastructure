@@ -14,7 +14,7 @@ gcloud auth login && gcloud auth application-default login
 ```
 ## Setup fly
 ```
-`fly login -t <gke_name> -c https://<your concourse url> -n <your team default:main>`
+fly login -t <gke_name> -c https://<your concourse url> -n <your team default:main>
 ```
 
 ## Execute
