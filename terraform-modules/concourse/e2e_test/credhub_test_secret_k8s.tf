@@ -8,11 +8,6 @@ data "kubernetes_secret_v1" "credhub_secret" {
   }
 }
 
-# resource "local_file" "credhub_client_secret" {
-#   content = base64decode(data.kubernetes_secret_v1.credhub_client_secret.binary_data.password)
-#   filename = "./credhub_client_secret"
-#   }
-
 data "kubernetes_secret_v1" "credhhub_ca_cert" {
   metadata {
     name      = "credhub-root-ca"
@@ -22,11 +17,6 @@ data "kubernetes_secret_v1" "credhhub_ca_cert" {
     certificate = ""
   }
 }
-
-# resource "local_file" "credhhub_ca_cert" {
-#   content = base64decode(data.kubernetes_secret_v1.credhhub_ca_cert.binary_data.certificate)
-#   filename = "./credhub_ca_cert"
-#   }
 
 resource "random_id" "credhub_cli" {
   byte_length = 3

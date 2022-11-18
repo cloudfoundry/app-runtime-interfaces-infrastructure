@@ -1,5 +1,5 @@
 dependencies {
-  paths = ["../e2e-test"]
+  paths = ["../e2e_test"]
 }
 
 locals {
