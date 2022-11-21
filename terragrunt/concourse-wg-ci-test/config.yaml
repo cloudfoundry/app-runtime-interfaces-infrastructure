@@ -21,19 +21,28 @@ concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-ap
 concourse_github_mainTeamUser: ""
 
 # Concourse helm chart
-concourse_helm_version: "17.0.27"
+concourse_helm_version: "17.0.37"
+
 
 # Module sources for the stack - git or local
 # ie.
 #  infra: "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/infra?ref=1.0.0"
 #  infra: "../../..//terraform-modules//concourse/infra"
 tf_modules:
-  infra:      "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/infra?ref=1.1.0"
-  backend:    "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/backend?ref=1.1.0"
-  app:        "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/app?ref=1.1.0"
-  dr_create:  "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/dr_create?ref=1.1.0"
-  dr_restore: "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/dr_restore?ref=1.1.0"
-  e2e_test:   "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/e2e_test?ref=1.1.0"
+  # infra:      "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/infra?ref=1.1.0"
+  # backend:    "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/backend?ref=1.1.0"
+  # app:        "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/app?ref=1.1.0"
+  # dr_create:  "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/dr_create?ref=1.1.0"
+  # dr_restore: "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/dr_restore?ref=1.1.0"
+  # e2e_test:   "git@github.com:cloudfoundry/app-runtime-interfaces-infrastructure.git//terraform-modules/concourse/e2e_test?ref=1.1.0"
+
+  # replace for local development
+  infra:      "../../..//terraform-modules/concourse/infra"
+  backend:    "../../..//terraform-modules/concourse/backend"
+  app:        "../../..//terraform-modules/concourse/app"
+  dr_create:  "../../..//terraform-modules/concourse/dr_create"
+  dr_restore: "../../..//terraform-modules/concourse/dr_restore"
+  e2e_test:   "../../..//terraform-modules/concourse/e2e_test"
 
 
 fly_team: main

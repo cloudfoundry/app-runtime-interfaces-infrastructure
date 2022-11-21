@@ -7,6 +7,12 @@ if [ ! $(which asdf) ]
     exit 1
 fi
 
+if [ ! -s .tool-versions ]
+  then
+    echo "ERROR: .tools-versions not found in root directory"
+    exit 1
+fi
+
 echo
 echo ">> Add required plugin as defined in asdf .tool-versions"
 for p in $(cat .tool-versions | awk '{ print $1 }')
