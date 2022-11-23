@@ -29,8 +29,11 @@ When present, this parameter will prevent uaa pod to populate `UAA_POSTGRES_HOST
 
 **When running `vendor sync` for new version the parameter will need to be removed again**
 
-## Drawio editable png diagram
+## Drawio editable svg diagram
 
-We use png format to keep white background (svg doesn't provide it)
+We use png format to keep white background.
 
-Use `export -> PNG` and tick *Include a copy of my diagram* option.
+## Terraform modules versioning
+Please follow [semantic versioning](https://semver.org/).
+
+At present tagging is done manually.
