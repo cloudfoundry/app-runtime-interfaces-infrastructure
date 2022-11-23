@@ -6,7 +6,7 @@ Based on [cloudfoundry/bosh-community-stemcell-ci-infra](https://github.com/clou
 
 ## Architecture
 
-![editable drawio png bitmap](./docs/concourse-architecture.drawio.png)
+![editable drawio png bitmap](./docs/concourse-architecture.drawio.svg)
 ### Requirements
 
 #### Required tools
