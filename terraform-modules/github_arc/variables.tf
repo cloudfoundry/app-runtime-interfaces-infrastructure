@@ -1,0 +1,14 @@
+variable "project" { nullable = false }
+variable "region" { nullable = false }
+variable "zone" { nullable = false }
+
+variable "gke_name" { nullable = false }
+variable "github_arc_workers_pool_machine_type" { nullable = false }
+variable "github_arc_workers_pool_node_count" { nullable = false }
+variable "github_arc_workers_pool_autoscaling_max" { nullable = false }
+variable "github_arc_workers_pool_ssd_count" { nullable = false }
+
+variable "cert_manager_helm_version" { nullable = false }
+variable "github_arc_helm_version" { nullable = false }
+
+variable "gsm_github_access_token_name" { nullable = false }
