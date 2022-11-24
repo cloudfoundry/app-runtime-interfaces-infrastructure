@@ -26,5 +26,5 @@ resource "helm_release" "github_arc" {
   }
 
 
-  depends_on = [helm_release.cert_manager]
+  depends_on = [helm_release.cert_manager, google_compute_firewall.arc_webhook]
 }

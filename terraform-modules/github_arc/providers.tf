@@ -6,6 +6,9 @@ terraform {
     kubernetes = {
       source = "hashicorp/kubernetes"
     }
+    kubectl = {
+      source  = "gavinbunney/kubectl"
+    }
   }
 }
 
@@ -36,4 +39,11 @@ provider "kubernetes" {
   host                   = "https://${data.google_container_cluster.wg_ci.endpoint}"
   token                  = data.google_client_config.provider.access_token
   cluster_ca_certificate = base64decode(data.google_container_cluster.wg_ci.master_auth[0].cluster_ca_certificate)
+}
+
+provider "kubectl" {
+  host                   = "https://${data.google_container_cluster.wg_ci.endpoint}"
+  token                  = data.google_client_config.provider.access_token
+  cluster_ca_certificate = base64decode(data.google_container_cluster.wg_ci.master_auth[0].cluster_ca_certificate)
+
 }
