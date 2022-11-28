@@ -37,4 +37,45 @@ jobs:
             else
               echo "OK: secret validated"
             fi
-
+  - task: validate-ubuntu-20-04
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: ubuntu
+          tag: 20.04
+      run:
+        path: bash
+        args:
+          - -ec
+          - |
+            cat /etc/os-release
+  - task: validate-ubuntu-22-04
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: ubuntu
+          tag: 22.04
+      run:
+        path: bash
+        args:
+          - -ec
+          - |
+            cat /etc/os-release
+  - task: try-app-autoscaler-tools
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: ghcr.io/cloudfoundry/app-autoscaler-ci-test
+          tag: master
+      run:
+        path: bash
+        args:
+          - -ec
+          - |
+            cat /etc/os-release
