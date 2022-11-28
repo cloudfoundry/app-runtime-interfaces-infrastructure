@@ -1,6 +1,19 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:base"
-  ]
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:base"
+    ],
+    "regexManagers": [
+        {
+            "fileMatch": [
+                "config.yaml$"
+            ],
+            "matchStrings": [
+                "concourse_helm_version: \"(?<currentValue>.*?)\""
+            ],
+            "depNameTemplate": "concourse",
+            "registryUrlTemplate": "https://concourse-charts.storage.googleapis.com/",
+            "datasourceTemplate": "helm"
+        }
+    ]
 }
