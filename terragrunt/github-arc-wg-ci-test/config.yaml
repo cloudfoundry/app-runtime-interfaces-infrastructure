@@ -6,7 +6,7 @@ zone: europe-west3-a
 gke_name: wg-ci-test
 
 # Github ARC workers config
-github_arc_workers_pool_machine_type: e2-standard-4
+github_arc_workers_pool_machine_type: n2-custom-8-16384
 github_arc_workers_pool_node_count: 1
 github_arc_workers_pool_autoscaling_max: 4
 github_arc_workers_pool_ssd_count: 0

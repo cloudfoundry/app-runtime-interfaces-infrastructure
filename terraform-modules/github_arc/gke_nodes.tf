@@ -31,7 +31,7 @@ resource "google_container_node_pool" "github_arc" {
 
   node_config {
     disk_size_gb    = "100"
-    disk_type       = "pd-standard"
+    disk_type       = "pd-ssd"
     image_type      = "COS_CONTAINERD"
     local_ssd_count = var.github_arc_workers_pool_ssd_count
     machine_type    = var.github_arc_workers_pool_machine_type
