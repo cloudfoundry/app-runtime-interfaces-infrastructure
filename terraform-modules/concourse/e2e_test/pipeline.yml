@@ -1,10 +1,4 @@
 ---
-resource_types:
-- name: credhub
-  type: docker-image
-  source:
-    repository: cfcommunity/credhub-resource
-
 jobs:
 - name: "${pipeline_job}"
   public: true
