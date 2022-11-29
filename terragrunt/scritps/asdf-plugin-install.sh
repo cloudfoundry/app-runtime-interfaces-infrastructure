@@ -16,7 +16,9 @@ fi
 echo
 echo ">> Add required plugin as defined in asdf .tool-versions"
 for p in $(cat .tool-versions | awk '{ print $1 }')
-    do asdf plugin add $p &&  asdf install $p
+    do
+       asdf plugin add "${p}" || true
+       asdf install "${p}"
 done
 echo
 
