@@ -40,10 +40,10 @@ inputs = {
   github_arc_helm_version = local.config.github_arc_helm_version
 
   gsm_github_access_token_name = local.config.gsm_github_access_token_name
-  arc_github_webhook_server_name = "${local.config.gke_name}-arc-webhook-server"
+  arc_github_webhook_server_name = "${local.config.gke_name}-arc"
 
 
-  dns_record = "${local.config.gke_name}-arc-webhook-server"
+  dns_record = "${local.config.gke_name}-arc"
   dns_zone   = local.config.dns_zone
   dns_domain = local.config.dns_domain
 }
