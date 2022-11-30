@@ -5,6 +5,9 @@ zone: europe-west3-a
 # Your GKE cluster (assumes one already exists)
 gke_name: wg-ci-test
 
+dns_zone: app-runtime-interfaces
+dns_domain: ci.cloudfoundry.org
+
 # Github ARC workers config
 github_arc_workers_pool_machine_type: n2-custom-8-16384
 github_arc_workers_pool_node_count: 1

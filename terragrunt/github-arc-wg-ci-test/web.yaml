@@ -1,0 +1,107 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: actions-runner-system
+spec:
+  selector:
+    matchLabels:
+      run: web
+  template:
+    metadata:
+      labels:
+        run: web
+    spec:
+      containers:
+      - image: us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+        imagePullPolicy: IfNotPresent
+        name: web
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: actions-runner-system
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    run: web
+  type: NodePort
+# ---
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: basic-ingress
+#   namespace: actions-runner-system
+#   annotations:
+#     kubernetes.io/ingress.class: gce
+#     kubernetes.io/ingress.allow-http: "true"
+#     kubernetes.io/ingress.global-static-ip-name: wg-ci-test-arc-app-runtime-interfaces-ci-cloudfoundry-org
+# spec:
+#   rules:
+#     - http:
+#         paths:
+#           - path: /actions-runner-controller-github-webhook-server
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: actions-runner-controller-github-webhook-server
+#                 port:
+#                   number: 80
+#   defaultBackend:
+#     service:
+#       name: actions-runner-controller-github-webhook-server
+#       port:
+#         number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: basic-ingress
+  namespace: actions-runner-system
+  annotations:
+    kubernetes.io/ingress.class: gce
+    #kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.global-static-ip-name: wg-ci-test-arc-webhook-server
+    cert-manager.io/issuer: letsencrypt-staging
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /actions-runner-controller-github-webhook-server
+            pathType: Prefix
+            backend:
+              service:
+                name: actions-runner-controller-github-webhook-server
+                port:
+                  number: 80
+  defaultBackend:
+    service:
+      name: actions-runner-controller-github-webhook-server
+      port:
+        number: 80
+
+# spec:
+#   rules:
+#     - http:
+#         paths:
+#           - path: /actions-runner-controller-github-webhook-server
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: actions-runner-controller-github-webhook-server
+#                 port:
+#                   number: 80
+#   defaultBackend:
+#     service:
+#       name: actions-runner-controller-github-webhook-server
+#       port:
+#         number: 80

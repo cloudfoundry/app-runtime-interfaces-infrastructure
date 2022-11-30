@@ -12,3 +12,8 @@ variable "cert_manager_helm_version" { nullable = false }
 variable "github_arc_helm_version" { nullable = false }
 
 variable "gsm_github_access_token_name" { nullable = false }
+variable "arc_github_webhook_server_name" { nullable = false }
+
+variable "dns_record" { nullable = false }
+variable "dns_zone" { nullable = false }
+variable "dns_domain" { nullable = false }

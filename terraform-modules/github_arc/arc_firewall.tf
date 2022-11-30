@@ -10,5 +10,5 @@ resource "google_compute_firewall" "arc_webhook" {
   direction = "INGRESS"
 
   source_ranges = [data.google_container_cluster.wg_ci.private_cluster_config[0].master_ipv4_cidr_block]
-  }
+}
 

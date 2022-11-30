@@ -25,6 +25,15 @@ resource "helm_release" "github_arc" {
     value = data.google_secret_manager_secret_version.gsm_github_access_token.secret_data
   }
 
+  set {
+    name  = "githubWebhookServer.enabled"
+    value = true
+  }
+
+  set {
+    name  = "githubWebhookServer.service.type"
+    value = "NodePort"
+  }
 
   depends_on = [helm_release.cert_manager, google_compute_firewall.arc_webhook]
 }
