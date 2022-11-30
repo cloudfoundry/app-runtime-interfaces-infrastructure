@@ -1,25 +1,29 @@
 #https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/
 
-# resource "kubernetes_secret_v1" "arc_letsencrypt_secret" {
-#     metadata {
-#       name = "arc-webhook-server-ssl"
-#       namespace = "actions-runner-system"
-#       }
+resource "kubernetes_secret_v1" "arc_ingress_ssl" {
+    metadata {
+      name = "arc-ingress-ssl"
+      namespace = "actions-runner-system"
+      }
 
-#     type = "kubernetes.io/tls"
-#     data = {
-#       "tls.key" = ""
-#       "tls.crt" = ""
-#       }
-#       depends_on = [helm_release.github_arc]
-#     }
+    type = "kubernetes.io/tls"
+    data = {
+      "tls.key" = ""
+      "tls.crt" = ""
+      }
+      depends_on = [helm_release.github_arc]
 
-resource "kubernetes_manifest" "arc_managed_cert_staging" {
+      lifecycle {
+        ignore_changes = all
+      }
+    }
+
+resource "kubernetes_manifest" "letsencrypt_staging" {
   manifest = {
     "apiVersion" = "cert-manager.io/v1"
     "kind"       = "Issuer"
     "metadata" = {
-      "name"      = "arc-letsencrypt-staging"
+      "name"      = "letsencrypt-staging"
       "namespace" = "actions-runner-system"
     }
     "spec" = {
@@ -27,12 +31,40 @@ resource "kubernetes_manifest" "arc_managed_cert_staging" {
         "server" = "https://acme-staging-v02.api.letsencrypt.org/directory"
         "email"  = "marcin.kubica@sap.com"
         "privateKeySecretRef" = {
-          "name" = "arc-webhook-server-ssl"
+          "name" = "arc-letsencrypt-staging"
         }
         "solvers" = [{
           "http01" = {
             "ingress" = {
-              "name" = "arc-webhook-ingress"
+              "class" = "ingress-gce"
+            }
+          }
+        }]
+      }
+    }
+  }
+  depends_on = [helm_release.cert_manager]
+}
+
+resource "kubernetes_manifest" "letsencrypt_production" {
+  manifest = {
+    "apiVersion" = "cert-manager.io/v1"
+    "kind"       = "Issuer"
+    "metadata" = {
+      "name"      = "letsencrypt-production"
+      "namespace" = "actions-runner-system"
+    }
+    "spec" = {
+      "acme" = {
+        "server" = "https://acme-v02.api.letsencrypt.org/directory"
+        "email"  = "marcin.kubica@sap.com"
+        "privateKeySecretRef" = {
+          "name" = "arc-letsencrypt-production"
+        }
+        "solvers" = [{
+          "http01" = {
+            "ingress" = {
+              "class" = "ingress-gce"
             }
           }
         }]
@@ -85,40 +117,7 @@ resource "kubernetes_manifest" "arc_managed_cert_staging" {
 # }
 
 
-
-
-
-# resource "kubectl_manifest" "arc_ingress_staging" {
-#     yaml_body = <<EOT
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: arc-webhook-ingress-staging
-#   namespace: actions-runner-system
-#   annotations:
-#     kubernetes.io/ingress.class: gce
-#     kubernetes.io/ingress.global-static-ip-name: wg-ci-test-arc-webhook-server
-#     cert-manager.io/issuer: letsencrypt-staging
-#     acme.cert-manager.io/http01-edit-in-place: "true"
-# spec:
-#   tls:
-#   - hosts:
-#     - wg-ci-test-arc-webhook-server.app-runtime-interfaces.ci.cloudfoundry.org
-#     secretName: arc-webhook-server-ssl
-#   rules:
-#     - http:
-#         paths:
-#           - path: /actions-runner-controller-github-webhook-server
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: actions-runner-controller-github-webhook-server
-#                 port:
-#                   number: 80
-# EOT
-# }
-
-resource "kubectl_manifest" "arc_ingress_staging" {
+resource "kubectl_manifest" "arc_ingress" {
     yaml_body = <<EOT
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -126,16 +125,15 @@ metadata:
   name: arc-webhook-ingress
   namespace: actions-runner-system
   annotations:
-    kubernetes.io/ingress.allow-http: "true"
+    kubernetes.io/ingress.allow-http: "false"
     kubernetes.io/ingress.class: gce
-    kubernetes.io/ingress.global-static-ip-name: wg-ci-test-arc-webhook-server
-    cert-manager.io/issuer: letsencrypt-staging
-    acme.cert-manager.io/http01-edit-in-place: "true"
+    kubernetes.io/ingress.global-static-ip-name: wg-ci-test-arc
+    cert-manager.io/issuer: letsencrypt-production
 spec:
   tls:
   - hosts:
-    - wg-ci-test-arc-webhook-server.app-runtime-interfaces.ci.cloudfoundry.org
-    secretName: arc-webhook-server-ssl
+    - wg-ci-test-arc.app-runtime-interfaces.ci.cloudfoundry.org
+    secretName: arc-ingress-ssl
   rules:
     - http:
         paths:
@@ -154,5 +152,6 @@ spec:
 
 EOT
 
-depends_on = [kubernetes_manifest.arc_managed_cert_staging ]
+depends_on = [kubernetes_manifest.letsencrypt_staging, kubernetes_secret_v1.arc_ingress_ssl ]
 }
+

@@ -8,7 +8,7 @@ resource "google_compute_global_address" "arc_webhook_server" {
   project      = var.project
   address_type = "EXTERNAL"
   # gcp ip addres name can't contain dots
-  name = var.arc_github_webhook_server_name
+  name = "${var.gke_name}-arc"
 }
 
 resource "google_dns_record_set" "arc_webhook_server" {
