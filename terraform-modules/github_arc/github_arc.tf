@@ -1,6 +1,11 @@
-data "google_secret_manager_secret_version" "gsm_github_access_token" {
+data "google_secret_manager_secret_version" "arc_github_access_token" {
   project = var.project
-  secret  = var.gsm_github_access_token_name
+  secret  = var.arc_github_access_token_name
+}
+
+data "google_secret_manager_secret_version" "arc_github_webhook_server_token" {
+  project = var.project
+  secret  = var.arc_github_webhook_server_token_name
 }
 
 resource "helm_release" "github_arc" {
@@ -22,7 +27,7 @@ resource "helm_release" "github_arc" {
 
   set {
     name  = "authSecret.github_token"
-    value = data.google_secret_manager_secret_version.gsm_github_access_token.secret_data
+    value = data.google_secret_manager_secret_version.arc_github_access_token.secret_data
   }
 
   set {
@@ -34,6 +39,30 @@ resource "helm_release" "github_arc" {
     name  = "githubWebhookServer.service.type"
     value = "NodePort"
   }
+
+  set {
+    name  = "githubWebhookServer.secret.enabled"
+    value = true
+  }
+
+  set {
+    name  = "githubWebhookServer.secret.create"
+    value = true
+  }
+
+  set {
+    name  = "githubWebhookServer.secret.name"
+    value = "arc-github-webhook-server-token"
+  }
+
+  set {
+    name  = "githubWebhookServer.secret.github_webhook_secret_token"
+    value = data.google_secret_manager_secret_version.arc_github_webhook_server_token.secret_data
+  }
+
+
+
+
 
   depends_on = [helm_release.cert_manager, google_compute_firewall.arc_webhook]
 }
