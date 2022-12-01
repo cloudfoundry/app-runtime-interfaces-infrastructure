@@ -18,7 +18,6 @@ spec:
   scaleTargetRef:
     kind: RunnerSet
     name: autoscaler-arc-runnerset
-    #repository: cloudfoundry/app-autoscaler-release
   scaleUpTriggers:
     - githubEvent:
         workflowJob: {}
@@ -40,6 +39,8 @@ spec:
      app: autoscaler-arc-workers
   serviceName: autoscaler-arc-service
   template:
+    labels:
+      - self-hosted
     metadata:
       labels:
         app: autoscaler-arc-workers
