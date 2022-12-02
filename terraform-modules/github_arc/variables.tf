@@ -15,6 +15,8 @@ variable "arc_github_access_token_name" { nullable = false }
 variable "arc_github_webhook_server_name" { nullable = false }
 variable "arc_github_webhook_server_token_name" { nullable = false }
 
+variable "arc_storage_type" { nullable = false }
+
 variable "dns_record" { nullable = false }
 variable "dns_zone" { nullable = false }
 variable "dns_domain" { nullable = false }

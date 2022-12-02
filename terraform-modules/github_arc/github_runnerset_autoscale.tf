@@ -11,17 +11,18 @@ apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
 metadata:
   name: autoscaler-arc-autoscaler
-  namespace: actions-runner-system
+  namespace: actions-runner-workers
 spec:
-  minReplicas: 2
-  maxReplicas: 10
+  minReplicas: 0
+  maxReplicas: 16
   scaleTargetRef:
     kind: RunnerSet
     name: autoscaler-arc-runnerset
   scaleUpTriggers:
     - githubEvent:
         workflowJob: {}
-        duration: "30m"
+        duration: "10m"
+  scaleDownDelaySecondsAfterScaleOut: 30
 EOT
 }
 
@@ -31,20 +32,28 @@ apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerSet
 metadata:
   name: autoscaler-arc-runnerset
-  namespace: actions-runner-system
+  namespace: actions-runner-workers
 spec:
   repository: cloudfoundry/app-autoscaler-release
   selector:
    matchLabels:
      app: autoscaler-arc-workers
   serviceName: autoscaler-arc-service
+
   template:
-    labels:
-      - self-hosted
     metadata:
       labels:
         app: autoscaler-arc-workers
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: cloud.google.com/gke-nodepool
+                operator: In
+                values:
+                - "github-arc-workers"
       tolerations:
       - effect: NoSchedule
         key: github-arc-workers
@@ -55,6 +64,16 @@ spec:
         volumeMounts:
         - name: var-lib-docker
           mountPath: /var/lib/docker
+      - name: runner
+        resources:
+          requests:
+            #cpu: "1600m" #schedules 4 runners on 8 core
+            cpu: "800m"
+        #     memory: "3.0Gi"
+        #  limits:
+        #    cpu: "800m"
+        #    memory: "3.0Gi"
+
   volumeClaimTemplates:
   - metadata:
       name: var-lib-docker
@@ -64,7 +83,7 @@ spec:
       resources:
         requests:
           storage: 20Gi
-      storageClassName: premium-rwo
+      storageClassName: arc-regional
 
 EOT
 

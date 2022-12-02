@@ -23,5 +23,7 @@ github_arc_helm_version: "0.21.1"
 arc_github_access_token_name: autoscaler-github-access-token
 arc_github_webhook_server_token_name: wg-ci-test-arc-webhook-server-token
 
+arc_storage_type: pd-ssd
+
 tf_modules:
   github_arc:      "../..//terraform-modules/github_arc"
