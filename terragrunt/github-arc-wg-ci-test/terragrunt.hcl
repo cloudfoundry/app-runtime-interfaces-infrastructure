@@ -44,8 +44,9 @@ inputs = {
   arc_github_webhook_server_token_name =  "${local.config.arc_github_webhook_server_token_name}"
 
   arc_storage_type = local.config.arc_storage_type
-  
-  dns_record = "${local.config.gke_name}-arc"
+
+  webhook_server_dns_production = "${local.config.gke_name}-arc"
+  webhook_server_dns_staging = "${local.config.gke_name}-arc-s"
   dns_zone   = local.config.dns_zone
   dns_domain = local.config.dns_domain
 }
