@@ -14,4 +14,8 @@ resource "helm_release" "cert_manager" {
     name  = "installCRDs"
     value = true
   }
+
+  depends_on = [google_container_node_pool.github_arc]
+    
+ 
 }

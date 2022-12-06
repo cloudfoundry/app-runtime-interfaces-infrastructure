@@ -45,6 +45,8 @@ inputs = {
 
   arc_storage_type = local.config.arc_storage_type
 
+  arc_letsencrypt_staging = local.config.arc_letsencrypt_staging
+
   webhook_server_dns_production = "${local.config.gke_name}-arc"
   webhook_server_dns_staging = "${local.config.gke_name}-arc-s"
   dns_zone   = local.config.dns_zone
