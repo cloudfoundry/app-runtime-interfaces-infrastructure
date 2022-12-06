@@ -160,5 +160,5 @@ kubectl config current-context
 Please see [DR scenario](docs/disaster_recovery.md) for fully automated recovery procedure.
 
 
-## Secrets rotation
-* Currently not implemented
+## Automated secrets rotation for CloudSQL
+Plase see [Secrets Rotation](docs/secrets_rotation.md)
