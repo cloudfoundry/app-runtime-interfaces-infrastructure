@@ -157,8 +157,8 @@ kubectl config current-context
 ```
 
 ## DR scenario
-Please see [DR scenario](docs/disaster_recovery.md) for fully automated recovery procedure.
+Please see [DR scenario](docs/disaster_recovery.md) for a fully automated recovery procedure.
 
 
 ## Automated secrets rotation for CloudSQL
-Plase see [Secrets Rotation](docs/secrets_rotation.md)
+Please see [Secrets Rotation](docs/secrets_rotation.md)
