@@ -33,6 +33,7 @@ tf_modules:
   app: "../../..//terraform-modules/concourse/app"
   dr_create: "../../..//terraform-modules/concourse/dr_create"
   dr_restore: "../../..//terraform-modules/concourse/dr_restore"
+  secret_rotation_postgresql: "../../..//terraform-modules/concourse/secret_rotation_postgresql"
 
 
 

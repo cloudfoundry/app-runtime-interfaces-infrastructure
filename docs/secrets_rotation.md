@@ -7,7 +7,7 @@ Folder for terragrunt with corresponding .hcl file (or alternative invocation vi
 
 Required specification for module source in `config.yaml` and `.hcl` file
 
-See example in ...
+See [example.](../terragrunt/concourse-wg-ci/secret_rotation_postgresql/)
 
 ## To invoke secrets rotation
 
@@ -29,8 +29,8 @@ The script will read configuration from `config.yaml` and create required config
 
 If the script will find your cluster name doesn't contain keyword `test` you will be required to additionally confirm the action.
 
-Following, the script will show you the age of secrets and present with information on acctions to apply:
-* deletion of current secrets
+Following, the script will show you the age of secrets and present with information on actions to apply:
+* deletion of current concourse postgresql secrets
 * bouncing secretgen controller pod to generate new passwords
 * bouncing application stack pods with terraform to consume new secrets:
   * concourse-web

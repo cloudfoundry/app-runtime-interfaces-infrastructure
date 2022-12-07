@@ -43,6 +43,7 @@ tf_modules:
   dr_create:  "../../..//terraform-modules/concourse/dr_create"
   dr_restore: "../../..//terraform-modules/concourse/dr_restore"
   e2e_test:   "../../..//terraform-modules/concourse/e2e_test"
+  secret_rotation_postgresql: "../../..//terraform-modules/concourse/secret_rotation_postgresql"
 
 
 fly_team: main
