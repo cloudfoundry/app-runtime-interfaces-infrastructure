@@ -24,3 +24,5 @@ variable "webhook_server_dns_staging" { nullable = false }
 variable "dns_zone" { nullable = false }
 variable "dns_domain" { nullable = false }
 
+variable "github_repo_name" { nullable = false }
+variable "github_repo_owner" { nullable = false }

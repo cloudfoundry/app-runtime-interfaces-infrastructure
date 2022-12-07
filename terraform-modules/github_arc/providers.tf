@@ -9,6 +9,9 @@ terraform {
     kubectl = {
       source = "gavinbunney/kubectl"
     }
+    github = {
+      source  = "integrations/github"
+    }
   }
 }
 
@@ -46,4 +49,9 @@ provider "kubectl" {
   token                  = data.google_client_config.provider.access_token
   cluster_ca_certificate = base64decode(data.google_container_cluster.wg_ci.master_auth[0].cluster_ca_certificate)
 
+}
+
+provider "github" {
+  # please setup your GITHUB_TOKEN env var
+  owner = var.github_repo_owner
 }

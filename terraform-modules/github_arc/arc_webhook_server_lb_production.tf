@@ -40,6 +40,7 @@ spec:
        depends_on = [helm_release.cert_manager]
 }
 
+
 locals {
  ingress_hostname_production = trimsuffix("${google_dns_record_set.arc_webhook_server_production.name}", ".")
  }
