@@ -26,7 +26,7 @@ arc_github_webhook_server_token_name: wg-ci-test-arc-webhook-server-token
 arc_storage_type: pd-ssd
 
 # developer mode for letsencrypt webhook server - use true to enable staging deployment
-arc_letsencrypt_staging: true
+arc_letsencrypt_staging: false
 
 tf_modules:
   github_arc:      "../..//terraform-modules/github_arc"
