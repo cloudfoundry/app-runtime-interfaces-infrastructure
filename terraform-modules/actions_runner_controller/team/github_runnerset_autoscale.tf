@@ -1,23 +1,23 @@
 resource "kubernetes_namespace" "github_actions_runners" {
   metadata {
-    name = "actions-runner-workers"
+    name = "${var.team_name}-actions-runner-workers"
   }
 }
 
 
-resource "kubectl_manifest" "app_autoscaler_release_runners_autoscaler" {
+resource "kubectl_manifest" "github_repo_runners_autoscaler" {
   yaml_body = <<EOT
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: HorizontalRunnerAutoscaler
 metadata:
-  name: autoscaler-arc-autoscaler
-  namespace: actions-runner-workers
+  name: "${var.github_repo_name}-hpa"
+  namespace: "${kubernetes_namespace.github_actions_runners.metadata[0].name}"
 spec:
   minReplicas: 0
   maxReplicas: 16
   scaleTargetRef:
     kind: RunnerSet
-    name: autoscaler-arc-runnerset
+    name: "${var.github_repo_name}-runnerset"
   scaleUpTriggers:
     - githubEvent:
         workflowJob: {}
@@ -26,24 +26,24 @@ spec:
 EOT
 }
 
-resource "kubectl_manifest" "app_autoscaler_release_runnerset" {
+resource "kubectl_manifest" "github_repo_runnerset" {
   yaml_body = <<EOT
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerSet
 metadata:
-  name: autoscaler-arc-runnerset
-  namespace: actions-runner-workers
+  name: "${var.github_repo_name}-runnerset"
+  namespace: "${kubernetes_namespace.github_actions_runners.metadata[0].name}"
 spec:
-  repository: cloudfoundry/app-autoscaler-release
+  repository: "${var.github_repo_owner}/${var.github_repo_name}"
   selector:
    matchLabels:
-     app: autoscaler-arc-workers
-  serviceName: autoscaler-arc-service
+     app: "${var.team_name}-arc-workers"
+  serviceName: "${var.team_name}-service"
 
   template:
     metadata:
       labels:
-        app: autoscaler-arc-workers
+        app: "${var.team_name}-arc-workers"
     spec:
       affinity:
         nodeAffinity:
@@ -53,10 +53,10 @@ spec:
               - key: cloud.google.com/gke-nodepool
                 operator: In
                 values:
-                - "github-arc-workers"
+                - "${var.team_name}-arc-workers"
       tolerations:
       - effect: NoSchedule
-        key: github-arc-workers
+        key: "${var.team_name}-arc-workers"
         operator: Equal
         value: "true"
       containers:
@@ -87,6 +87,6 @@ spec:
 
 EOT
 
-depends_on = [google_container_node_pool.github_arc ]
+depends_on = [google_container_node_pool.team_github_arc ]
 
 }

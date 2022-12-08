@@ -1,12 +1,10 @@
-resource "google_service_account" "gke_node_pools" {
-  account_id   = "${var.gke_name}-github-arc-pool"
+resource "google_service_account" "team_arc_node_pool" {
+  account_id   = "${var.gke_name}-${var.team_name}-pool"
   display_name = "Service account for ${var.gke_name} GKE Github Actions Controller node pool"
   project      = var.project
 }
 
-
-
-resource "google_container_node_pool" "github_arc" {
+resource "google_container_node_pool" "team_github_arc" {
   cluster    = data.google_container_cluster.wg_ci.name
   node_count = var.github_arc_workers_pool_node_count
 
@@ -27,7 +25,7 @@ resource "google_container_node_pool" "github_arc" {
   }
 
   max_pods_per_node = "110"
-  name              = "github-arc-workers"
+  name              = "${var.team_name}-arc-workers"
 
   node_config {
     disk_size_gb    = "30"
@@ -42,7 +40,7 @@ resource "google_container_node_pool" "github_arc" {
 
     oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/userinfo.email"]
     preemptible     = "false"
-    service_account = google_service_account.gke_node_pools.email
+    service_account = google_service_account.team_arc_node_pool.email
 
     shielded_instance_config {
       enable_integrity_monitoring = "true"
@@ -50,11 +48,11 @@ resource "google_container_node_pool" "github_arc" {
     }
 
     spot = "false"
-    tags = ["github-arc-workers"]
+    tags = ["${var.team_name}-arc-workers"]
 
     taint {
       effect = "NO_SCHEDULE"
-      key    = "github-arc-workers"
+      key    = "${var.team_name}-arc-workers"
       value  = "true"
     }
 

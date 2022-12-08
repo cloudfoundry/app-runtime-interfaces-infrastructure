@@ -4,6 +4,7 @@ zone: europe-west3-a
 
 # Your GKE cluster (assumes one already exists)
 gke_name: wg-ci-test
+team_name: app-autoscaler
 
 dns_zone: app-runtime-interfaces
 dns_domain: ci.cloudfoundry.org
@@ -18,18 +19,11 @@ github_arc_workers_pool_autoscaling_max: 4
 github_arc_workers_pool_ssd_count: 0
 
 gcs_bucket: terraform-wg-ci-test
-gcs_prefix: github-arc
+gcs_prefix: github-arc-team
 
-cert_manager_helm_version: "1.10.1"
-github_arc_helm_version: "0.21.1"
-
-arc_github_access_token_name: autoscaler-github-access-token
 arc_github_webhook_server_token_name: wg-ci-test-arc-webhook-server-token
 
-arc_storage_type: pd-ssd
-
-# developer mode for letsencrypt webhook server - use true to enable staging deployment
-arc_letsencrypt_staging: false
+arc_webhook_server_production_domain: app-runtime-interfaces.ci.cloudfoundry.org
 
 tf_modules:
-  github_arc:      "../..//terraform-modules/actions_runner_controller/infra"
+  github_arc:      "../..//terraform-modules/actions_runner_controller/team"
