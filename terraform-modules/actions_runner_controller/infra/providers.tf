@@ -50,8 +50,3 @@ provider "kubectl" {
   cluster_ca_certificate = base64decode(data.google_container_cluster.wg_ci.master_auth[0].cluster_ca_certificate)
 
 }
-
-provider "github" {
-  # please setup your GITHUB_TOKEN env var
-  owner = var.github_repo_owner
-}

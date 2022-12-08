@@ -1,11 +1,11 @@
 resource "kubernetes_storage_class_v1" "arc_regional" {
 metadata {
-  name = "arc-regional"
+  name = "${var.team_name}-arc-regional"
 }
 storage_provisioner = "pd.csi.storage.gke.io"
 reclaim_policy = "Delete"
 parameters = {
-  "type" = var.arc_storage_type
+  "type" = var.gke_arc_storage_type
   "replication-type" = "regional-pd"
 }
 volume_binding_mode = "WaitForFirstConsumer"

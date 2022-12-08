@@ -2,27 +2,45 @@ project: app-runtime-interfaces-wg
 region: europe-west3
 zone: europe-west3-a
 
-# Your GKE cluster (assumes one already exists)
-gke_name: wg-ci-test
 team_name: app-autoscaler
-
-dns_zone: app-runtime-interfaces
-dns_domain: ci.cloudfoundry.org
 
 github_repo_name: app-autoscaler-release
 github_repo_owner: cloudfoundry
 
-# Github ARC workers config
-github_arc_workers_pool_machine_type: n2-custom-8-16384
-github_arc_workers_pool_node_count: 1
-github_arc_workers_pool_autoscaling_max: 4
-github_arc_workers_pool_ssd_count: 0
-
 gcs_bucket: terraform-wg-ci-test
 gcs_prefix: github-arc-team
 
-arc_github_webhook_server_token_name: wg-ci-test-arc-webhook-server-token
+dns_zone: app-runtime-interfaces
+dns_domain: ci.cloudfoundry.org
 
+# Your GKE cluster (assumes one already exists)
+gke_name: wg-ci-test
+
+# Github ARC runners node-pool config
+github_arc_workers_pool_node_count: 1
+github_arc_workers_pool_autoscaling_max: 4
+github_arc_workers_pool_ssd_count: 0
+github_arc_workers_pool_machine_type: n2-custom-8-16384
+
+# Regional storage class type for team PVs
+# see https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver#create_a_storageclass
+gke_arc_storage_type: pd-ssd
+
+# 4 runners on 8 core / 16g machine requests - cpu "1600m" memory: "3000Mi"
+# 8 runners on 8 core / 16g machine requests - cpu "800m" memory: "1500Mi"
+runnerset_resource_request_cpu: "800m"
+runnerset_resource_request_mem: "1500Mi"
+
+# resource limits for runner pods - 0 to disable
+runnerset_resource_limits_cpu: "0"
+runnerset_resource_limits_mem: "0"
+
+# Horisontal Pod (RunnerSet) Autoscaler tuning
+hpa_scaleup_trigger_duration: "10m"
+hpa_scaledown_delay_seconds: "0"
+
+arc_github_webhook_events: [ "workflow_job" ]
+arc_github_webhook_server_token_name: wg-ci-test-arc-webhook-server-token
 arc_webhook_server_production_domain: app-runtime-interfaces.ci.cloudfoundry.org
 
 tf_modules:

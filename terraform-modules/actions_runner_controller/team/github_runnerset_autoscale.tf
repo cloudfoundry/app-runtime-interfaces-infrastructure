@@ -21,8 +21,8 @@ spec:
   scaleUpTriggers:
     - githubEvent:
         workflowJob: {}
-        duration: "10m"
-  scaleDownDelaySecondsAfterScaleOut: 30
+        duration: "${var.hpa_scaleup_trigger_duration}"
+  scaleDownDelaySecondsAfterScaleOut: "${var.hpa_scaledown_delay_seconds}"
 EOT
 }
 
@@ -67,12 +67,11 @@ spec:
       - name: runner
         resources:
           requests:
-            #cpu: "1600m" #schedules 4 runners on 8 core
-            cpu: "800m"
-        #     memory: "3.0Gi"
-        #  limits:
-        #    cpu: "800m"
-        #    memory: "3.0Gi"
+            cpu: "${var.runnerset_resource_request_cpu}"
+            memory: "${var.runnerset_resource_request_mem}"
+          limits:
+            cpu: "${var.runnerset_resource_limits_cpu}"
+            memory: "${var.runnerset_resource_limits_mem}"
 
   volumeClaimTemplates:
   - metadata:
@@ -83,10 +82,10 @@ spec:
       resources:
         requests:
           storage: 20Gi
-      storageClassName: arc-regional
+      storageClassName: "${var.team_name}-arc-regional"
 
 EOT
 
-depends_on = [google_container_node_pool.team_github_arc ]
+depends_on = [ google_container_node_pool.team_github_arc, kubernetes_storage_class_v1.arc_regional ]
 
 }

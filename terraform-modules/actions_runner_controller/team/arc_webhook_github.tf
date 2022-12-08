@@ -16,5 +16,5 @@ resource "github_repository_webhook" "github_webhook" {
       secret = data.google_secret_manager_secret_version.arc_github_webhook_server_token.secret_data
     }
     active = true
-    events = [ "workflow_job" ]
+    events = [ var.arc_github_webhook_events ]
 }

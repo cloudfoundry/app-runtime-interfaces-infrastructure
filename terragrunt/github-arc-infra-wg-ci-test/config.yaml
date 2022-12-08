@@ -11,11 +11,6 @@ dns_domain: ci.cloudfoundry.org
 github_repo_name: app-autoscaler-release
 github_repo_owner: cloudfoundry
 
-# Github ARC workers config
-github_arc_workers_pool_machine_type: n2-custom-8-16384
-github_arc_workers_pool_node_count: 1
-github_arc_workers_pool_autoscaling_max: 4
-github_arc_workers_pool_ssd_count: 0
 
 gcs_bucket: terraform-wg-ci-test
 gcs_prefix: github-arc
@@ -25,8 +20,6 @@ github_arc_helm_version: "0.21.1"
 
 arc_github_access_token_name: autoscaler-github-access-token
 arc_github_webhook_server_token_name: wg-ci-test-arc-webhook-server-token
-
-arc_storage_type: pd-ssd
 
 # developer mode for letsencrypt webhook server - use true to enable staging deployment
 arc_letsencrypt_staging: false
