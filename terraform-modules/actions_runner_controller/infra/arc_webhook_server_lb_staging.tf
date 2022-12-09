@@ -33,7 +33,7 @@ metadata:
 spec:
   acme:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
-    email: "ApplicationAutoscaler@sap.com"
+    email: "A${var.arc_letsencrypt_notifications_email}"
     privateKeySecretRef:
       name: arc-letsencrypt-staging
     solvers:

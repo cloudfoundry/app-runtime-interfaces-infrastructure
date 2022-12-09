@@ -34,12 +34,6 @@ inputs = {
   github_repo_name = local.config.github_repo_name
   github_repo_owner = local.config.github_repo_owner
 
-
-  # github_arc_workers_pool_machine_type = local.config.github_arc_workers_pool_machine_type
-  # github_arc_workers_pool_node_count = local.config.github_arc_workers_pool_node_count
-  # github_arc_workers_pool_autoscaling_max = local.config.github_arc_workers_pool_autoscaling_max
-  # github_arc_workers_pool_ssd_count = local.config.github_arc_workers_pool_ssd_count
-
   cert_manager_helm_version = local.config.cert_manager_helm_version
   github_arc_helm_version = local.config.github_arc_helm_version
 
@@ -47,7 +41,7 @@ inputs = {
   arc_github_webhook_server_name = "${local.config.gke_name}-arc"
   arc_github_webhook_server_token_name =  "${local.config.arc_github_webhook_server_token_name}"
 
-  # arc_storage_type = local.config.arc_storage_type
+  arc_letsencrypt_notifications_email = local.config.arc_letsencrypt_notifications_email
 
   arc_letsencrypt_staging = local.config.arc_letsencrypt_staging
 

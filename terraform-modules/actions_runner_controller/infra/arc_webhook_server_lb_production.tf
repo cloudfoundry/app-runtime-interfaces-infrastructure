@@ -29,7 +29,7 @@ metadata:
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
-    email: "ApplicationAutoscaler@sap.com"
+    email: "${var.arc_letsencrypt_notifications_email}"
     privateKeySecretRef:
       name: arc-letsencrypt-production
     solvers:

@@ -12,6 +12,7 @@ variable "arc_github_webhook_server_name" { nullable = false }
 variable "arc_github_webhook_server_token_name" { nullable = false }
 
 variable "arc_letsencrypt_staging" { nullable = false }
+variable "arc_letsencrypt_notifications_email" { nullable = false }
 
 variable "webhook_server_dns_production" { nullable = false }
 variable "webhook_server_dns_staging" { nullable = false }
