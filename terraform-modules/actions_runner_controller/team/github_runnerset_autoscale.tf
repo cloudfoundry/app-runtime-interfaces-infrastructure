@@ -1,5 +1,5 @@
 resource "kubernetes_namespace" "github_actions_runners" {
-  metadata {
+    metadata {
     name = "${var.team_name}-actions-runners"
   }
 }

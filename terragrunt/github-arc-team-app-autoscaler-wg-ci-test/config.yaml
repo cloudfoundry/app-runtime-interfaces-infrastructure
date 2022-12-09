@@ -15,7 +15,6 @@ dns_domain: ci.cloudfoundry.org
 
 # Your GKE cluster (assumes one already exists)
 gke_name: wg-ci-test
-gke_provision_nodepool: true
 
 # Github ARC runners node-pool config
 github_arc_workers_pool_node_count: 1

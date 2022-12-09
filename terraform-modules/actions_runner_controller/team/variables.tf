@@ -7,7 +7,6 @@ variable "github_repo_name" { nullable = false }
 variable "github_repo_owner" { nullable = false }
 
 variable "gke_name" { nullable = false }
-variable "gke_provision_nodepool" { nullable = false }
 variable "github_arc_workers_pool_machine_type" { nullable = false }
 variable "github_arc_workers_pool_node_count" { nullable = false }
 variable "github_arc_workers_pool_autoscaling_max" { nullable = false }

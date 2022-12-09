@@ -1,12 +1,10 @@
 resource "google_service_account" "team_arc_node_pool" {
-  count = "${var.gke_provision_nodepool ? 1 : 0}"
   account_id   = "${var.gke_name}-${var.team_name}-pool"
   display_name = "Service account for ${var.gke_name} GKE Github Actions Controller node pool"
   project      = var.project
 }
 
 resource "google_container_node_pool" "team_github_arc" {
-  count = "${var.gke_provision_nodepool ? 1 : 0}"
   cluster    = data.google_container_cluster.wg_ci.name
   node_count = var.github_arc_workers_pool_node_count
 
@@ -42,7 +40,7 @@ resource "google_container_node_pool" "team_github_arc" {
 
     oauth_scopes    = ["https://www.googleapis.com/auth/cloud-platform", "https://www.googleapis.com/auth/userinfo.email"]
     preemptible     = "false"
-    service_account = google_service_account.team_arc_node_pool[0].email
+    service_account = google_service_account.team_arc_node_pool.email
 
     shielded_instance_config {
       enable_integrity_monitoring = "true"

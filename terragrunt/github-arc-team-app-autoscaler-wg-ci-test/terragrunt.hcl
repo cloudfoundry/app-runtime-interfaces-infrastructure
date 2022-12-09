@@ -35,7 +35,6 @@ inputs = {
   github_repo_owner = local.config.github_repo_owner
 
   gke_name = local.config.gke_name
-  gke_provision_nodepool = local.config.gke_provision_nodepool
   github_arc_workers_pool_machine_type = local.config.github_arc_workers_pool_machine_type
   github_arc_workers_pool_node_count = local.config.github_arc_workers_pool_node_count
   github_arc_workers_pool_autoscaling_max = local.config.github_arc_workers_pool_autoscaling_max
