@@ -31,8 +31,7 @@ inputs = {
 
   team_name = local.config.team_name
 
-  github_repo_name = local.config.github_repo_name
-  github_repo_owner = local.config.github_repo_owner
+  github_repos = tolist(local.config.github_repos)
 
   gke_name = local.config.gke_name
   github_arc_workers_pool_machine_type = local.config.github_arc_workers_pool_machine_type
@@ -40,13 +39,6 @@ inputs = {
   github_arc_workers_pool_autoscaling_max = local.config.github_arc_workers_pool_autoscaling_max
   github_arc_workers_pool_ssd_count = local.config.github_arc_workers_pool_ssd_count
   gke_arc_storage_type = local.config.gke_arc_storage_type
-
-  hpa_scaleup_trigger_duration = local.config.hpa_scaleup_trigger_duration
-  hpa_scaledown_delay_seconds = local.config.hpa_scaledown_delay_seconds
-  runnerset_resource_request_cpu = local.config.runnerset_resource_request_cpu
-  runnerset_resource_request_mem = local.config.runnerset_resource_request_mem
-  runnerset_resource_limits_cpu = local.config.runnerset_resource_limits_cpu
-  runnerset_resource_limits_mem = local.config.runnerset_resource_limits_mem
 
   arc_github_webhook_server_name = "${local.config.gke_name}-arc"
   arc_github_webhook_server_token_name =  "${local.config.arc_github_webhook_server_token_name}"

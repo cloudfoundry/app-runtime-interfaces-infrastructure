@@ -42,7 +42,7 @@ provider "kubectl" {
 
 }
 
-provider "github" {
-  # please setup your GITHUB_TOKEN env var
-  owner = var.github_repo_owner
-}
+# provider "github" {
+#   # please setup your GITHUB_TOKEN env var
+#   owner = var.github_repo.owner
+# }
