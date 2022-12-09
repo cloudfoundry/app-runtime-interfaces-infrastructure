@@ -29,12 +29,13 @@ inputs = {
   region  = local.config.region
   zone    = local.config.zone
 
-  gke_name = local.config.gke_name
   team_name = local.config.team_name
 
   github_repo_name = local.config.github_repo_name
   github_repo_owner = local.config.github_repo_owner
 
+  gke_name = local.config.gke_name
+  gke_provision_nodepool = local.config.gke_provision_nodepool
   github_arc_workers_pool_machine_type = local.config.github_arc_workers_pool_machine_type
   github_arc_workers_pool_node_count = local.config.github_arc_workers_pool_node_count
   github_arc_workers_pool_autoscaling_max = local.config.github_arc_workers_pool_autoscaling_max
@@ -50,7 +51,6 @@ inputs = {
 
   arc_github_webhook_server_name = "${local.config.gke_name}-arc"
   arc_github_webhook_server_token_name =  "${local.config.arc_github_webhook_server_token_name}"
-  arc_github_webhook_events = local.config.arc_github_webhook_events
 
   arc_webhook_server_production_domain = "${local.config.arc_webhook_server_production_domain}"
 }

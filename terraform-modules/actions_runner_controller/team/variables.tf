@@ -7,6 +7,7 @@ variable "github_repo_name" { nullable = false }
 variable "github_repo_owner" { nullable = false }
 
 variable "gke_name" { nullable = false }
+variable "gke_provision_nodepool" { nullable = false }
 variable "github_arc_workers_pool_machine_type" { nullable = false }
 variable "github_arc_workers_pool_node_count" { nullable = false }
 variable "github_arc_workers_pool_autoscaling_max" { nullable = false }
@@ -23,4 +24,3 @@ variable "runnerset_resource_limits_mem" { nullable = false }
 variable "arc_github_webhook_server_token_name" { nullable = false }
 variable "arc_webhook_server_production_domain" { nullable = false }
 variable "arc_github_webhook_server_name" { nullable = false }
-variable "arc_github_webhook_events" { nullable = false }

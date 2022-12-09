@@ -22,7 +22,7 @@ spec:
     - githubEvent:
         workflowJob: {}
         duration: "${var.hpa_scaleup_trigger_duration}"
-  scaleDownDelaySecondsAfterScaleOut: "${var.hpa_scaledown_delay_seconds}"
+  scaleDownDelaySecondsAfterScaleOut: ${var.hpa_scaledown_delay_seconds}
 EOT
 }
 
@@ -69,9 +69,6 @@ spec:
           requests:
             cpu: "${var.runnerset_resource_request_cpu}"
             memory: "${var.runnerset_resource_request_mem}"
-          limits:
-            cpu: "${var.runnerset_resource_limits_cpu}"
-            memory: "${var.runnerset_resource_limits_mem}"
 
   volumeClaimTemplates:
   - metadata:
