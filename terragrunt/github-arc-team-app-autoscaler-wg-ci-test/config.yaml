@@ -15,7 +15,7 @@ github_repos:
     runnerset_resource_limits_mem: "0Mi"
 
   - name: arc-test
-    owner: marcin
+    owner: marcinkubica
     hpa_scaleup_trigger_duration: "10m"
     hpa_scaledown_delay_seconds: 0
     runnerset_resource_request_cpu: "800m"

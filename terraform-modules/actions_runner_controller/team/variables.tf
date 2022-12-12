@@ -16,11 +16,6 @@ variable "arc_github_webhook_server_token_name" { nullable = false }
 variable "arc_webhook_server_production_domain" { nullable = false }
 variable "arc_github_webhook_server_name" { nullable = false }
 
-
-output "github_repos" {
-    value = var.github_repos
-}
-
 variable "github_repos" {
   type = list(object({
     name = string
@@ -34,3 +29,4 @@ variable "github_repos" {
 
   }))
 }
+
