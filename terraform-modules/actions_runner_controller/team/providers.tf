@@ -44,10 +44,14 @@ provider "kubectl" {
 
 provider "github" {
   # please setup your GITHUB_TOKEN env var or will give an error:
-  # - Error: POST https://api.github.com/repos/... 404 Not Found
-  # Also, upon removal of a webhook it will be silently gone from terraform state without an error
+  #   - Error: POST https://api.github.com/repos/... 404 Not Found
+  #   - Also, upon removal of a webhook it will be silently gone from
+  #     terraform state without an error
 
-  # hack around the way provider requires specyfing an owner in the provider definition
+  # a work around the provider requiring an owner to be set in the provider definition
+  # when ommited it would set the repo owner from user's private github token
+  # failing to register webhook for an organisational repository as well as preventing
+  # config based use of multiple repositories for different organisations
   owner = "./"
 }
 

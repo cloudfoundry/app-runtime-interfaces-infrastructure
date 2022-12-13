@@ -7,25 +7,24 @@ team_name: app-autoscaler
 github_repos:
   - name: app-autoscaler-release
     owner: cloudfoundry
-    hpa_scaleup_trigger_duration: "10m"
-    hpa_scaledown_delay_seconds: 0
-    runnerset_resource_request_cpu: "800m"
-    runnerset_resource_request_mem: "1500Mi"
-    runnerset_resource_limits_cpu: "0m"
-    runnerset_resource_limits_mem: "0Mi"
+    hpa_scaleup_trigger_duration: 10m
+    hpa_scaledown_delay_seconds: 60
+    runnerset_resource_request_cpu: 800m
+    runnerset_resource_request_mem: 1500Mi
+    runnerset_resource_limits_cpu: 1600m
+    runnerset_resource_limits_mem: 3000Mi
+    var_lib_docker_size: 10Gi
+  #example adding more repositories
+  # - name: arc-test
+  #   owner: app-autoscaler-ci-bot
+  #   hpa_scaleup_trigger_duration: 10m
+  #   hpa_scaledown_delay_seconds: 0
+  #   runnerset_resource_request_cpu: 800m
+  #   runnerset_resource_request_mem: 1500Mi
+  #   runnerset_resource_limits_cpu: 1600m
+  #   runnerset_resource_limits_mem: 3000Mi
+  #   var_lib_docker_size: 10Gi
 
-  - name: arc-test
-    owner: marcinkubica
-    hpa_scaleup_trigger_duration: "10m"
-    hpa_scaledown_delay_seconds: 0
-    runnerset_resource_request_cpu: "800m"
-    runnerset_resource_request_mem: "1500Mi"
-    runnerset_resource_limits_cpu: "0m"
-    runnerset_resource_limits_mem: "0Mi"
-
-
-#github_repo_name: app-autoscaler-release
-#github_repo_owner: cloudfoundry
 
 gcs_bucket: terraform-wg-ci-test
 gcs_prefix: github-arc-team
@@ -37,14 +36,15 @@ dns_domain: ci.cloudfoundry.org
 gke_name: wg-ci-test
 
 # Github ARC runners node-pool config
-github_arc_workers_pool_node_count: 1
-github_arc_workers_pool_autoscaling_max: 4
-github_arc_workers_pool_ssd_count: 0
-github_arc_workers_pool_machine_type: n2-custom-8-16384
+gke_arc_node_pool_disk_size_gb: 30
+gke_arc_node_pool_count: 1
+gke_arc_node_pool_autoscaling_max: 4
+gke_arc_node_pool_ssd_count: 0
+gke_arc_node_pool_machine_type: n2-custom-8-16384
 
-# Regional storage class type for team PVs
+# Regional storage class type for runners PVs
 # see https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver#create_a_storageclass
-gke_arc_storage_type: pd-ssd
+gke_arc_runner_storage_type: pd-ssd
 
 # 4 runners on 8 core / 16g machine requests - cpu "1600m" memory: "3000Mi"
 # 8 runners on 8 core / 16g machine requests - cpu "800m" memory: "1500Mi"

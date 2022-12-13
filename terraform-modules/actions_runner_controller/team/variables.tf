@@ -3,14 +3,14 @@ variable "region" { nullable = false }
 variable "zone" { nullable = false }
 
 variable "team_name" { nullable = false }
-#variable "github_repo_owner" { nullable = false }
 
 variable "gke_name" { nullable = false }
-variable "github_arc_workers_pool_machine_type" { nullable = false }
-variable "github_arc_workers_pool_node_count" { nullable = false }
-variable "github_arc_workers_pool_autoscaling_max" { nullable = false }
-variable "github_arc_workers_pool_ssd_count" { nullable = false }
-variable "gke_arc_storage_type" { nullable = false }
+variable "gke_arc_node_pool_disk_size_gb" { nullable = false }
+variable "gke_arc_node_pool_machine_type" { nullable = false }
+variable "gke_arc_node_pool_count" { nullable = false }
+variable "gke_arc_node_pool_autoscaling_max" { nullable = false }
+variable "gke_arc_node_pool_ssd_count" { nullable = false }
+variable "gke_arc_runner_storage_type" { nullable = false }
 
 variable "arc_github_webhook_server_token_name" { nullable = false }
 variable "arc_webhook_server_production_domain" { nullable = false }
@@ -26,7 +26,7 @@ variable "github_repos" {
     runnerset_resource_request_mem = string
     runnerset_resource_limits_cpu = string
     runnerset_resource_limits_mem = string
-
+    var_lib_docker_size = string
   }))
 }
 

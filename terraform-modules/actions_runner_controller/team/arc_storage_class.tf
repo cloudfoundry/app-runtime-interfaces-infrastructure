@@ -5,7 +5,7 @@ metadata {
 storage_provisioner = "pd.csi.storage.gke.io"
 reclaim_policy = "Delete"
 parameters = {
-  "type" = var.gke_arc_storage_type
+  "type" = var.gke_arc_runner_storage_type
   "replication-type" = "regional-pd"
 }
 volume_binding_mode = "WaitForFirstConsumer"

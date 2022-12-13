@@ -6,15 +6,15 @@ resource "google_service_account" "team_arc_node_pool" {
 
 resource "google_container_node_pool" "team_github_arc" {
   cluster    = data.google_container_cluster.wg_ci.name
-  node_count = var.github_arc_workers_pool_node_count
+  node_count = var.gke_arc_node_pool_count
 
   node_locations = [var.zone]
   project        = var.project
   location       = var.zone
 
   autoscaling {
-    max_node_count       = var.github_arc_workers_pool_autoscaling_max
-    min_node_count       = var.github_arc_workers_pool_node_count
+    max_node_count       = var.gke_arc_node_pool_autoscaling_max
+    min_node_count       = var.gke_arc_node_pool_count
     total_max_node_count = "0"
     total_min_node_count = "0"
   }
@@ -28,11 +28,11 @@ resource "google_container_node_pool" "team_github_arc" {
   name              = "${var.team_name}-arc-workers"
 
   node_config {
-    disk_size_gb    = "30"
+    disk_size_gb    = "${var.gke_arc_node_pool_disk_size_gb}"
     disk_type       = "pd-standard"
     image_type      = "COS_CONTAINERD"
-    local_ssd_count = var.github_arc_workers_pool_ssd_count
-    machine_type    = var.github_arc_workers_pool_machine_type
+    local_ssd_count = var.gke_arc_node_pool_ssd_count
+    machine_type    = var.gke_arc_node_pool_machine_type
 
     metadata = {
       disable-legacy-endpoints = "true"

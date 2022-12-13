@@ -34,11 +34,12 @@ inputs = {
   github_repos = tolist(local.config.github_repos)
 
   gke_name = local.config.gke_name
-  github_arc_workers_pool_machine_type = local.config.github_arc_workers_pool_machine_type
-  github_arc_workers_pool_node_count = local.config.github_arc_workers_pool_node_count
-  github_arc_workers_pool_autoscaling_max = local.config.github_arc_workers_pool_autoscaling_max
-  github_arc_workers_pool_ssd_count = local.config.github_arc_workers_pool_ssd_count
-  gke_arc_storage_type = local.config.gke_arc_storage_type
+  gke_arc_node_pool_disk_size_gb = local.config.gke_arc_node_pool_disk_size_gb
+  gke_arc_node_pool_machine_type = local.config.gke_arc_node_pool_machine_type
+  gke_arc_node_pool_count = local.config.gke_arc_node_pool_count
+  gke_arc_node_pool_autoscaling_max = local.config.gke_arc_node_pool_autoscaling_max
+  gke_arc_node_pool_ssd_count = local.config.gke_arc_node_pool_ssd_count
+  gke_arc_runner_storage_type = local.config.gke_arc_runner_storage_type
 
   arc_github_webhook_server_name = "${local.config.gke_name}-arc"
   arc_github_webhook_server_token_name =  "${local.config.arc_github_webhook_server_token_name}"
