@@ -27,7 +27,7 @@ File [app/files/config/uaa/_ytt_lib/uaa/k8s/templates/deployment.star](../terraf
 
 When present, this parameter will prevent uaa pod to populate `UAA_POSTGRES_HOST` env variable
 
-**When running `vendor sync` for new version the parameter will need to be removed again**
+**When running `vendor sync` for the new version the parameter will need to be removed again**
 
 ## Drawio editable svg diagram
 

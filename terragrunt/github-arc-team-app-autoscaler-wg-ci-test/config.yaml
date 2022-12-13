@@ -4,6 +4,8 @@ zone: europe-west3-a
 
 team_name: app-autoscaler
 
+# 4 runners on 8 core / 16g machine requests - cpu "1600m" memory: "3000Mi"
+# 8 runners on 8 core / 16g machine requests - cpu "800m" memory: "1500Mi"
 github_repos:
   - name: app-autoscaler-release
     owner: cloudfoundry
@@ -45,19 +47,6 @@ gke_arc_node_pool_machine_type: n2-custom-8-16384
 # Regional storage class type for runners PVs
 # see https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver#create_a_storageclass
 gke_arc_runner_storage_type: pd-ssd
-
-# 4 runners on 8 core / 16g machine requests - cpu "1600m" memory: "3000Mi"
-# 8 runners on 8 core / 16g machine requests - cpu "800m" memory: "1500Mi"
-#runnerset_resource_request_cpu: "800m"
-#runnerset_resource_request_mem: "1500Mi"
-
-# resource limits for runner pods - 0m/0Mi to disable
-#runnerset_resource_limits_cpu: "0m"
-#runnerset_resource_limits_mem: "0Mi"
-
-# Horisontal Pod (RunnerSet) Autoscaler tuning
-#hpa_scaleup_trigger_duration: "10m"
-#hpa_scaledown_delay_seconds: 0
 
 arc_github_webhook_server_token_name: wg-ci-test-arc-webhook-server-token
 arc_webhook_server_production_domain: app-runtime-interfaces.ci.cloudfoundry.org
