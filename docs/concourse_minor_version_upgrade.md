@@ -36,7 +36,7 @@ Please note the process should be also useful for upgrading major versions.
 
 At this point depending on your use case:
 
-1. Update `fly` to new minor version ie. change version in `.tool-versions` and run `asdf install`
+1. Update `fly` to new minor version ie. change the version in `.tool-versions`` and run `asdf install`
 
 2. Login to the new Concourse
    ```
@@ -53,13 +53,13 @@ At this point depending on your use case:
 
 To guarantee SQL databases consistency delete Concourse deployment and restore SQL instance
 
-1. Obtain credentials for kubectl to kubernetes and delete Concourse deployments
+1. Obtain credentials for kubectl to Kubernetes and delete Concourse deployments
    ```
    kubectl -n concourse delete deployment concourse-worker
    kubectl -n concourse delete deployment concourse-web
    ```
 
-2. Restore on-demand sql instance backup - use Web UI or gcloud command
+2. Restore on-demand SQL instance backup - use Web UI or gcloud command
 
 3. Run concourse stack deployment
    ```
@@ -67,4 +67,4 @@ To guarantee SQL databases consistency delete Concourse deployment and restore S
    terragrunt run-all apply
    ```
 
-4. Set back to previous version of `fly` binary
+4. Set back to the previous version of the `fly` binary
