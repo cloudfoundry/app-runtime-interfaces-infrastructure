@@ -30,6 +30,15 @@ Users who are required to perform operations need to be added in the Role `WG CI
 
 ### 1. Configuration
 
+To consume the project with our terragrunt code and scripts please create a folder structure in your project with a copy of
+
+* `terragrunt/scripts`
+* `terragrunt/concourse-<gke_name>`
+* `.tools-versions`
+
+* Use `git resource` for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](./terragrunt/concourse-wg-ci-test/config.yaml) or
+copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](./terragrunt/concourse-wg-ci/config.yaml)
+
 #### Adjust `config.yml`
 
 You should at least look at the following variables:
@@ -40,10 +49,6 @@ You should at least look at the following variables:
 * `gke_name`
 * `concourse_github_mainTeam`
 
-For your version of the project:
-* Copy terragrunt code from `terragrunt/concourse-wg-ci'
-* Use git resource for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](./terragrunt/concourse-wg-ci-test/config.yaml)
-  * or copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](./terragrunt/concourse-wg-ci/config.yaml)
 
 #### 2. Logon to your GCP account
 ```
@@ -102,6 +107,9 @@ Please see [developer notes](docs/developer_notes.md) about `vendir sync` and de
 
 
 ### Destroy the project
+If you have manually set the recommeded ClouSQL instane deletion protection please unset it.
+
+
 Since we protect a backup of credhub encryption key (stored in GCP Secret Manager) to fully destroy the project it needs to be removed from terraform state first.
 
 ```
@@ -138,7 +146,7 @@ terragrunt apply
 
 
 ### How to obtain GKE credentials for your terminal
-Terraform code is fetching GKE credentials automatically. In case you need to access the cluster with `kubectl` (or other kube clients) or to connect to Credhub instance (via `scripts/start-credhub-cli.sh`)
+Terraform code is fetching GKE credentials automatically. In case you need to access the cluster with `kubectl` (or other kube clients) or to connect to Credhub instance (via `terragrunt/scripts/start-credhub-cli.sh`)
 
 ```sh
 gcloud container clusters list
