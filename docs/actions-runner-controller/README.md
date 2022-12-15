@@ -95,6 +95,7 @@ This part lives independently of the infra part and can be consumed by multiple 
         * `github_repos`
         * when running multiple repositories additionally adjust amount of `gke_arc_node_pool_autoscaling_max` to satisfy k8s scaling demands
     * `tf_modules.github_arc` to point to a remote terraform-modules or local disk path
+    * `var_lib_docker_size` sets the PersistentVolume for docker used for docker images caching
 
 3. Set the environment variable `GITHUB_TOKEN` in your terminal
 Missing this part will result in errors when creating webhook in your repositories
@@ -108,3 +109,17 @@ Missing this part will result in errors when creating webhook in your repositori
 
     terragrunt apply
     ```
+
+## Limitations
+
+### No control over deletion of Persistent Volumes (/var/lib/docker)
+
+At the time of writing this document [a github issue](https://github.com/actions/actions-runner-controller/issues/2092) was created in the Actions Runner Controller repository with regards to the inability to delete PVs for runner pods.
+
+PVs do persist across runner pods creation/deletion however without external job to remove them, they will consume resources when they might not be needed (ie. overnight or over the weekends)
+
+To ease potential short-term solution with a Kubernetes Job PV removal task APVs with state Available can be removed with cron task filtering for PVS using team-named Storage Classes
+
+### ARC controller can use only a single github repository access OAuth token
+
+With a use case of multiple teams consuming against the same GKE github account need to have admin permissions across the repositories to register github runners.
