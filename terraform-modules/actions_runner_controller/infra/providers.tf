@@ -10,7 +10,7 @@ terraform {
       source = "gavinbunney/kubectl"
     }
     github = {
-      source  = "integrations/github"
+      source = "integrations/github"
     }
   }
 }

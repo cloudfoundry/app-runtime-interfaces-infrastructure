@@ -1,26 +1,28 @@
 resource "kubernetes_secret_v1" "arc_ingress_ssl_production" {
-    metadata {
-      name = "arc-ingress-production"
-      namespace = "actions-runner-system"
-      }
+  count = var.arc_letsencrypt_production ? 1 : 0
+  metadata {
+    name      = "arc-ingress-production"
+    namespace = "actions-runner-system"
+  }
 
-    type = "kubernetes.io/tls"
-    data = {
-      "tls.key" = ""
-      "tls.crt" = ""
-      }
-      depends_on = [helm_release.github_arc]
+  type = "kubernetes.io/tls"
+  data = {
+    "tls.key" = ""
+    "tls.crt" = ""
+  }
+  depends_on = [helm_release.github_arc]
 
-      #create empty secret at first and ignore contents later as secret is updated by letsencrypt
-      # NOTE: after the teardown please manually remove k8s secret actions-runner-system/arc-ingress-production if still present
-      lifecycle {
-        ignore_changes = all
-      }
-    }
+  # create empty secret at first and ignore contents later as secret is updated by letsencrypt
+  # NOTE: after the teardown please manually remove k8s secret actions-runner-system/arc-ingress-production if still present
+  lifecycle {
+    ignore_changes = all
+  }
+}
 
 
 resource "kubectl_manifest" "arc_letsencrypt_production" {
-   yaml_body = <<YAML
+  count      = var.arc_letsencrypt_production ? 1 : 0
+  yaml_body  = <<YAML
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -35,27 +37,28 @@ spec:
     solvers:
     - http01:
         ingress:
-          name: arc-webhook-ingress-production
+          name: arc-webhook-server-production
        YAML
-       depends_on = [helm_release.cert_manager]
+  depends_on = [helm_release.cert_manager]
 }
 
 
 locals {
- ingress_hostname_production = trimsuffix("${google_dns_record_set.arc_webhook_server_production.name}", ".")
- }
+  ingress_hostname_production = var.arc_letsencrypt_production ? trimsuffix("${google_dns_record_set.arc_webhook_server_production[0].name}", ".") : "none"
+}
 
 resource "kubectl_manifest" "arc_ingress_production" {
-  yaml_body = <<YAML
+  count      = var.arc_letsencrypt_production ? 1 : 0
+  yaml_body  = <<YAML
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: arc-webhook-ingress-production
+  name: arc-webhook-server-production
   namespace: actions-runner-system
   annotations:
     kubernetes.io/ingress.allow-http: "true"
     kubernetes.io/ingress.class: gce
-    kubernetes.io/ingress.global-static-ip-name: "${google_compute_global_address.arc_webhook_server_production.name}"
+    kubernetes.io/ingress.global-static-ip-name: "${google_compute_global_address.arc_webhook_server_production[0].name}"
     cert-manager.io/issuer: arc-letsencrypt-production
 spec:
   tls:

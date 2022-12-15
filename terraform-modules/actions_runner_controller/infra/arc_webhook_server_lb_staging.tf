@@ -1,30 +1,28 @@
-# Staging configuration for lentsencrypt and dns - not required for daily use
-# Set var arc_letsencrypt_staging to true (bool) to enable. Please disable if not needed (dev use only)
 resource "kubernetes_secret_v1" "arc_ingress_ssl_staging" {
-  count =  "${var.arc_letsencrypt_staging ? 1 : 0}"
-    metadata {
-      name = "arc-ingress-staging"
-      namespace = "actions-runner-system"
-      }
+  count = var.arc_letsencrypt_staging ? 1 : 0
+  metadata {
+    name      = "arc-ingress-staging"
+    namespace = "actions-runner-system"
+  }
 
-    type = "kubernetes.io/tls"
-    data = {
-      "tls.key" = ""
-      "tls.crt" = ""
-      }
-      depends_on = [helm_release.github_arc]
+  type = "kubernetes.io/tls"
+  data = {
+    "tls.key" = ""
+    "tls.crt" = ""
+  }
+  depends_on = [helm_release.github_arc]
 
-      # create empty secret at first and ignore contents later as secret is updated by letsencrypt
-      # NOTE: after the teardown please manually remove k8s secret actions-runner-system/arc-ingress-staging if stil present
-      lifecycle {
-        ignore_changes = all
-      }
-    }
+  # create empty secret at first and ignore contents later as secret is updated by letsencrypt
+  # NOTE: after the teardown please manually remove k8s secret actions-runner-system/arc-ingress-staging if stil present
+  lifecycle {
+    ignore_changes = all
+  }
+}
 
 
 resource "kubectl_manifest" "arc_letsencrypt_staging" {
-   count = "${var.arc_letsencrypt_staging ? 1 : 0}"
-   yaml_body = <<YAML
+  count      = var.arc_letsencrypt_staging ? 1 : 0
+  yaml_body  = <<YAML
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
@@ -39,23 +37,23 @@ spec:
     solvers:
     - http01:
         ingress:
-          name: arc-webhook-ingress-staging
+          name: arc-webhook-server-staging
        YAML
-       depends_on = [helm_release.cert_manager]
+  depends_on = [helm_release.cert_manager]
 }
 
 locals {
- # work around teardown problem when var arc_letsencrypt_staging is set to false
- ingress_hostname_staging = "${var.arc_letsencrypt_staging ? trimsuffix("${google_dns_record_set.arc_webhook_server_staging[0].name}", ".") : "none"}"
- }
+  # work around teardown problem when var arc_letsencrypt_staging is set to false
+  ingress_hostname_staging = var.arc_letsencrypt_staging ? trimsuffix("${google_dns_record_set.arc_webhook_server_staging[0].name}", ".") : "none"
+}
 
 resource "kubectl_manifest" "arc_ingress_staging" {
-  count = "${var.arc_letsencrypt_staging ? 1 : 0}"
-  yaml_body = <<YAML
+  count      = var.arc_letsencrypt_staging ? 1 : 0
+  yaml_body  = <<YAML
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: arc-webhook-ingress-staging
+  name: arc-webhook-server-staging
   namespace: actions-runner-system
   annotations:
     kubernetes.io/ingress.allow-http: "true"

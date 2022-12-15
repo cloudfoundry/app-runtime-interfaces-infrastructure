@@ -1,6 +1,6 @@
-
 # https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/
 # https://kosyfrances.com/ingress-gce-letsencrypt/
+
 resource "helm_release" "cert_manager" {
   name             = "cert-manager"
   repository       = "https://charts.jetstack.io"

@@ -31,19 +31,17 @@ inputs = {
 
   gke_name = local.config.gke_name
 
-  github_repo_name = local.config.github_repo_name
-  github_repo_owner = local.config.github_repo_owner
-
   cert_manager_helm_version = local.config.cert_manager_helm_version
-  github_arc_helm_version = local.config.github_arc_helm_version
+  arc_helm_version = local.config.arc_helm_version
 
   arc_github_access_token_name = local.config.arc_github_access_token_name
   arc_github_webhook_server_name = "${local.config.gke_name}-arc"
-  arc_github_webhook_server_token_name =  "${local.config.arc_github_webhook_server_token_name}"
-
+  arc_github_webhook_server_token_name =  "${local.config.gke_name}-arc-webhook-server-token"
+  
   arc_letsencrypt_notifications_email = local.config.arc_letsencrypt_notifications_email
 
   arc_letsencrypt_staging = local.config.arc_letsencrypt_staging
+  arc_letsencrypt_production = local.config.arc_letsencrypt_production
 
   webhook_server_dns_production = "${local.config.gke_name}-arc"
   webhook_server_dns_staging = "${local.config.gke_name}-arc-s"
