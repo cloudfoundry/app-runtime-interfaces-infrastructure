@@ -78,6 +78,7 @@ The project assumes a GKE cluster is available.
 Estimated completion time for infrastructure:
 * terragrunt: 3 minutes
 * load balancer: additional 12 minutes
+
 ## The team part
 
 This part lives independently of the infra part and can be consumed by multiple teams providing mentioned GitHub account configured in arc controller can access various teams' repositories.
@@ -109,6 +110,41 @@ Missing this part will result in errors when creating webhook in your repositori
 
     terragrunt apply
     ```
+Estimated completion time for infrastructure:
+* terragrunt: 3 minutes
+
+
+## Workarounds applied
+
+### Terraform github_repository_webhook
+
+The way [github_repository_webhook](https://registry.terraform.io/providers/integrations/github/latest/docs#owner) provider has been made would prevent scaling creation of webhooks for multiple repositories per team via single terraform team module. Each team would need to configure multiple providers with hardcoder owner set per repository.
+
+To work around this limitation a workaround is provided setting a "weird" owner name in [providers.tf block](../../terraform-modules/actions_runner_controller/team/providers.tf)
+
+```
+provider "github" {
+  owner = "./"
+}
+
+```
+
+Following similar workaround is used in [arc_webhook_github.tf](../../terraform-modules/actions_runner_controller/team/arc_webhook_github.tf) file
+
+```
+resource "github_repository_webhook" "github_webhook" {
+    for_each = { for repo in var.github_repos: repo.name => repo }
+
+    repository = "../${each.value.owner}/${each.value.name}"
+    configuration {
+      ...
+    }
+    ...
+```
+
+This allows to override provider config and builds API call to github in a scalable way.
+
+Corresponding [feature request](https://github.com/integrations/terraform-provider-github/issues/1436) has been created on GitHub
 
 ## Limitations
 
