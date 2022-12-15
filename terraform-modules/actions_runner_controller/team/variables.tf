@@ -12,9 +12,10 @@ variable "gke_arc_node_pool_autoscaling_max" { nullable = false }
 variable "gke_arc_node_pool_ssd_count" { nullable = false }
 variable "gke_arc_runner_storage_type" { nullable = false }
 
-variable "arc_github_webhook_server_token_name" { nullable = false }
-variable "arc_webhook_server_production_domain" { nullable = false }
-variable "arc_github_webhook_server_name" { nullable = false }
+variable "arc_webhook_server_name" { nullable = false }
+variable "arc_webhook_server_domain" { nullable = false }
+
+variable "arc_webhook_server_token_name" { nullable = false }
 
 variable "github_repos" {
   type = list(object({

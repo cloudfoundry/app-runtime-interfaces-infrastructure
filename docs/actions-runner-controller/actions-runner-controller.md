@@ -53,6 +53,7 @@ The project assumes a GKE cluster is available.
     * `arc_github_access_token_name`
     * `arc_letsencrypt_notifications_email`
     * `dns_zone / dns_domain`
+    * `tf_modules.github_arc` to point to a remote terraform-modules or local disk path
 
 1. Generate GCP secret with github access token key.
     ```
@@ -78,3 +79,32 @@ Estimated completion time for infrastructure:
 * terragrunt: 3 minutes
 * load balancer: additional 12 minutes
 ## The team part
+
+This part lives independently of the infra part and can be consumed by multiple teams providing mentioned GitHub account configured in arc controller can access various teams' repositories.
+
+1. Copy [an example terragrunt template](./terragrunt-team-example/) to your repository
+
+2. Adjust `config.yaml`. You should at least look at the following"
+    * `project / region / zone`
+    * `gcs_bucket`
+    * `team_name` (note service account name length limit made of *gke_name+team_name-pool* is 28 chars)
+    * `gke_name`
+    * `arc_webhook_server_domain`
+    *  adjust _repository name/owner_, _node pool machine type_ and _resources requests/limits_ to fit your expected scaling demands in
+        * `gke_arc_node_pool_machine_type`
+        * `github_repos`
+        * when running multiple repositories additionally adjust amount of `gke_arc_node_pool_autoscaling_max` to satisfy k8s scaling demands
+    * `tf_modules.github_arc` to point to a remote terraform-modules or local disk path
+
+3. Set the environment variable `GITHUB_TOKEN` in your terminal
+Missing this part will result in errors when creating webhook in your repositories
+    ```
+    export GITHUB_TOKEN="ghp..."
+    ```
+
+4. Run terragrunt
+    ```
+    # cd to folder with config.yaml
+
+    terragrunt apply
+    ```

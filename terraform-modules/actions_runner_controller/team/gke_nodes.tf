@@ -1,5 +1,5 @@
 resource "google_service_account" "team_arc_node_pool" {
-  account_id   = "${var.gke_name}-${var.team_name}-pool"
+  account_id   = "${var.gke_name}-${var.team_name}"
   display_name = "Service account for ${var.gke_name} GKE Github Actions Controller node pool"
   project      = var.project
 }

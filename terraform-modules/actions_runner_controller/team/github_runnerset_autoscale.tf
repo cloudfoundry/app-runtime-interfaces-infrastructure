@@ -26,6 +26,8 @@ spec:
         duration: "${each.value.hpa_scaleup_trigger_duration}"
   scaleDownDelaySecondsAfterScaleOut: ${each.value.hpa_scaledown_delay_seconds}
 EOT
+
+depends_on = [ google_container_node_pool.team_github_arc ]
 }
 
 resource "kubectl_manifest" "github_repo_runnerset" {

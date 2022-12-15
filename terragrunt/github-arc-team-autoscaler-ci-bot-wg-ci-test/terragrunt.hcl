@@ -10,7 +10,7 @@ remote_state {
   }
   config = {
     bucket         = "${local.config.gcs_bucket}"
-    prefix         = "${local.config.gcs_prefix}"
+    prefix         = "github-arc-team-${local.config.team_name}"
     project        = "${local.config.project}"
     location       = "${local.config.region}"
     # use for uniform bucket-level access
@@ -41,9 +41,10 @@ inputs = {
   gke_arc_node_pool_ssd_count = local.config.gke_arc_node_pool_ssd_count
   gke_arc_runner_storage_type = local.config.gke_arc_runner_storage_type
 
-  arc_github_webhook_server_name = "${local.config.gke_name}-arc"
-  arc_github_webhook_server_token_name =  "${local.config.arc_github_webhook_server_token_name}"
+  arc_webhook_server_name = "${local.config.gke_name}-arc"
+  arc_webhook_server_domain = "${local.config.arc_webhook_server_domain}"
+  arc_webhook_server_token_name =  "${local.config.gke_name}-arc-webhook-server-token"
 
-  arc_webhook_server_production_domain = "${local.config.arc_webhook_server_production_domain}"
+  
 }
 

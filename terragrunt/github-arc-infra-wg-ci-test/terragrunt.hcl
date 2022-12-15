@@ -37,7 +37,7 @@ inputs = {
   arc_github_access_token_name = local.config.arc_github_access_token_name
   arc_github_webhook_server_name = "${local.config.gke_name}-arc"
   arc_github_webhook_server_token_name =  "${local.config.gke_name}-arc-webhook-server-token"
-  
+
   arc_letsencrypt_notifications_email = local.config.arc_letsencrypt_notifications_email
 
   arc_letsencrypt_staging = local.config.arc_letsencrypt_staging
