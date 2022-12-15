@@ -4,6 +4,13 @@
 
 Based on [cloudfoundry/bosh-community-stemcell-ci-infra](https://github.com/cloudfoundry/bosh-community-stemcell-ci-infra)
 
+## Introduction
+
+This repository contains infrastructure as code for the App Runtime Interfaces Working Group.
+It deploys from scratch everything needed for a Concourse deployment running on Kubernetes on GCP and supports day 2 operations like testing updates, disaster recovery and credentials rotation using Terraform and Terragrunt.
+
+You may [watch an introductory video](docs/short_introduction.mp4) to this project and how you can use it to set up your own Concourse.
+
 ## Architecture
 
 ![editable drawio png bitmap](./docs/concourse-architecture.drawio.svg)
