@@ -150,7 +150,7 @@ Corresponding [feature request](https://github.com/integrations/terraform-provid
 
 ### No control over deletion of Persistent Volumes (/var/lib/docker)
 
-At the time of writing this document [a github issue](https://github.com/actions/actions-runner-controller/issues/2092) was created in the Actions Runner Controller repository with regards to the inability to delete PVs for runner pods.
+At the time of writing this document [a github feature request](https://github.com/actions/actions-runner-controller/issues/2092) was created in the Actions Runner Controller repository with regards to the inability to delete PVs for runner pods.
 
 PVs do persist across runner pods creation/deletion however without external job to remove them, they will consume resources when they might not be needed (ie. overnight or over the weekends)
 
