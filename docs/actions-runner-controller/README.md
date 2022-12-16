@@ -120,7 +120,7 @@ Estimated completion time for infrastructure:
 
 The way [github_repository_webhook](https://registry.terraform.io/providers/integrations/github/latest/docs#owner) provider has been made would prevent scaling creation of webhooks for multiple repositories per team via single terraform team module. Each team would need to configure multiple providers with hardcoder owner set per repository.
 
-To work around this limitation a workaround is provided setting a "weird" owner name in [providers.tf block](../../terraform-modules/actions_runner_controller/team/providers.tf)
+The workaround here is achieved with a bypass in the provider setting with a "weird" owner name in [providers.tf block](../../terraform-modules/actions_runner_controller/team/providers.tf)
 
 ```
 provider "github" {
@@ -129,7 +129,7 @@ provider "github" {
 
 ```
 
-Following similar workaround is used in [arc_webhook_github.tf](../../terraform-modules/actions_runner_controller/team/arc_webhook_github.tf) file
+Following similar bypass is used in [arc_webhook_github.tf](../../terraform-modules/actions_runner_controller/team/arc_webhook_github.tf) file
 
 ```
 resource "github_repository_webhook" "github_webhook" {
