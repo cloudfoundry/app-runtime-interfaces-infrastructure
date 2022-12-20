@@ -24,7 +24,9 @@ github_repos:
   - name: repository-name
     owner: owner-name
     hpa_scaleup_trigger_duration: 10m
-    hpa_scaledown_delay_seconds: 60
+    hpa_scaledown_delay_seconds: 120
+    runners_min_replicas: 1
+    runners_max_replicas: 16 
     runnerset_resource_request_cpu: 800m
     runnerset_resource_request_mem: 1500Mi
     runnerset_resource_limits_cpu: 1600m

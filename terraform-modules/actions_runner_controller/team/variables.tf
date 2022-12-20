@@ -23,6 +23,8 @@ variable "github_repos" {
     owner = string
     hpa_scaleup_trigger_duration = string
     hpa_scaledown_delay_seconds = number
+    runners_min_replicas = number
+    runners_max_replicas = number
     runnerset_resource_request_cpu = string
     runnerset_resource_request_mem = string
     runnerset_resource_limits_cpu = string

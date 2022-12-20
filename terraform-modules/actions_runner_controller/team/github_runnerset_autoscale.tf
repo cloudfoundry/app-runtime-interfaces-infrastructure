@@ -15,8 +15,8 @@ metadata:
   name: "${each.value.owner}--${each.value.name}"
   namespace: "${kubernetes_namespace.github_actions_runners.metadata[0].name}"
 spec:
-  minReplicas: 0
-  maxReplicas: 16
+  minReplicas: ${each.value.runners_min_replicas}
+  maxReplicas: ${each.value.runners_max_replicas}
   scaleTargetRef:
     kind: RunnerSet
     name: "${each.value.owner}--${each.value.name}"
