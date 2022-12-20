@@ -10,6 +10,7 @@ team_name: team-name
 # Your GKE cluster (assumes one already exists)
 gke_name: gke-cluster-name
 
+# Webhook server domain for your zone
 arc_webhook_server_domain: example.com
 
 # Please adjust resource requests/limits for desired amount of runners per gke node
@@ -18,6 +19,7 @@ arc_webhook_server_domain: example.com
 # resource limits must be equal or greater to requests
 gke_arc_node_pool_machine_type: n2-custom-8-16384
 
+# suppoerts a list of your repositories
 github_repos:
   - name: repository-name
     owner: owner-name

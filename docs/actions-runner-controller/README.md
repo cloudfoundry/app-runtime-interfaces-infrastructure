@@ -7,6 +7,9 @@ ARC on [Github](https://github.com/actions-runner-controller/actions-runner-cont
 
 Detailed ARC [documentation](https://github.com/actions-runner-controller/actions-runner-controller/blob/master/docs/detailed-docs.md)
 
+
+## Architecture
+![editable drawio svg](./arc_architecture.drawio.svg)
 ## Infrastructure
 
 This terraform module will deploy the following components in `actions-runner-system` namespace:
@@ -113,12 +116,17 @@ Missing this part will result in errors when creating webhook in your repositori
 Estimated completion time for infrastructure:
 * terragrunt: 3 minutes
 
+## Secrets Rotation
+
+To rotate github oauth access token infra user needs to run `create github oauth script` with new token provided and repeat `terragrunt apply` for infra to update `arc controller`.
+
+To rotate webhook server token infra user needs to run `create arc webhook server` script and repeat `terragrunt apply` for infra to update `arc controller`. Each team will need to apply terragrunt which will update the webhook secret for the GItHub repository.
 
 ## Workarounds applied
 
 ### Terraform github_repository_webhook
 
-The way [github_repository_webhook](https://registry.terraform.io/providers/integrations/github/latest/docs#owner) provider has been made would prevent scaling creation of webhooks for multiple repositories per team via single terraform team module. Each team would need to configure multiple providers with hardcoder owner set per repository.
+The way [github_repository_webhook](https://registry.terraform.io/providers/integrations/github/latest/docs#owner) provider has been made would prevent scaling creation of webhooks for multiple repositories per team via a single terraform team module. Each team would need to configure multiple providers with hardcoded owner set per repository.
 
 The workaround here is achieved with a bypass in the provider setting with a "weird" owner name in [providers.tf](../../terraform-modules/actions_runner_controller/team/providers.tf) block
 
