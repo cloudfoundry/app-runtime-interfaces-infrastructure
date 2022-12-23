@@ -2,6 +2,7 @@
 set -eu
 
 #  Run this script to start a credhub-cli session inside the kubernetes cluster.
+#  You need your kubectl authenticated and pointing to the desired cluster
 #
 #  Example commands to interact with credhub:
 #

@@ -26,7 +26,7 @@ Please note the process should be also useful for upgrading major versions.
 
 5. Create on-demand SQL instance backup
     ```
-    ../scripts/create-sql-backup.sh
+    ../terragrunt/scripts/concourse/create-sql-backup.sh
     ```
 
 6. Apply roll-out for new Concourse version

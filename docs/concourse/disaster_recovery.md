@@ -16,8 +16,8 @@ deleted the entire deployment including 'concourse' namespace
 ## Steps
 Fully automated restore with:
 ```
-cd <folder witg config.yaml>
-../scripts/dr-restore.sh
+cd <folder witgh config.yaml>
+../scripts/concourse/dr-restore.sh
 ```
 
 ## Troubleshooting
@@ -74,5 +74,5 @@ terragrunt apply
 Re-run dr restore
 ```
 cd ..
-../scripts/dr_restore.sh
+../scripts/concourse/dr_restore.sh
 ```

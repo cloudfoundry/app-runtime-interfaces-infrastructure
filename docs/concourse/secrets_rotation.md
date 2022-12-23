@@ -13,14 +13,14 @@ See [example.](../terragrunt/concourse-wg-ci/secret_rotation_postgresql/)
 
 1. Follow instructions for [asdf install](../README.md#required-tools) and [logon to GCP account](../README.md#2-logon-to-your-gcp-account)
 
-2. `cd` to folder with your concourse cluster. ie:
+2. `cd` to the folder with your concourse cluster. ie:
     ```
     cd terragrunt/concourse-wg-ci-test
     ```
 
 3. Execute rotation script
     ```
-    ../scritps/secret_rotation_postgresql.sh
+    ../scritps/concourse/secret_rotation_postgresql.sh
     ```
 
 ## Procedure
@@ -44,7 +44,7 @@ Estimated completion time should be not longer than 200 seconds. The longest awa
 
 ## Transcript of expected execution
 ```
-../scritps/secret_rotation_postgresql.sh   
+../scritps/concourse/secret_rotation_postgresql.sh   
 >> Fetching kubectl config for cluster: wg-ci-test | project: app-runtime-interfaces-wg | zone: europe-west3-a
 Fetching cluster endpoint and auth data.
 kubeconfig entry generated for wg-ci-test.
