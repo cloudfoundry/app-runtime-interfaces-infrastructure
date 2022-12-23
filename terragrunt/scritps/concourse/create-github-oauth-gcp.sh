@@ -12,7 +12,7 @@ if [ -z "${id}" ] || [ -z "${secret}" ]; then
 fi
 
 if [ ! -s "./config.yaml" ]; then
-    echo "ERROR: Please 'cd' to your folder with config.yaml and run ./dr/dr_restore.sh"
+    echo "ERROR: Please 'cd' to your folder with config.yaml and run this script again."
     exit 1
 fi
 
