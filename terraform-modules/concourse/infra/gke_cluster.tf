@@ -65,7 +65,7 @@ resource "google_container_cluster" "wg_ci" {
     }
 
     http_load_balancing {
-      disabled = "true"
+      disabled = var.gke_http_load_balancing_disabled
     }
 
     network_policy_config {

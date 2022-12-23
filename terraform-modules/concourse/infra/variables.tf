@@ -49,5 +49,7 @@ variable "gke_workers_pool_ssd_count" { nullable = false }
 variable "gke_subnet_cidr" { nullable = false }
 variable "gke_cloud_nat_min_ports_per_vm" { nullable = false }
 
+variable "gke_http_load_balancing_disabled" { nullable = false }
+
 variable "github_secret_name" { nullable = false }
 

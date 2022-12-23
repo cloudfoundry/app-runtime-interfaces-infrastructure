@@ -7,8 +7,7 @@
 
 
 ## DR scenario tested
-
-* deleted entire deployment including 'concourse' namespace
+deleted the entire deployment including 'concourse' namespace
 * deleted all databases and database users with db recovered from backup
 * GKE cluster destroyed
 
@@ -53,11 +52,11 @@ Providing GKE cluster or application was removed recovery is not expecting credh
 ```
 ╷
 │ Error: secrets "credhub-encryption-key" already exists
-│ 
+│
 │   with kubernetes_secret_v1.credhub_encryption_key,
 │   on credhub_restore.tf line 6, in resource "kubernetes_secret_v1" "credhub_encryption_key":
 │    6: resource "kubernetes_secret_v1" "credhub_encryption_key" {
-│ 
+│
 ╵
 ```
 
@@ -72,7 +71,7 @@ terragrunt taint carvel_kapp.concourse_backend
 terragrunt plan
 terragrunt apply
 ```
-Re run dr restore
+Re-run dr restore
 ```
 cd ..
 ../scripts/dr_restore.sh

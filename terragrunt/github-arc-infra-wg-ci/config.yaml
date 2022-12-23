@@ -1,0 +1,27 @@
+project: app-runtime-interfaces-wg
+region: europe-west3
+zone: europe-west3-a
+
+gcs_bucket: terraform-wg-ci
+gcs_prefix: github-arc-infra
+
+# Your GKE cluster (assumes one already exists)
+gke_name: wg-ci
+
+arc_github_access_token_name: app-autoscaler-ci-bot-actions-controller-token
+arc_letsencrypt_notifications_email: ApplicationAutoscaler@sap.com
+
+dns_zone: app-runtime-interfaces
+dns_domain: ci.cloudfoundry.org
+
+cert_manager_helm_version: "1.10.1"
+arc_helm_version: "0.21.1"
+
+# developer mode for letsencrypt webhook server - use true to enable staging deployment
+arc_letsencrypt_staging: false
+
+# production mode letsencrypt - please disable staging when not needed
+arc_letsencrypt_production: true
+
+tf_modules:
+  github_arc:      "../..//terraform-modules/actions_runner_controller/infra"

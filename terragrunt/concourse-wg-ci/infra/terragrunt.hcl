@@ -48,6 +48,8 @@ inputs = {
 
   gke_cloud_nat_min_ports_per_vm = local.config.gke_cloud_nat_min_ports_per_vm
 
+  gke_http_load_balancing_disabled = local.config.gke_http_load_balancing_disabled
+
   sql_instance_name = "${local.config.gke_name}-concourse"
   sql_instance_tier = local.config.sql_instance_tier
   sql_instance_disk_size = local.config.sql_instance_disk_size
@@ -60,6 +62,6 @@ inputs = {
   dns_name  = "${local.config.dns_zone}-${local.config.dns_domain}."
 
   wg_ci_human_account_permissions = local.config.wg_ci_human_account_permissions
-  
+
   github_secret_name = "${local.config.gke_name}-concourse-github-oauth"
 }

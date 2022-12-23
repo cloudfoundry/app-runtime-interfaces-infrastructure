@@ -66,15 +66,19 @@ gke_default_pool_machine_type: e2-standard-4
 gke_default_pool_node_count: 1
 gke_default_pool_autoscaling_max: 3
 gke_default_pool_ssd_count: 0
+
 # typical config for concourse worker is n4-standard-4 and ssd_count: 1
 # note: economy e2-standard machine can't use local ssd drives
 gke_workers_pool_machine_type: e2-standard-4
 gke_workers_pool_node_count: 1
 gke_workers_pool_autoscaling_max: 4
 gke_workers_pool_ssd_count: 0
+
 # low number of preallocated ports will impact networking for heavy concourse pipelines
 gke_cloud_nat_min_ports_per_vm: 16384
 
+# provisioning of loadbalancers
+gke_http_load_balancing_disabled: false
 
 
 # IAM
