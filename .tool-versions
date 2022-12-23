@@ -1,7 +1,7 @@
 concourse 7.8.3
 gcloud 403.0.0
 helm 3.10.3
-kapp 0.53.0
+kapp 0.54.1
 kubectl 1.23.11
 python 3.11.1
 terraform 1.3.6
