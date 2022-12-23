@@ -62,7 +62,7 @@ This is necessary if you want to be able to authenticate with your GitHub profil
 
  2. Create Google Secret
 
-    Open [terragrunt/scripts/concourse/create-github-oauth-gcp.sh](../../terragrunt/scritps/concourse/create-github-oauth-gcp.sh) and enter your credentials for **id**** and **secret**.
+    Open [terragrunt/scripts/concourse/create-github-oauth-gcp.sh](../../terragrunt/scripts/concourse/create-github-oauth-gcp.sh) and enter your credentials for **id**** and **secret**.
 
     Run
     ```
