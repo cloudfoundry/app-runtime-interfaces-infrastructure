@@ -14,6 +14,28 @@
             "depNameTemplate": "concourse",
             "registryUrlTemplate": "https://concourse-charts.storage.googleapis.com/",
             "datasourceTemplate": "helm"
+        },
+        {
+            "fileMatch": [
+                "config.yaml$"
+            ],
+            "matchStrings": [
+                "cert_manager_helm_version: \"(?<currentValue>.*?)\""
+            ],
+            "depNameTemplate": "cert-manager",
+            "registryUrlTemplate": "https://charts.jetstack.io/",
+            "datasourceTemplate": "helm"
+        },
+        {
+            "fileMatch": [
+                "config.yaml$"
+            ],
+            "matchStrings": [
+                "arc_helm_version: \"(?<currentValue>.*?)\""
+            ],
+            "depNameTemplate": "actions-runner-controller",
+            "registryUrlTemplate": "https://actions-runner-controller.github.io/actions-runner-controller/",
+            "datasourceTemplate": "helm"
         }
     ]
 }
