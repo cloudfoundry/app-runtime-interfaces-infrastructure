@@ -36,6 +36,68 @@
             "depNameTemplate": "actions-runner-controller",
             "registryUrlTemplate": "https://actions-runner-controller.github.io/actions-runner-controller/",
             "datasourceTemplate": "helm"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)concourse (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "concourse/concourse",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^v(?<version>\\S+)"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)gcloud (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "google/cloud-sdk",
+            "datasourceTemplate": "docker"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)kapp (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "vmware-tanzu/carvel-kapp",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^v(?<version>\\S+)"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)kubectl (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "kubernetes/kubernetes",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^Kubernetes v(?<version>\\S+)"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)terraform-lsp (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "juliosueiras/terraform-lsp",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^v(?<version>\\S+)"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)terragrunt (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "gruntwork-io/terragrunt",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^v(?<version>\\S+)"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)vendir (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "vmware-tanzu/carvel-vendir",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^v(?<version>\\S+)"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)yq (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "mikefarah/yq",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^v(?<version>\\S+)"
+        },
+        {
+            "fileMatch": ["\\.tool-versions$"],
+            "matchStrings": ["(^|\\n)ytt (?<currentValue>.+?)\\n"],
+            "depNameTemplate": "vmware-tanzu/carvel-ytt",
+            "datasourceTemplate": "github-releases",
+            "extractVersionTemplate": "^v(?<version>\\S+)"
         }
     ]
 }
