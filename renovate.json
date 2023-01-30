@@ -53,7 +53,7 @@
         {
             "fileMatch": ["\\.tool-versions$"],
             "matchStrings": ["(^|\\n)kapp (?<currentValue>.+?)\\n"],
-            "depNameTemplate": "vmware-tanzu/carvel-kapp",
+            "depNameTemplate": "carvel-dev/kapp",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
@@ -81,7 +81,7 @@
         {
             "fileMatch": ["\\.tool-versions$"],
             "matchStrings": ["(^|\\n)vendir (?<currentValue>.+?)\\n"],
-            "depNameTemplate": "vmware-tanzu/carvel-vendir",
+            "depNameTemplate": "carvel-dev/vendir",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
@@ -95,7 +95,7 @@
         {
             "fileMatch": ["\\.tool-versions$"],
             "matchStrings": ["(^|\\n)ytt (?<currentValue>.+?)\\n"],
-            "depNameTemplate": "vmware-tanzu/carvel-ytt",
+            "depNameTemplate": "carvel-dev/ytt",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         }
