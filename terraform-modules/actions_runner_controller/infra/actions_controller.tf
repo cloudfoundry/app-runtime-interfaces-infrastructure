@@ -59,5 +59,10 @@ resource "helm_release" "github_arc" {
     value = data.google_secret_manager_secret_version.arc_github_webhook_server_token.secret_data
   }
 
+  set {
+    name  = "image.actionsRunnerRepositoryAndTag"
+    value = "summerwind/actions-runner:ubuntu-22.04"
+  }
+
   depends_on = [helm_release.cert_manager, google_compute_firewall.arc_webhook]
 }

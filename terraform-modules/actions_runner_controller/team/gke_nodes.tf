@@ -68,7 +68,11 @@ resource "google_container_node_pool" "team_github_arc" {
   }
 
   lifecycle {
-    ignore_changes = all
+    ignore_changes = [
+      initial_node_count,
+      node_count,
+      version,
+    ]
   }
 }
 
