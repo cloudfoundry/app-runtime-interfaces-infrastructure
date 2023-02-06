@@ -32,6 +32,14 @@ To consume the project with our terragrunt code and scripts please create a fold
 * Use `git resource` for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](../../terragrunt/concourse-wg-ci-test/config.yaml) or
 copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](../../terragrunt/concourse-wg-ci/config.yaml)
 
+:warning: If you reference terraform modules with a tagged git revision, make sure to use the same tagged revision of `.tools-versions`. Otherwise, there will be version mismatch errors when you run terragrunt. Alternatively, make use of the file `flake.nix` via `nix develop` or via direnv-load, see [direnv documentation](https://direnv.net/man/direnv-stdlib.1.html#codeuse-flake-ltinstallablegtcode)
+
+Also make sure that your git ssh setup is working: [https://docs.github.com/en/authentication/connecting-to-github-with-ssh]. The referencing git URLs use ssh, not https.
+
+#### Provide DNS Zone
+
+The project does not automatically create a DNS zone. Either create one manually, or reuse an existing zone.
+
 #### Adjust `config.yml`
 
 You should at least look at the following variables:
@@ -42,10 +50,20 @@ You should at least look at the following variables:
 * `gke_name`
 * `concourse_github_mainTeam`
 
+Also make sure that the GKE version is not outdated:
+
+* `gke_controlplane_version`
+
+The latest stable version can be found at [https://cloud.google.com/kubernetes-engine/docs/release-notes]
 
 #### 2. Logon to your GCP account
 ```
 gcloud auth login && gcloud auth application-default login
+```
+
+There can be problems with the "gke-gcloud-auth-plugin" if you use asdf as CLI management tool. If the "gcloud" CLI cannot find the plugin, you can copy the plugin into the `shims` folder as workaround:
+```
+cp ~/.asdf/installs/gcloud/415.0.0/bin/gke-gcloud-auth-plugin ~/.asdf/shims
 ```
 
 #### 3. Create Github OAuth App and supply as a Google Secret
@@ -70,7 +88,7 @@ This is necessary if you want to be able to authenticate with your GitHub profil
     ../scripts/create-github-oauth-gcp.sh
     ```
  For more information please refer to [gcloud documentation](https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets).
-#### 4. Apply terrgrunt for the entire stack
+#### 4. Apply terragrunt for the entire stack
 
 The following command needs to be run from within your root directory (containing `config.yaml` file).
 
@@ -127,6 +145,17 @@ Delete terraform state gcp bucket from GCP console or via `gsutil`
 
 ### Carvel kapp terraform provider not available for Apple M1
 https://github.com/vmware-tanzu/terraform-provider-carvel/issues/30#issuecomment-1311465417
+
+To compile the provider locally, clone the repository https://github.com/carvel-dev/terraform-provider and run:
+```
+go mod tidy
+go build -o terraform-provider-carvel ./cmd/main.go
+```
+Then copy the binary into the local Terraform "plugins" folder:
+```
+cp ./terraform-provider-carvel ~/.terraform.d/plugins/registry.terraform.io/vmware-tanzu/carvel/0.11.0/darwin_arm64
+```
+In case of Terraform checksum mismatches, go to a Terraform module and run "terraform init" to fix the checksums.
 
 ### Plan/apply terragrunt for a specific component of the stack
 
