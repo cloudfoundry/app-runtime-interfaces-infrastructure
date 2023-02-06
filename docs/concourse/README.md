@@ -32,7 +32,7 @@ To consume the project with our terragrunt code and scripts please create a fold
 * Use `git resource` for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](../../terragrunt/concourse-wg-ci-test/config.yaml) or
 copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](../../terragrunt/concourse-wg-ci/config.yaml)
 
-:warning: If you reference terraform modules with a tagged git revision, make sure to use the same tagged revision of `.tools-versions`. Otherwise, there will be version mismatch errors when you run terragrunt.
+:warning: If you reference terraform modules with a tagged git revision, make sure to use the same tagged revision of `.tools-versions`. Otherwise, there will be version mismatch errors when you run terragrunt. Alternatively, make use of the file `flake.nix` via `nix develop` or via direnv-load, see [direnv documentation](https://direnv.net/man/direnv-stdlib.1.html#codeuse-flake-ltinstallablegtcode)
 
 Also make sure that your git ssh setup is working: [https://docs.github.com/en/authentication/connecting-to-github-with-ssh]. The referencing git URLs use ssh, not https.
 
