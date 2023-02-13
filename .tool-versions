@@ -1,6 +1,6 @@
 concourse 7.9.1
 gcloud 417.0.1
-helm 3.11.0
+helm 3.11.1
 kapp 0.54.3
 kubectl 1.23.11
 python 3.11.1
