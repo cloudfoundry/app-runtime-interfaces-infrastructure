@@ -116,7 +116,15 @@ Please see [developer notes](developer_notes.md) about `vendir sync` and develop
 
 ## Notes and known limitations
 
+### x509: certificate has expired or is not yet valid
+Credhub credentials are expired if they are older than 30 days. As a result, following error messages are occurs
+ - Credhub pod:  `Get "https://credhub.concourse.svc.cluster.local:9000/info": x509: certificate has expired or is not yet valid: current time 2023-02-27T10:14:45Z is after 2023-02-25T15:05:44Z`
+ - Concourse input resources `x509: certificate has expired or is not yet valid`
 
+Solution
+
+Restart the credhub kubernetes deployment in the concourse namespace. It will destroy the old pod and create a new one.
+> This is workaround. The bug is describe [issues#61](https://github.com/cloudfoundry/app-runtime-interfaces-infrastructure/issues/61)
 ### Destroy the project
 If you have manually set the recommended CloudSQL instance deletion protection please unset it.
 
