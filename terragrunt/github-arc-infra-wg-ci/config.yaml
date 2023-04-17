@@ -15,7 +15,7 @@ dns_zone: app-runtime-interfaces
 dns_domain: ci.cloudfoundry.org
 
 cert_manager_helm_version: "v1.11.1"
-arc_helm_version: "0.23.1"
+arc_helm_version: "0.23.2"
 
 # developer mode for letsencrypt webhook server - use true to enable staging deployment
 arc_letsencrypt_staging: false
