@@ -1,10 +1,10 @@
 {
-  description = "Flake for ??? featuring a nix-shell";
+  description = "Flake for tools related to this repository, featuring a nix-shell";
 
   inputs = {
     # Choose your nix-branch from <https://github.com/NixOS/nixpkgs/branches>,
     # preferably stable ones!
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-unstable;
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-22.11; # alternatively: nixos-unstable
   };
 
   outputs = { self, nixpkgs }:
