@@ -7,6 +7,6 @@ python 3.11.4
 terraform 1.4.6
 terraform-lsp 0.0.12
 terragrunt 0.47.0
-vendir 0.34.0
+vendir 0.34.3
 yq 4.34.1
 ytt 0.44.1
