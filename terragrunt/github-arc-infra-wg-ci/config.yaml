@@ -14,7 +14,7 @@ arc_letsencrypt_notifications_email: ApplicationAutoscaler@sap.com
 dns_zone: app-runtime-interfaces
 dns_domain: ci.cloudfoundry.org
 
-cert_manager_helm_version: "v1.12.2"
+cert_manager_helm_version: "v1.12.3"
 arc_helm_version: "0.23.3"
 
 # developer mode for letsencrypt webhook server - use true to enable staging deployment
