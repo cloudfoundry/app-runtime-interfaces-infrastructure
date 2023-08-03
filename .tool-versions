@@ -6,7 +6,7 @@ kubectl 1.27.4
 python 3.11.4
 terraform 1.5.4
 terraform-lsp 0.0.12
-terragrunt 0.48.5
+terragrunt 0.48.6
 vendir 0.34.3
 yq 4.34.2
 ytt 0.44.1
