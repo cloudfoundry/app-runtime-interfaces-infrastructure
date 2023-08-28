@@ -6,12 +6,20 @@ resource "google_compute_router" "nat_router" {
   region                        = var.region
 }
 
+resource "google_compute_address" "static_nat_ip" {
+  count        = var.gke_use_static_nat_ips ? 2 : 0
+  name         = "nat-ip-${count.index}"
+  network_tier = "PREMIUM"
+  region       = var.region
+}
+
 resource "google_compute_router_nat" "nat_config" {
   name                               = "nat-config-${var.gke_name}"
   project                            = var.project
   router                             = google_compute_router.nat_router.name
   region                             = google_compute_router.nat_router.region
-  nat_ip_allocate_option             = "AUTO_ONLY"
+  nat_ip_allocate_option             = var.gke_use_static_nat_ips ? "MANUAL_ONLY" : "AUTO_ONLY"
+  nat_ips                            = var.gke_use_static_nat_ips ? google_compute_address.static_nat_ip.*.self_link : null
   source_subnetwork_ip_ranges_to_nat = "LIST_OF_SUBNETWORKS"
   subnetwork {
     name                    = google_compute_subnetwork.subnet.id
