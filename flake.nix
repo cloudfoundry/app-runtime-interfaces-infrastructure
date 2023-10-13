@@ -4,7 +4,7 @@
   inputs = {
     # Choose your nix-branch from <https://github.com/NixOS/nixpkgs/branches>,
     # preferably stable ones!
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-22.11; # alternatively: nixos-unstable
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.05; # alternatively: nixos-unstable
   };
 
   outputs = { self, nixpkgs }:
@@ -24,13 +24,22 @@
       # Nixpkgs instantiated for supported system types.
       nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
     in {
+      packages = forAllSystems (system:
+        let
+          pkgs = nixpkgsFor.${system};
+        in {
+          gdk = pkgs.google-cloud-sdk.withExtraComponents(with pkgs.google-cloud-sdk.components; [
+            gke-gcloud-auth-plugin
+          ]);
+        });
+
       devShells = forAllSystems (system:
         let
           pkgs = nixpkgsFor.${system};
         in {
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
-              google-cloud-sdk
+              self.packages.${system}.gdk
               jq
               kapp
               kubectl

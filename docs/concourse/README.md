@@ -1,38 +1,34 @@
 # App Runtime Interfaces - Concourse on GCP Kubernetes
 
 ## Background
-
-Based on [cloudfoundry/bosh-community-stemcell-ci-infra](https://github.com/cloudfoundry/bosh-community-stemcell-ci-infra)
+Based on [cloudfoundry/bosh-community-stemcell-ci-infra](<https://github.com/cloudfoundry/bosh-community-stemcell-ci-infra>)
 
 ## Introduction
-
 Terraform modules and terragrunt code for Concourse deployment running on Kubernetes on GCP.
 
-You may [watch an introductory video](short_introduction.mp4) to this project and how you can use it to set up Concourse on your infrastructure.
+You may [watch an introductory video](<short_introduction.mp4>) to this project and how you can use it to set up Concourse on your infrastructure.
 
 ## Architecture
 
-![editable drawio svg bitmap](concourse-architecture.drawio.svg)
+![editable drawio svg bitmap](<concourse-architecture.drawio.svg>)
 ### Requirements
 
 #### Permissions
-
 Users who are required to perform operations need to be added in the Role `WG CI Manage` via IAM in the Google Cloud console.
 
 ## Prerequisites for a fresh project
 
 ### 1. Configuration
-
 To consume the project with our terragrunt code and scripts please create a folder structure in your project with a copy of
 
 * `terragrunt/scripts`
 * `terragrunt/concourse-<gke_name>`
 * `.tools-versions`
 
-* Use `git resource` for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](../../terragrunt/concourse-wg-ci-test/config.yaml) or
-copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](../../terragrunt/concourse-wg-ci/config.yaml)
+* Use `git resource` for terraform modules: see [terragrunt/concourse-wg-ci-test/config.yaml](<../../terragrunt/concourse-wg-ci-test/config.yaml>) or
+copy `terraform-modules` folder to your repository, see [terragrunt/concourse-wg-ci/config.yaml](<../../terragrunt/concourse-wg-ci/config.yaml>)
 
-:warning: If you reference terraform modules with a tagged git revision, make sure to use the same tagged revision of `.tools-versions`. Otherwise, there will be version mismatch errors when you run terragrunt. Alternatively, make use of the file `flake.nix` via `nix develop` or via direnv-load, see [direnv documentation](https://direnv.net/man/direnv-stdlib.1.html#codeuse-flake-ltinstallablegtcode)
+⚠️ If you reference terraform modules with a tagged git revision, make sure to use the same tagged revision of `.tools-versions`. Otherwise, there will be version mismatch errors when you run terragrunt. Alternatively, make use of the file `flake.nix` via `nix develop` or via direnv-load, see: [direnv documentation](<https://direnv.net/man/direnv-stdlib.1.html#codeuse-flake-ltinstallablegtcode>)
 
 Also make sure that your git ssh setup is working: [https://docs.github.com/en/authentication/connecting-to-github-with-ssh]. The referencing git URLs use ssh, not https.
 
@@ -61,17 +57,19 @@ The latest stable version can be found at [https://cloud.google.com/kubernetes-e
 gcloud auth login && gcloud auth application-default login
 ```
 
-There can be problems with the "gke-gcloud-auth-plugin" if you use asdf as CLI management tool. If the "gcloud" CLI cannot find the plugin, you can copy the plugin into the `shims` folder as workaround:
+When using asdf instead of Nix, there can be problems with the "gke-gcloud-auth-plugin" if you use asdf as CLI management tool. If the "gcloud" CLI cannot find the plugin, you can copy the plugin into the `shims` folder as workaround:
 ```
 cp ~/.asdf/installs/gcloud/415.0.0/bin/gke-gcloud-auth-plugin ~/.asdf/shims
 ```
+
+To set the correct project out of the ones that you have access to (see `gcloud projects list`), run `gcloud config set project 'app-runtime-interfaces-wg'`.
 
 #### 3. Create Github OAuth App and supply as a Google Secret
 
 This is necessary if you want to be able to authenticate with your GitHub profile.
  1. Create Github OAuth App
 
-    Log on to github.com https://github.com/settings/developers -> Click "New OAuth App"
+    Log on to github.com <https://github.com/settings/developers> -> Click "New OAuth App"
 
     As "Homepage URL", enter the Concourse's base URL beginning with **https://**.
 
@@ -100,6 +98,10 @@ The following command needs to be run from within your root directory (containin
 terragrunt run-all apply
 ```
 
+#### 5. Configure your local kubectl afterwards
+  1. Login into the google cloud via `gcloud auth login && gcloud auth application-default login`.
+  2. Configure you kubectl, see section [How to obtain GKE credentials for your terminal](<#how-to-obtain-gke-credentials-for-your-terminal>).
+
 ## Recommendations
 ### Cloud SQL Instance deletion protection
 
@@ -124,13 +126,19 @@ Credhub credentials are expired if they are older than 30 days. As a result, fol
 Solution
 
 Restart the credhub kubernetes deployment in the concourse namespace. It will destroy the old pod and create a new one.
-> This is workaround. The bug is describe [issues#61](https://github.com/cloudfoundry/app-runtime-interfaces-infrastructure/issues/61)
+> This is workaround. The bug is describe [issues#61](<https://github.com/cloudfoundry/app-runtime-interfaces-infrastructure/issues/61>)
 
 #### Details
-1. Clone this project and either use nix or asdf to set up you environment
-2. Execute ``` gcloud auth login && gcloud auth application-default login ```
-3. Go to Kubernetes Engine > Workloads > credhub (wg-ci) in the concourse namespace
-4. Go to managed pods and delete the pods
+
+From the Cloud Console:
+1. Go to [Google Cloud Console](<https://console.cloud.google.com/kubernetes/deployment/europe-west3-a/wg-ci/concourse/credhub/overview?project=app-runtime-interfaces-wg>)
+2. Go to managed pods and delete the pods
+
+From local:
+  1. Clone this project and either use nix or asdf to set up you environment.
+  2. Login into the google cloud via `gcloud auth login && gcloud auth application-default login`.
+  3. Configure you kubectl, see section [How to obtain GKE credentials for your terminal](<#how-to-obtain-gke-credentials-for-your-terminal>).
+  4. Execute `kubectl delete pods --namespace='concourse' --selector='app=credhub'`.
 
 ### Destroy the project
 If you have manually set the recommended CloudSQL instance deletion protection please unset it.
