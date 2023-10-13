@@ -4,7 +4,7 @@
   inputs = {
     # Choose your nix-branch from <https://github.com/NixOS/nixpkgs/branches>,
     # preferably stable ones!
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-22.11; # alternatively: nixos-unstable
+    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.05; # alternatively: nixos-unstable
   };
 
   outputs = { self, nixpkgs }:
