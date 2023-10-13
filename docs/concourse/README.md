@@ -125,6 +125,13 @@ Solution
 
 Restart the credhub kubernetes deployment in the concourse namespace. It will destroy the old pod and create a new one.
 > This is workaround. The bug is describe [issues#61](https://github.com/cloudfoundry/app-runtime-interfaces-infrastructure/issues/61)
+
+#### Details
+1. Clone this project and either use nix or asdf to set up you environment
+2. Execute ``` gcloud auth login && gcloud auth application-default login ```
+3. Go to Kubernetes Engine > Workloads > credhub (wg-ci) in the concourse namespace
+4. Go to managed pods and delete the pods
+
 ### Destroy the project
 If you have manually set the recommended CloudSQL instance deletion protection please unset it.
 
