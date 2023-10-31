@@ -1,5 +1,5 @@
 concourse 7.10.0
-gcloud 451.0.1
+gcloud 453.0.0
 helm 3.13.1
 kapp 0.59.0
 kubectl 1.28.3
