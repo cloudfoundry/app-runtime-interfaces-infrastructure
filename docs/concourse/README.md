@@ -140,6 +140,43 @@ From local:
   3. Configure you kubectl, see section [How to obtain GKE credentials for your terminal](<#how-to-obtain-gke-credentials-for-your-terminal>).
   4. Execute `kubectl delete pods --namespace='concourse' --selector='app=credhub'`.
 
+### x509: certificate has expired or is not yet valid: CA edition
+
+If the above solution did not help, it might also be the CA that expires once a year.
+
+Check its age
+
+```shell
+kubectl get secret -n concourse credhub-root-ca
+```
+
+If it is older than a year, delete it:
+
+```shell
+kubectl delete secret -n concourse credhub-root-ca
+```
+
+Afterwards restart the secretgen-controller to trigger a recreation:
+
+```shell
+kubectl scale deploy -n secretgen-controller secretgen-controller --replicas=0
+kubectl scale deploy -n secretgen-controller secretgen-controller --replicas=1
+kubectl wait deployment -n secretgen-controller secretgen-controller --for=jsonpath='{.spec.replicas}'=1 --timeout=30s
+```
+
+Check that the CA has been recreated:
+
+```shell
+kubectl get secret -n concourse credhub-root-ca
+```
+
+Restart credhub and concourse:
+
+```shell
+kubectl delete pods --namespace='concourse' --selector='app=credhub'
+kubectl delete pods --namespace='concourse' --selector='release=concourse'
+```
+
 ### Destroy the project
 If you have manually set the recommended CloudSQL instance deletion protection please unset it.
 
