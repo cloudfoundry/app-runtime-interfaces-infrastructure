@@ -4,11 +4,13 @@
   inputs = {
     # Choose your nix-branch from <https://github.com/NixOS/nixpkgs/branches>,
     # preferably stable ones!
-    nixpkgs.url = github:NixOS/nixpkgs/nixos-23.05; # alternatively: nixos-unstable
+    nixpkgs-repo.url = github:NixOS/nixpkgs/nixos-23.11; # alternatively: nixos-unstable
   };
 
-  outputs = { self, nixpkgs }:
+  outputs = { self, nixpkgs-repo }:
     let
+      nixpkgsLib = nixpkgs-repo.lib;
+
       # Instead of using the subsequent list of self-defined helpers, one could use
       # `flake-utils.url = "github:numtide/flake-utils";` as input which provides
       # similar helpers and keeps them up-to-date.
@@ -19,10 +21,19 @@
       supportedSystems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
 
       # Helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'.
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+      forAllSystems = nixpkgsLib.genAttrs supportedSystems;
 
       # Nixpkgs instantiated for supported system types.
-      nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
+      nixpkgsFor = forAllSystems (system: import nixpkgs-repo {
+        inherit system;
+        config = {
+          ## Prefer allowing specific packages when unfree over general permission.
+          # allowUnfree = true;
+          allowUnfreePredicate = pkg: builtins.elem (nixpkgsLib.getName pkg) [
+             "terraform"
+           ];
+        };
+      });
     in {
       packages = forAllSystems (system:
         let
