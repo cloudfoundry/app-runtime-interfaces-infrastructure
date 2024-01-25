@@ -26,13 +26,6 @@
       # Nixpkgs instantiated for supported system types.
       nixpkgsFor = forAllSystems (system: import nixpkgs-repo {
         inherit system;
-        config = {
-          ## Prefer allowing specific packages when unfree over general permission.
-          # allowUnfree = true;
-          allowUnfreePredicate = pkg: builtins.elem (nixpkgsLib.getName pkg) [
-             "terraform"
-           ];
-        };
       });
     in {
       packages = forAllSystems (system:
@@ -55,7 +48,7 @@
               kapp
               kubectl
               kubernetes-helm
-              terraform
+              opentofu
               terragrunt
               vendir
               ytt

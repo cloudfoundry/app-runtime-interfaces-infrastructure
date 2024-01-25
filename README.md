@@ -18,7 +18,7 @@ Please see [ARC Readme](<./docs/actions-runner-controller/README.md>)
 The required tools to work with this repository are:
   * glcoud
   * helm
-  * terraform
+  * opentofu
   * terragrunt
   * kapp
   * ytt
