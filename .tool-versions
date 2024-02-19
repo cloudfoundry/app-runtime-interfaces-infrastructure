@@ -3,7 +3,7 @@ gcloud 462.0.1
 helm 3.14.0
 kapp 0.60.0
 kubectl 1.29.1
-python 3.12.1
+python 3.12.2
 terraform 1.7.2
 terraform-lsp 0.0.12
 terragrunt 0.55.2
