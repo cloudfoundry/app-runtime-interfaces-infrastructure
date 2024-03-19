@@ -3,7 +3,7 @@ directories:
 - contents:
   - githubRelease:
       tag: v0.10.3
-      url: https://api.github.com/repos/vmware-tanzu/carvel-secretgen-controller/releases/71524101
+      url: https://api.github.com/repos/carvel-dev/secretgen-controller/releases/71524101
     path: .
   path: config/carvel-secretgen-controller
 kind: LockConfig
