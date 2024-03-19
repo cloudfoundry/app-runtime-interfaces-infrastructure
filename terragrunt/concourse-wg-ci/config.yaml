@@ -21,7 +21,7 @@ concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-ap
 concourse_github_mainTeamUser: ""
 
 # Concourse helm chart
-concourse_helm_version: "17.3.1"
+concourse_helm_version: "17.2.0"
 
 # Module sources for the stack - git or local
 # ie.
@@ -46,7 +46,7 @@ sql_instance_backup_location: eu
 sql_instance_disk_size: 38
 
 # Other GKE vars
-gke_controlplane_version: 1.23.8-gke.1900
+gke_controlplane_version: 1.27.8-gke.1067004
 gke_cluster_ipv4_cidr: 10.104.0.0/14
 gke_services_ipv4_cidr_block: 10.108.0.0/20
 gke_master_ipv4_cidr_block: 172.16.0.32/28
