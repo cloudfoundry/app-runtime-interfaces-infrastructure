@@ -40,6 +40,11 @@ data "helm_template" "concourse" {
     name = "web.replicas"
     value = var.gke_default_pool_node_count
   }
+
+  set {
+    name = "concourse.worker.runtime"
+    value = "containerd"
+  }
 }
 
 data "carvel_ytt" "concourse_app" {
