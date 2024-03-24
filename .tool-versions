@@ -8,5 +8,5 @@ terraform 1.7.5
 terraform-lsp 0.0.12
 terragrunt 0.55.18
 vendir 0.40.0
-yq 4.42.1
+yq 4.43.1
 ytt 0.44.1
