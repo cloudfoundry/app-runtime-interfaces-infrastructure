@@ -47,6 +47,16 @@ version_created_at: "2024-05-07T12:23:43Z"
 (...)
 ```
 
+## Limitations
+
+It's possible to renew CAs with the CronJob. Note however that this would be a one-step renewal process which can result in downtimes. The full 4-step CA renewal process as described on https://github.com/pivotal/credhub-release/blob/main/docs/ca-rotation.md is not implemented.
+
+If you want to include the CA in the regeneration process, you can add it at the beginning of the list:
+```
+certificates_to_regenerate: "/concourse/main/my_CA,/concourse/main/cert_1,/concourse/main/cert_2"
+```
+The (self-signed) CA would be regenerated first and then the two certificates would be re-signed with the new CA and the validity would be extended.
+
 ## Deletion
 
 To delete the CronJob, change to the directory `terragrunt/<concourse-instance>/automatic_certificate_regeneration` and call
