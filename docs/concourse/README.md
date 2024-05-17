@@ -252,3 +252,6 @@ Please see [DR scenario](disaster_recovery.md) for a fully automated recovery pr
 
 ## Automated secrets rotation for CloudSQL
 Please see [Secrets Rotation](secrets_rotation.md)
+
+## Automated regeneration for certificates stored in CredHub
+Please see [Certificate Regeneration](certificate_regeneration.md)

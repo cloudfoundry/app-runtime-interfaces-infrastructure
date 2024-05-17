@@ -44,6 +44,7 @@ tf_modules:
   dr_restore: "../../..//terraform-modules/concourse/dr_restore"
   e2e_test:   "../../..//terraform-modules/concourse/e2e_test"
   secret_rotation_postgresql: "../../..//terraform-modules/concourse/secret_rotation_postgresql"
+  automatic_certificate_regeneration: "../../..//terraform-modules/concourse/automatic_certificate_regeneration"
 
 
 fly_team: main
@@ -122,3 +123,7 @@ wg_ci_cnrm_service_account_permissions: [
     "cloudsql.databases.list",
     "cloudsql.databases.update"
   ]
+
+# list of certificates that shall be automatically renewed every month
+# enter as one string with a comma-separated list of CredHub certificate names
+certificates_to_regenerate: "/concourse/main/test_cert"
