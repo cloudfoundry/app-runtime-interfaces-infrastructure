@@ -6,7 +6,7 @@ The automated regeneration is provided as separate Terragrunt module which must 
 
 ## Prerequisites
 
-The certificate's CA must be stored in CredHub, and they must be correctly linked.
+The certificate's CA must be stored in CredHub, and the certificate must be correctly linked to the CA.
 
 ## Configuration and deployment
 
@@ -45,6 +45,10 @@ type: certificate
 value: <redacted>
 version_created_at: "2024-05-07T12:23:43Z"
 (...)
+```
+Afterward, you should delete the job with:
+```
+kubectl -n concourse delete job cert-regen-job
 ```
 
 ## Limitations
