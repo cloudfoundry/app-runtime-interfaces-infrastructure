@@ -16,7 +16,7 @@ resource "kubernetes_cron_job_v1" "automatic_certificate_regeneration" {
             restart_policy = "OnFailure"
             container {
               name              = "cert-regen"
-              image             = "yatzek/credhub-cli:2.9.0"
+              image             = "cloudfoundry/cf-deployment-concourse-tasks:v19.0.0"
               image_pull_policy = "IfNotPresent"
               command           = ["bash", "-c", "IFS=',' read -r -a CERTIFICATES <<< \"$CERTS_TO_RENEW\"; for cert in \"$${CERTIFICATES[@]}\"; do credhub regenerate -n \"$cert\"; done"]
               env {
