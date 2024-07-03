@@ -25,7 +25,7 @@ credhub_secret="$(kubectl --namespace concourse get secret credhub-admin-client-
 kubectl run credhub-cli-"$(openssl rand -hex 4)" \
         --rm -i -t \
         --restart=Never \
-        --image=yatzek/credhub-cli:2.9.0 \
+        --image=cloudfoundry/cf-deployment-concourse-tasks:v19.0.0 \
         --env="CREDHUB_SERVER=$credhub_server" \
         --env="CREDHUB_CA_CERT=$credhub_ca_cert" \
         --env="CREDHUB_CLIENT=$credhub_client" \
