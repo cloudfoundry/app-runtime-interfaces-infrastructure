@@ -114,4 +114,4 @@ wg_ci_cnrm_service_account_permissions: [
 
 # list of certificates that shall be automatically renewed every month
 # enter as one string with a comma-separated list of CredHub certificate names
-certificates_to_regenerate: "/concourse/capi-team/kiki_lb,/concourse/capi-team/scar_lb,/concourse/capi-team/elsa_lb,/concourse/capi-team/asha_lb,/concourse/capi-team/olaf_lb"
+certificates_to_regenerate: "/concourse/capi-team/kiki_lb,/concourse/capi-team/scar_lb,/concourse/capi-team/elsa_lb,/concourse/capi-team/asha_lb,/concourse/capi-team/olaf_lb,/concourse/capi-team/gyro_lb"
