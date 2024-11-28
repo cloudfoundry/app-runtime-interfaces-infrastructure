@@ -37,6 +37,11 @@ data "helm_template" "concourse" {
   }
 
   set {
+    name = "worker.resources.requests.memory"
+    value = var.gke_workers_min_memory
+  }
+
+  set {
     name = "web.replicas"
     value = var.gke_default_pool_node_count
   }
