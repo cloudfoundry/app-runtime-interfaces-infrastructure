@@ -18,20 +18,24 @@ Please note the process should be also useful for upgrading major versions.
     ```
     terragrunt run-all plan --terragrunt-source-update
     ```
-4. Switch to `renovate's` pull request having bumped Concourse helm chart version
+4. Update all Terraform providers:
+   ```
+   terragrunt run-all init -upgrade
+   ```
+5. Switch to `renovate's` pull request having bumped Concourse helm chart version
    ```
    git pull
    git checkout renovate/concourse-17.x
    ```
 
-5. Create on-demand SQL instance backup
-    ```
-    ../terragrunt/scripts/concourse/create-sql-backup.sh
-    ```
-
-6. Apply roll-out for new Concourse version
+6. Create on-demand SQL instance backup
    ```
-   terragrunt run-all plan --terragrunt-source-update
+   ../terragrunt/scripts/concourse/create-sql-backup.sh
+   ```
+
+7. Apply roll-out for new Concourse version
+   ```
+   terragrunt run-all apply --terragrunt-source-update
    ```
 
 At this point depending on your use case:

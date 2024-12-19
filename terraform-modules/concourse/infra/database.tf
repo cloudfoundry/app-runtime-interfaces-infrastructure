@@ -35,7 +35,6 @@ resource "google_sql_database_instance" "concourse" {
 
     ip_configuration {
       ipv4_enabled = "true"
-      require_ssl  = "false"
     }
 
     location_preference {
