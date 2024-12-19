@@ -1,9 +1,29 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/hashicorp/cloudinit" {
+  version = "2.3.5"
+  hashes = [
+    "h1:Sf1Lt21oTADbzsnlU38ylpkl8YXP0Beznjcy5F/Yx64=",
+    "zh:17c20574de8eb925b0091c9b6a4d859e9d6e399cd890b44cfbc028f4f312ac7a",
+    "zh:348664d9a900f7baf7b091cf94d657e4c968b240d31d9e162086724e6afc19d5",
+    "zh:5a876a468ffabff0299f8348e719cb704daf81a4867f8c6892f3c3c4add2c755",
+    "zh:6ef97ee4c8c6a69a3d36746ba5c857cf4f4d78f32aa3d0e1ce68f2ece6a5dba5",
+    "zh:78d5eefdd9e494defcb3c68d282b8f96630502cac21d1ea161f53cfe9bb483b3",
+    "zh:8283e5a785e3c518a440f6ac6e7cc4fc07fe266bf34974246f4e2ef05762feda",
+    "zh:a44eb5077950168b571b7eb65491246c00f45409110f0f172cc3a7605f19dba9",
+    "zh:aa0806cbff72b49c1b389c0b8e6904586e5259c08dabb7cb5040418568146530",
+    "zh:bec4613c3beaad9a7be7ca99cdb2852073f782355b272892e6ee97a22856aec1",
+    "zh:d7fe368577b6c8d1ae44c751ed42246754c10305c7f001cc0109833e95aa107d",
+    "zh:df2409fc6a364b1f0a0f8a9cd8a86e61e80307996979ce3790243c4ce88f2915",
+    "zh:ed3c263396ff1f4d29639cc43339b655235acf4d06296a7c120a80e4e0fd6409",
+  ]
+}
+
 provider "registry.terraform.io/hashicorp/google" {
   version = "4.43.0"
   hashes = [
+    "h1:JpShTtgnxpiIVnr0R2Lccrh84mnrf7Z1/v/yw0UZ1gI=",
     "h1:gmUUWhuuY/YRIllvVBRGl1kUHqsNBHQ/4BHdwKQbzXQ=",
     "zh:0b424cab24856dc47177733145fa61b731f345a6a42a0c0b7910ccfcf4e8c8a2",
     "zh:0c6b3049957b942e1dbc6f8c38de653a78ff1efe40a7cfc506e60a8da2775591",
@@ -24,6 +44,7 @@ provider "registry.terraform.io/hashicorp/google-beta" {
   version = "4.43.0"
   hashes = [
     "h1:8VHj+IfnuSb4lB5j9Re3RLyTccwnqFZev1LPn8/5xCs=",
+    "h1:dgSzxlVzikZJlQFOgPZX4AL9fGZwVYjzLktcEkPTUyE=",
     "zh:1904afd736547da2563d51b3bbcb827ed6c488b30bcb60d19efd81153db10648",
     "zh:40d47748efb8d57096747834c5b6743f31012ae1d2ef3bb783505406e532f552",
     "zh:72acc0b22320aac74289a0284d84187b2de065ddce0fe77760ea9eb688267057",
@@ -43,6 +64,7 @@ provider "registry.terraform.io/hashicorp/kubernetes" {
   version = "2.15.0"
   hashes = [
     "h1:Gcy0a0uHLgHJdqs9le6S0f8zp3xpmHKxH48el5kT0iI=",
+    "h1:tnz+6mdJYhK6OZRmQMZJz3+cDHXNLK69q2Zwt1BG3tw=",
     "zh:108011c33c0fc0b4d429d511bf97744b40b1ab261d51d413b3bffc8247369f26",
     "zh:3ac39669fa20b7e0430753c3023d8393348213a84c69a18dc75057761478cfcf",
     "zh:530d274328ce6428300dccf94e26d180c4c867b8fd0e4992ae890451c421fec5",
