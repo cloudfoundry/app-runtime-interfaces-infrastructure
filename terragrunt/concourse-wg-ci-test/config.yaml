@@ -48,6 +48,9 @@ tf_modules:
 
 
 fly_team: main
+# replace with the target name of your local fly CLI configuration
+# don't forget to log in with the fly CLI
+fly_target: ari-test
 
 # ---------------------------------------------------------
 # In most cases settings below are safe to keep as defaults
