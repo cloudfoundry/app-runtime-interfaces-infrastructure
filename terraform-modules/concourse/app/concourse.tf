@@ -37,6 +37,11 @@ data "helm_template" "concourse" {
   }
 
   set {
+    name = "worker.resources.requests.memory"
+    value = var.gke_workers_min_memory
+  }
+
+  set {
     name = "web.replicas"
     value = var.gke_default_pool_node_count
   }
@@ -59,21 +64,13 @@ data "carvel_ytt" "concourse_app" {
   }
  }
 
-
 resource "carvel_kapp" "concourse_app" {
   app          = "concourse-app"
   namespace    = "concourse"
-  config_yaml  = data.carvel_ytt.concourse_app.result
+  # helm chart uses "policy/v1beta1" version for "PodDisruptionBudget" resource which is not valid anymore -> replace with "policy/v1"
+  # https://github.com/concourse/concourse-chart/blob/c92075294c39a20fd48e0c5cc4533a2a59adfc70/templates/worker-policy.yaml#L2
+  config_yaml  = replace(data.carvel_ytt.concourse_app.result, "policy/v1beta1", "policy/v1")
   diff_changes = true
-
-  # deploy {
-  #   raw_options = ["--dangerous-override-ownership-of-existing-resources"]
-  # }
-
-#   delete {
-#     # WARN: if you change delete options you have to run terraform apply first.
-#     raw_options = ["--filter={\"and\":[{\"not\":{\"resource\":{\"kinds\":[\"Namespace\"]}}}]}"]
-#   }
 
   depends_on = [kubernetes_secret_v1.github_oauth, carvel_kapp.credhub_uaa]
 }
