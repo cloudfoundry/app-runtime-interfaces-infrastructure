@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     kubectl = {
-      source = "gavinbunney/kubectl"
+      source = "registry.terraform.io/gavinbunney/kubectl"
     }
     kubernetes = {
       source = "hashicorp/kubernetes"

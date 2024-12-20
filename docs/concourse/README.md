@@ -98,6 +98,11 @@ The following command needs to be run from within your root directory (containin
 terragrunt run-all apply
 ```
 
+*NOTE: Make sure that your Terragrunt TFPATH points to the "terraform" CLI and not to the "tofu" CLI. Tofu uses a different versioning scheme and may fail to load some plugins that check for a specific Terraform version:
+```sh
+export TERRAGRUNT_TFPATH=/Users/<your user id>/.asdf/shims/terraform
+```
+
 #### 5. Configure your local kubectl afterwards
   1. Login into the google cloud via `gcloud auth login && gcloud auth application-default login`.
   2. Configure you kubectl, see section [How to obtain GKE credentials for your terminal](<#how-to-obtain-gke-credentials-for-your-terminal>).
