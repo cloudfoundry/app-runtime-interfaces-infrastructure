@@ -5,7 +5,6 @@ terraform {
     }
     carvel = {
       source = "registry.terraform.io/vmware-tanzu/carvel"
-      version = "= 0.11.0"
     }
   }
 }

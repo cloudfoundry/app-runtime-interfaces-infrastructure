@@ -94,13 +94,10 @@ The following command needs to be run from within your root directory (containin
 
 *NOTE: `terragrunt run-all` commands **do not** show changes before applying*
 
+*NOTE: If you need to update the providers, run `terragrunt run-all init -upgrade`
+
 ```sh
 terragrunt run-all apply
-```
-
-*NOTE: Make sure that your Terragrunt TFPATH points to the "terraform" CLI and not to the "tofu" CLI. Tofu uses a different versioning scheme and may fail to load some plugins that check for a specific Terraform version:
-```sh
-export TERRAGRUNT_TFPATH=/Users/<your user id>/.asdf/shims/terraform
 ```
 
 #### 5. Configure your local kubectl afterwards
