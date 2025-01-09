@@ -7,7 +7,7 @@ terraform {
       source = "hashicorp/kubernetes"
     }
     kubectl = {
-      source = "gavinbunney/kubectl"
+      source = "registry.terraform.io/gavinbunney/kubectl"
     }
     github = {
       source = "integrations/github"
