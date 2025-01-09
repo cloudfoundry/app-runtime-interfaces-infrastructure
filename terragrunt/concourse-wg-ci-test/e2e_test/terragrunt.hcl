@@ -36,7 +36,7 @@ inputs = {
 
   gke_name = local.config.gke_name
 
-  fly_target = local.config.gke_name
+  fly_target = local.config.fly_target
   fly_team = local.config.fly_team
 
   pipeline = "e2e-test"
