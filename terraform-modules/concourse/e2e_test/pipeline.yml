@@ -13,8 +13,8 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: yatzek/credhub-cli
-          tag: 2.9.0
+          repository: cloudfoundry/cf-deployment-concourse-tasks
+          tag: v19.0.0
       run:
         path: bash
         args:

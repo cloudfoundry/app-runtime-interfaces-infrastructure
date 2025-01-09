@@ -1,0 +1,11 @@
+#@ load("@ytt:data", "data")
+#@ load("@ytt:library", "library")
+#@ load("@ytt:overlay", "overlay")
+#@ load("@ytt:template", "template")
+
+#! workaround for buggy GKE version check:
+#! https://github.com/concourse/concourse-chart/blob/c92075294c39a20fd48e0c5cc4533a2a59adfc70/templates/worker-policy.yaml#L2
+
+#@overlay/match by=overlay.subset({"kind": "PodDisruptionBudget"})
+---
+apiVersion: policy/v1

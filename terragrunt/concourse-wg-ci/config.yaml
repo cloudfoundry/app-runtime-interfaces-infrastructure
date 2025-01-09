@@ -21,7 +21,7 @@ concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-ap
 concourse_github_mainTeamUser: ""
 
 # Concourse helm chart
-concourse_helm_version: "17.2.0"
+concourse_helm_version: "17.4.0"
 
 # Module sources for the stack - git or local
 # ie.
@@ -60,6 +60,7 @@ gke_default_pool_ssd_count: 0
 # typical config for concourse worker is n4-standard-4 and ssd_count: 1
 # note: economy e2-standard machine can't use local ssd drives
 gke_workers_pool_machine_type: n2-standard-4
+gke_workers_min_memory: 4Gi
 gke_workers_pool_node_count: 4
 gke_workers_pool_autoscaling_max: 4
 gke_workers_pool_ssd_count: 1

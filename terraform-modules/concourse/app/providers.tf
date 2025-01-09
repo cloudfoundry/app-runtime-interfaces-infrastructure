@@ -4,7 +4,7 @@ terraform {
       source = "hashicorp/google"
     }
     carvel = {
-      source = "vmware-tanzu/carvel"
+      source = "registry.terraform.io/vmware-tanzu/carvel"
     }
   }
 }

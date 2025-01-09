@@ -21,7 +21,7 @@ concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-ap
 concourse_github_mainTeamUser: ""
 
 # Concourse helm chart
-concourse_helm_version: "17.3.1"
+concourse_helm_version: "17.4.0"
 
 
 # Module sources for the stack - git or local
@@ -48,6 +48,9 @@ tf_modules:
 
 
 fly_team: main
+# replace with the target name of your local fly CLI configuration
+# don't forget to log in with the fly CLI
+fly_target: ari-test
 
 # ---------------------------------------------------------
 # In most cases settings below are safe to keep as defaults
