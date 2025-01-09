@@ -2,26 +2,30 @@
 
 Following is a tested upgrade path for a minor version upgrade of Concourse (partially manual).
 
-The process assumes the usage of terragrunt Concourse stack.
+The process assumes the usage of the Terragrunt Concourse stack.
 
 Please note the process should be also useful for upgrading major versions.
 
-## Roll-in procedure
+## Roll-in Procedure
 
 1. Connect to your GCP account
    ```
    gcloud auth login && gcloud auth application-default login
+   gcloud set project <your project name>
    ```
+
 2. `cd` to a folder with concourse folder with `config.yaml` file
 
 3. Confirm there are no pending changes for the Concourse stack
-    ```
-    terragrunt run-all plan --terragrunt-source-update
-    ```
+   ```
+   terragrunt run-all plan --terragrunt-source-update
+   ```
+
 4. Update all Terraform providers:
    ```
    terragrunt run-all init -upgrade
    ```
+
 5. Switch to `renovate's` pull request having bumped Concourse helm chart version
    ```
    git pull
@@ -40,11 +44,12 @@ Please note the process should be also useful for upgrading major versions.
 
 At this point depending on your use case:
 
-1. Update `fly` to new minor version ie. change the version in `.tool-versions`` and run `asdf install`
+1. Update `fly` to new minor version i.e. change the version in `.tool-versions` and run `asdf install`
 
 2. Login to the new Concourse
    ```
    fly login -t <target name>
+   ```
 
 3. For `wg-ci-test` cluster: execute end-to-end test
    ```
@@ -53,7 +58,7 @@ At this point depending on your use case:
    cd ..
    ```
 
-## Roll-back procedure
+## Roll-back Procedure
 
 To guarantee SQL databases consistency delete Concourse deployment and restore SQL instance
 
@@ -65,7 +70,7 @@ To guarantee SQL databases consistency delete Concourse deployment and restore S
 
 2. Restore on-demand SQL instance backup - use Web UI or gcloud command
 
-3. Run concourse stack deployment
+3. Run Concourse stack deployment
    ```
    terragrunt run-all plan
    terragrunt run-all apply

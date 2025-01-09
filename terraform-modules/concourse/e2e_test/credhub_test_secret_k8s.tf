@@ -40,7 +40,7 @@ resource "kubernetes_job" "credhub_cli" {
       spec {
         restart_policy = "Never"
         container {
-          image = "yatzek/credhub-cli:2.9.0"
+          image = "cloudfoundry/cf-deployment-concourse-tasks:v19.0.0"
           name  = "credhub-cli"
 
           command = [

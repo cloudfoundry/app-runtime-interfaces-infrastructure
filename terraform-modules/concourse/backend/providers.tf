@@ -4,10 +4,10 @@ terraform {
       source = "hashicorp/google"
     }
     carvel = {
-      source = "vmware-tanzu/carvel"
+      source = "registry.terraform.io/vmware-tanzu/carvel"
     }
     kubectl = {
-      source = "gavinbunney/kubectl"
+      source = "registry.terraform.io/gavinbunney/kubectl"
     }
   }
 }

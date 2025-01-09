@@ -94,6 +94,8 @@ The following command needs to be run from within your root directory (containin
 
 *NOTE: `terragrunt run-all` commands **do not** show changes before applying*
 
+*NOTE: If you need to update the providers, run `terragrunt run-all init -upgrade`
+
 ```sh
 terragrunt run-all apply
 ```
