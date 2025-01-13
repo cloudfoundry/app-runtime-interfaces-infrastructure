@@ -61,9 +61,9 @@ data "carvel_ytt" "concourse_app" {
   values = {
     "google.project_id" = var.project
     "google.region"     = var.region
+    "workers"           = var.gke_workers_max_memory
   }
- }
-
+}
 
 resource "carvel_kapp" "concourse_app" {
   app          = "concourse-app"
