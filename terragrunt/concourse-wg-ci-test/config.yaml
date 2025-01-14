@@ -75,6 +75,7 @@ gke_default_pool_ssd_count: 0
 # note: economy e2-standard machine can't use local ssd drives
 gke_workers_pool_machine_type: e2-standard-4
 gke_workers_min_memory: 1024Mi
+gke_workers_max_memory: 4Gi
 gke_workers_pool_node_count: 1
 gke_workers_pool_autoscaling_max: 4
 gke_workers_pool_ssd_count: 0

@@ -1,0 +1,14 @@
+#@ load("@ytt:overlay", "overlay")
+#@ load("@ytt:data", "data")
+
+#@overlay/match by=overlay.subset({"kind": "Deployment", "metadata": {"name": "concourse-worker"}})
+---
+spec:
+  template:
+    spec:
+      containers:
+        #@overlay/match by=overlay.subset({"name": "concourse-worker"})
+        - resources:
+            #@overlay/match missing_ok=True
+            limits:
+              memory: #@ data.values.workers_max_memory

@@ -43,6 +43,7 @@ inputs = {
   gke_workers_pool_machine_type = local.config.gke_workers_pool_machine_type
   gke_workers_pool_node_count = local.config.gke_workers_pool_node_count
   gke_workers_min_memory = local.config.gke_workers_min_memory
+  gke_workers_max_memory = local.config.gke_workers_max_memory
   gke_default_pool_node_count = local.config.gke_default_pool_node_count
 
   load_balancer_ip = dependency.infra.outputs.load_balancer_ip
