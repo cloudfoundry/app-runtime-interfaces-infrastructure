@@ -11,4 +11,4 @@ spec:
         - resources:
             #@overlay/match missing_ok=True
             limits:
-              memory: #@ data.values.workers
+              memory: #@ data.values.workers_max_memory

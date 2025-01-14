@@ -59,9 +59,9 @@ data "carvel_ytt" "concourse_app" {
   config_yaml = data.helm_template.concourse.manifest
 
   values = {
-    "google.project_id" = var.project
-    "google.region"     = var.region
-    "workers"           = var.gke_workers_max_memory
+    "google.project_id"  = var.project
+    "google.region"      = var.region
+    "workers_max_memory" = var.gke_workers_max_memory
   }
 }
 
