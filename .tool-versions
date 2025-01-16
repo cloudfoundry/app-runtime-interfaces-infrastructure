@@ -2,7 +2,7 @@ concourse 7.12.0
 gcloud 469.0.0
 helm 3.17.0
 kapp 0.64.0
-kubectl 1.29.3
+kubectl 1.32.1
 python 3.13.1
 terraform 1.10.4
 terraform-lsp 0.0.12
