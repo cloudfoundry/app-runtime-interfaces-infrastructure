@@ -20,6 +20,10 @@ gke_name: wg-ci-test
 concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-approvers\\,cloudfoundry:wg-app-runtime-interfaces-autoscaler-reviewers\\,cloudfoundry:wg-app-runtime-interfaces-capi-approvers"
 concourse_github_mainTeamUser: ""
 
+# Concourse worker placement strategy: https://concourse-ci.org/container-placement.html
+# Use default strategy for test system
+concourse_container_placement_strategy: "volume-locality"
+
 # Concourse helm chart
 concourse_helm_version: "17.4.0"
 
