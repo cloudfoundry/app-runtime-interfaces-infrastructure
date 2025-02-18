@@ -51,5 +51,5 @@ inputs = {
 
   concourse_github_mainTeam = local.config.concourse_github_mainTeam
   concourse_github_mainTeamUser = local.config.concourse_github_mainTeamUser
-
+  concourse_container_placement_strategy = local.config.concourse_container_placement_strategy
 }

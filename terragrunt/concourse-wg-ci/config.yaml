@@ -20,6 +20,10 @@ gke_name: wg-ci
 concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-approvers\\,cloudfoundry:wg-app-runtime-interfaces-capi-approvers"
 concourse_github_mainTeamUser: ""
 
+# Concourse worker placement strategy: https://concourse-ci.org/container-placement.html
+# The cloud controller unit tests cause a high system load on workers, so place them on workers with few containers
+concourse_container_placement_strategy: "fewest-build-containers"
+
 # Concourse helm chart
 concourse_helm_version: "17.4.0"
 

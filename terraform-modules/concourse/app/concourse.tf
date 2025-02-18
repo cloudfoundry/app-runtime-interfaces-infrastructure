@@ -32,6 +32,11 @@ data "helm_template" "concourse" {
   }
 
   set {
+    name = "concourse.web.containerPlacementStrategy"
+    value = var.concourse_container_placement_strategy
+  }
+
+  set {
     name = "worker.replicas"
     value = var.gke_workers_pool_node_count
   }
