@@ -11,7 +11,7 @@ Please note the process should be also useful for upgrading major versions.
 1. Connect to your GCP account
    ```
    gcloud auth login && gcloud auth application-default login
-   gcloud set project <your project name>
+   gcloud config set project <your project name>
    ```
 
 2. `cd` to a folder with concourse folder with `config.yaml` file
@@ -34,7 +34,7 @@ Please note the process should be also useful for upgrading major versions.
 
 6. Apply roll-out for new Concourse version
    ```
-   terragrunt run-all plan --terragrunt-source-update
+   terragrunt run-all apply --terragrunt-source-update
    ```
 
 At this point depending on your use case:
