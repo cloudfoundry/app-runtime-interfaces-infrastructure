@@ -209,20 +209,6 @@ terragrunt run-all destroy
 
 Delete terraform state gcp bucket from GCP console or via `gsutil`
 
-### Carvel kapp terraform provider not available for Apple M1
-https://github.com/vmware-tanzu/terraform-provider-carvel/issues/30#issuecomment-1311465417
-
-To compile the provider locally, clone the repository https://github.com/carvel-dev/terraform-provider and run:
-```
-go mod tidy
-go build -o terraform-provider-carvel ./cmd/main.go
-```
-Then copy the binary into the local Terraform "plugins" folder:
-```
-cp ./terraform-provider-carvel ~/.terraform.d/plugins/registry.terraform.io/vmware-tanzu/carvel/0.11.0/darwin_arm64
-```
-In case of Terraform checksum mismatches, go to a Terraform module and run "terraform init" to fix the checksums.
-
 ### Plan/apply terragrunt for a specific component of the stack
 
 ```sh
