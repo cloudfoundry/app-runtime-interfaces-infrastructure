@@ -52,6 +52,10 @@ Also make sure that the GKE version is not outdated:
 
 The latest stable version can be found at [https://cloud.google.com/kubernetes-engine/docs/release-notes]
 
+If you need to fine-tune the [Concourse worker placement strategy](https://concourse-ci.org/container-placement.html), you can configure it with:
+
+* `concourse_container_placement_strategy`
+
 #### 2. Logon to your GCP account
 ```
 gcloud auth login && gcloud auth application-default login
@@ -93,6 +97,8 @@ The following command needs to be run from within your root directory (containin
 *NOTE: it's not possible to `plan` for a fresh project due to the fact we can't test kubernetes resources against non-existing cluster*
 
 *NOTE: `terragrunt run-all` commands **do not** show changes before applying*
+
+*NOTE: If you need to update the providers, run `terragrunt run-all init -upgrade`
 
 ```sh
 terragrunt run-all apply

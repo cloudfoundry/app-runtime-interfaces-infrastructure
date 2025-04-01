@@ -32,8 +32,18 @@ data "helm_template" "concourse" {
   }
 
   set {
+    name = "concourse.web.containerPlacementStrategy"
+    value = var.concourse_container_placement_strategy
+  }
+
+  set {
     name = "worker.replicas"
     value = var.gke_workers_pool_node_count
+  }
+
+  set {
+    name = "worker.resources.requests.memory"
+    value = var.gke_workers_min_memory
   }
 
   set {
@@ -54,11 +64,11 @@ data "carvel_ytt" "concourse_app" {
   config_yaml = data.helm_template.concourse.manifest
 
   values = {
-    "google.project_id" = var.project
-    "google.region"     = var.region
+    "google.project_id"  = var.project
+    "google.region"      = var.region
+    "workers_max_memory" = var.gke_workers_max_memory
   }
- }
-
+}
 
 resource "carvel_kapp" "concourse_app" {
   app          = "concourse-app"

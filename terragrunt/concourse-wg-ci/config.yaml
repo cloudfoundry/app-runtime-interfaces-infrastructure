@@ -20,8 +20,12 @@ gke_name: wg-ci
 concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-approvers\\,cloudfoundry:wg-app-runtime-interfaces-capi-approvers"
 concourse_github_mainTeamUser: ""
 
+# Concourse worker placement strategy: https://concourse-ci.org/container-placement.html
+# The cloud controller unit tests cause a high system load on workers, so place them on workers with few containers
+concourse_container_placement_strategy: "fewest-build-containers"
+
 # Concourse helm chart
-concourse_helm_version: "17.2.0"
+concourse_helm_version: "17.4.0"
 
 # Module sources for the stack - git or local
 # ie.
@@ -60,6 +64,8 @@ gke_default_pool_ssd_count: 0
 # typical config for concourse worker is n4-standard-4 and ssd_count: 1
 # note: economy e2-standard machine can't use local ssd drives
 gke_workers_pool_machine_type: n2-standard-4
+gke_workers_min_memory: 4Gi
+gke_workers_max_memory: 12Gi
 gke_workers_pool_node_count: 4
 gke_workers_pool_autoscaling_max: 4
 gke_workers_pool_ssd_count: 1
@@ -114,4 +120,4 @@ wg_ci_cnrm_service_account_permissions: [
 
 # list of certificates that shall be automatically renewed every month
 # enter as one string with a comma-separated list of CredHub certificate names
-certificates_to_regenerate: "/concourse/capi-team/kiki_lb,/concourse/capi-team/scar_lb,/concourse/capi-team/elsa_lb,/concourse/capi-team/asha_lb,/concourse/capi-team/olaf_lb"
+certificates_to_regenerate: "/concourse/capi-team/kiki_lb,/concourse/capi-team/scar_lb,/concourse/capi-team/elsa_lb,/concourse/capi-team/asha_lb,/concourse/capi-team/olaf_lb,/concourse/capi-team/gyro_lb"
