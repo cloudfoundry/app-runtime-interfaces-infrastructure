@@ -25,7 +25,7 @@ concourse_github_mainTeamUser: ""
 concourse_container_placement_strategy: "fewest-build-containers"
 
 # Concourse helm chart
-concourse_helm_version: "17.4.0"
+concourse_helm_version: "18.1.1"
 
 # Module sources for the stack - git or local
 # ie.
