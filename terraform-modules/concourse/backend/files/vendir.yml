@@ -7,7 +7,7 @@ directories:
   contents:
   - path: .
     githubRelease:
-      slug: vmware-tanzu/carvel-secretgen-controller
+      slug: carvel-dev/carvel-secretgen-controller
       tag: v0.10.3
       assetNames: ["release.yml"]
     includePaths:
