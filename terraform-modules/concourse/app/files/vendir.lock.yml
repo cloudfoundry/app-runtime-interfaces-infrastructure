@@ -8,10 +8,11 @@ directories:
   path: config/credhub/_ytt_lib/credhub
 - contents:
   - git:
-      commitTitle: Update UAA image reference in k8s deployment template to 76.31.0
-      sha: c3c9d39d608a97ec830fbf1f031cb8b3f7c05ad5
+      commitTitle: 'build(deps): bump versions.tomcatCargoVersion from 9.0.104 to
+        9.0.105 (#3462)...'
+      sha: 591769505440f82e718afaaefbb429e316e011aa
       tags:
-      - v76.31.0
+      - v77.33.0
     path: .
   path: config/uaa/_ytt_lib/uaa
 kind: LockConfig
