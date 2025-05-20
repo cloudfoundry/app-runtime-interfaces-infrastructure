@@ -1,12 +1,13 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
     "extends": [
-        "config:base"
+        "config:recommended"
     ],
-    "regexManagers": [
+    "customManagers": [
         {
-            "fileMatch": [
-                "config.yaml$"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/config.yaml$/"
             ],
             "matchStrings": [
                 "concourse_helm_version: \"(?<currentValue>.*?)\""
@@ -16,8 +17,9 @@
             "datasourceTemplate": "helm"
         },
         {
-            "fileMatch": [
-                "config.yaml$"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/config.yaml$/"
             ],
             "matchStrings": [
                 "cert_manager_helm_version: \"(?<currentValue>.*?)\""
@@ -27,8 +29,9 @@
             "datasourceTemplate": "helm"
         },
         {
-            "fileMatch": [
-                "config.yaml$"
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/config.yaml$/"
             ],
             "matchStrings": [
                 "arc_helm_version: \"(?<currentValue>.*?)\""
@@ -38,63 +41,108 @@
             "datasourceTemplate": "helm"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)concourse (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)concourse (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "concourse/concourse",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)gcloud (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)gcloud (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "google/cloud-sdk",
             "datasourceTemplate": "docker"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)kapp (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)kapp (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "carvel-dev/kapp",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)kubectl (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)kubectl (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "kubernetes/kubernetes",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^Kubernetes v(?<version>\\S+)"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)terraform-lsp (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)terraform-lsp (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "juliosueiras/terraform-lsp",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)terragrunt (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)terragrunt (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "gruntwork-io/terragrunt",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)vendir (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)vendir (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "carvel-dev/vendir",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)yq (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)yq (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "mikefarah/yq",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
         },
         {
-            "fileMatch": ["\\.tool-versions$"],
-            "matchStrings": ["(^|\\n)ytt (?<currentValue>.+?)\\n"],
+            "customType": "regex",
+            "managerFilePatterns": [
+                "/\\.tool-versions$/"
+            ],
+            "matchStrings": [
+                "(^|\\n)ytt (?<currentValue>.+?)\\n"
+            ],
             "depNameTemplate": "carvel-dev/ytt",
             "datasourceTemplate": "github-releases",
             "extractVersionTemplate": "^v(?<version>\\S+)"
