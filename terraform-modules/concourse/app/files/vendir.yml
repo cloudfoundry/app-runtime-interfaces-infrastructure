@@ -7,7 +7,7 @@ directories:
   contents:
   - path: .
     git:
-      url: https://github.com/cloudfoundry-incubator/credhub
+      url: https://github.com/cloudfoundry/credhub
       ref: "0561707"
     includePaths:
     - kubernetes/**/*
