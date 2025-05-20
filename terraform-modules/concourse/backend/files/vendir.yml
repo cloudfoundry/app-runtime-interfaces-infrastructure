@@ -7,7 +7,7 @@ directories:
   contents:
   - path: .
     githubRelease:
-      slug: carvel-dev/carvel-secretgen-controller
+      slug: carvel-dev/secretgen-controller
       tag: v0.10.3
       assetNames: ["release.yml"]
     includePaths:
