@@ -182,6 +182,12 @@ spec:
   template:
     spec: #! pod spec
 #! START delete when https://github.com/vmware-tanzu/carvel-secretgen-controller/issues/70 is fixed
+
+#! NOTE: We are not using the default "yq" from https://github.com/mikefarah/yq here. Instead, we use this flavour:
+
+#! yq transcodes YAML documents to JSON and passes them to jq.
+#! See https://github.com/kislyuk/yq for more information.
+
       initContainers:
       #@overlay/append
       - name: fix-secrets
@@ -219,6 +225,11 @@ spec:
           yq -yi ".jwt.token.policy.keys.default_jwt_policy_key.signingKey=\"${FIXED_VALUE}\"" jwt_policy_signing_keys.yml
           #REMOVE EMPTY LINES
           sed -i '/^[[:space:]]*$/d' jwt_policy_signing_keys.yml
+
+          # Convert RSA key from single-quoted string to block scalar style
+          # Otherwise we get an Exception: com.nimbusds.jose.JOSEException: -----END RSA PRIVATE KEY not found
+          sed -i "s/signingKey: '-----BEGIN RSA PRIVATE KEY-----/signingKey: |\\n            -----BEGIN RSA PRIVATE KEY-----/" jwt_policy_signing_keys.yml
+          sed -i "s/-----END RSA PRIVATE KEY-----'/-----END RSA PRIVATE KEY-----/" jwt_policy_signing_keys.yml
 
           FIXED_VALUE=$(yq -r .login.saml.keys.default_saml_key.key saml_keys.yml | base64 -d)
           yq -Yi ".login.saml.keys.default_saml_key.key|=\"${FIXED_VALUE}\"" saml_keys.yml
