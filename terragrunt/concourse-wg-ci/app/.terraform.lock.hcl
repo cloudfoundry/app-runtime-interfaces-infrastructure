@@ -52,7 +52,7 @@ provider "registry.opentofu.org/hashicorp/kubernetes" {
   ]
 }
 
-provider "registry.opentofu.org/vmware-tanzu/carvel" {
+provider "registry.terraform.io/carvel-dev/carvel" {
   version = "0.11.2"
   hashes = [
     "h1:lpfmYk4NK57c4dBiRvzMQ1ki5GraCT13ChnBXsYZChM=",
@@ -69,13 +69,5 @@ provider "registry.opentofu.org/vmware-tanzu/carvel" {
     "zh:b735a49ebb8efa19b59f617ecb5d7b1bd98b20e340e8bc612867205f46377cbd",
     "zh:c307685c882ddee930e52e9f03e393a0c9eecd1300d5a57dff95fde9c77e7454",
     "zh:c5a06db70fd528baafb492d0507a71a2924e7ebf7a92f3d16da2c2cf76c13edb",
-  ]
-}
-
-provider "registry.terraform.io/vmware-tanzu/carvel" {
-  version     = "0.11.0"
-  constraints = "0.11.0"
-  hashes = [
-    "h1:STVDjE6YLwENYm8+mEY18hlrofEMc8yQvXj2lTeXTU4=",
   ]
 }
