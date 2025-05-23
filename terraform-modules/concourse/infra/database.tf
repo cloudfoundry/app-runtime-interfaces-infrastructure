@@ -4,10 +4,8 @@ resource "google_sql_database_instance" "concourse" {
   project          = var.project
   region           = var.region
 
-  # recommended protection via GCP SQL Instance settings
-  # https://console.cloud.google.com/sql/instances/ -> select instance name -> edit
-  # ->  Data Protection -> tick: Enable delete protection
-  deletion_protection = false
+  # This option prevents Terraform from deleting an instance
+  deletion_protection = true
 
   settings {
     activation_policy = "ALWAYS"
@@ -27,6 +25,8 @@ resource "google_sql_database_instance" "concourse" {
       start_time                     = "00:00"
       transaction_log_retention_days = "7"
     }
+
+    deletion_protection_enabled = "true"
 
     disk_autoresize       = "true"
     disk_autoresize_limit = "0"
