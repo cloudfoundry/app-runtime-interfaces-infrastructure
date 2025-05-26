@@ -20,6 +20,15 @@ Please note the process should be also useful for upgrading major versions.
    ```
    terragrunt run-all plan --terragrunt-source-update
    ```
+   Note: The Cloud SQL database has "automatic storage increases" enabled. So the disk could have grown larger than the initial value from the `config.yaml` file. In that case, Terraform would have to shrink the disk which is not possible. Instead, it tries to destroy the database and recreate it, losing all data including backups:
+   ```
+   STDOUT [infra] tofu: -/+ resource "google_sql_database_instance" "concourse" {
+   STDOUT [infra] tofu:       ~ settings {
+   STDOUT [infra] tofu:           ~ disk_size                    = 44 -> 38 # forces replacement
+   (...)
+   STDOUT [infra] tofu: Plan: 1 to add, 1 to change, 1 to destroy.
+   ```
+   Deletion protection is enabled on Terraform level, so this change could not be applied. To proceed, configure a bigger `sql_instance_disk_size` in the `config.yaml`.
 
 4. Switch to `renovate's` pull request having bumped Concourse helm chart version
    ```

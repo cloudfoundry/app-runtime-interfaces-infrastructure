@@ -118,6 +118,7 @@ resource "google_sql_database_instance" "concourse" {
   # This option prevents Terraform from deleting an instance
   deletion_protection = true
 ```
+Note that if you really want to delete the database, Terraform will not allow this because `deletion_protection = true` is stored in the state. You first have to disable this flag, then run `apply` and then you can run a deletion operation.
 
 In addition, we are setting a flag that enables the "Prevent instance deletion" option from the GCP console:
 ```
