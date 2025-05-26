@@ -32,7 +32,16 @@ Please note the process should be also useful for upgrading major versions.
    ../terragrunt/scripts/concourse/create-sql-backup.sh
    ```
 
-6. Apply roll-out for new Concourse version
+6. Check Cloud SQL "Data Protection" settings
+
+In the GCP console, navigate to:
+https://console.cloud.google.com/sql/instances/ -> select instance name -> edit -> Data Protection
+
+Make sure the following flags are enabled:
+* "Prevent instance deletion"
+* "Retain backups after instance deletion"
+
+7. Apply roll-out for new Concourse version
    ```
    terragrunt run-all apply --terragrunt-source-update
    ```
