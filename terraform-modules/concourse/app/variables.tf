@@ -5,6 +5,7 @@ variable "zone" { nullable = false }
 variable "gke_name" { nullable = false }
 variable "gke_workers_pool_machine_type" { nullable = false }
 variable "gke_workers_pool_node_count" { nullable = false }
+variable "gke_workers_min_available" { nullable = false }
 variable "gke_workers_min_memory" { nullable = false }
 variable "gke_workers_max_memory" { nullable = false }
 variable "gke_default_pool_node_count" { nullable = false }
