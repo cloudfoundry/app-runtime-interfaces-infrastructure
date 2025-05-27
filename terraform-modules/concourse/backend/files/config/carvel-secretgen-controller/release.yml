@@ -44,6 +44,32 @@ spec:
             type: object
           spec:
             properties:
+              dangerousToNamespacesSelector:
+                items:
+                  properties:
+                    key:
+                      description: Property to target the resource for the match.
+                        It supports dot notation.
+                      type: string
+                    operator:
+                      description: Type of comparison.
+                      enum:
+                      - In
+                      - NotIn
+                      - Exists
+                      - DoesNotExist
+                      type: string
+                    values:
+                      description: Values to match on the resource key using the comparison
+                        operator.
+                      items:
+                        type: string
+                      type: array
+                  required:
+                  - key
+                  - operator
+                  type: object
+                type: array
               toNamespace:
                 type: string
               toNamespaces:
@@ -262,8 +288,8 @@ spec:
                     description: 'Data key and value. Where key is the Secret Key
                       and the value is a jsonpath surrounded by $( ). The fetched
                       data MUST be base64 encoded. All InputResources are available
-                      via their identifying name. For example:   key1: $(.secretinput1.data.value1)   key2:
-                      $(.secretinput2.data.value2)'
+                      via their identifying name. For example: key1: $(.secretinput1.data.value1)
+                      key2: $(.secretinput2.data.value2)'
                     type: object
                   metadata:
                     description: Metadata contains metadata for the Secret
@@ -285,8 +311,8 @@ spec:
                     description: 'StringData key and value. Where key is the Secret
                       Key and the value can contain a JSONPATH syntax surrounded by
                       $( ). All InputResources are available via their identifying
-                      name. For example:   key1: static-text   key2: $(.input1.spec.value1)   key3:
-                      combined-$(.input2.status.value2)-$(.input2.status.value3)'
+                      name. For example: key1: static-text key2: $(.input1.spec.value1)
+                      key3: combined-$(.input2.status.value2)-$(.input2.status.value3)'
                     type: object
                   type:
                     description: Type is the type of Kubernetes Secret
@@ -333,6 +359,7 @@ spec:
                       TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+                x-kubernetes-map-type: atomic
             type: object
         required:
         - spec
@@ -395,6 +422,7 @@ spec:
                       TODO: Add other useful fields. apiVersion, kind, uid?'
                     type: string
                 type: object
+                x-kubernetes-map-type: atomic
               commonName:
                 type: string
               duration:
@@ -502,7 +530,14 @@ spec:
             type: object
           spec:
             properties:
+              digits:
+                default: 0
+                type: integer
               length:
+                default: 40
+                type: integer
+              lowercaseLetters:
+                default: 0
                 type: integer
               secretTemplate:
                 properties:
@@ -524,6 +559,15 @@ spec:
                   type:
                     type: string
                 type: object
+              symbolCharSet:
+                default: '!@#$%&*;.:'
+                type: string
+              symbols:
+                default: 0
+                type: integer
+              uppercaseLetters:
+                default: 0
+                type: integer
             type: object
           status:
             properties:
@@ -753,15 +797,15 @@ metadata:
     kbld.k14s.io/images: |
       - origins:
         - local:
-            path: /home/runner/work/carvel-secretgen-controller/carvel-secretgen-controller
+            path: /home/runner/work/secretgen-controller/secretgen-controller
         - git:
             dirty: true
-            remoteURL: https://github.com/vmware-tanzu/carvel-secretgen-controller
-            sha: 7cf938231129673564646d851015d08630307efe
+            remoteURL: https://github.com/carvel-dev/secretgen-controller
+            sha: a9c5d5c66e4f24c3ad97a2bd2ae0c2d661e25e3a
             tags:
-            - v0.10.3
-        url: ghcr.io/vmware-tanzu/carvel-secretgen-controller@sha256:00466d6beb98fdd8aed61642013ea0ba538bb496e84745c8c2e1871fdc54b1a9
-    secretgen-controller.carvel.dev/version: v0.10.3
+            - v0.19.2
+        url: ghcr.io/carvel-dev/secretgen-controller@sha256:cf8524c3d781cffb957421c6f40f19e1980520f79b1898a820b93b5a1bfc8db8
+    secretgen-controller.carvel.dev/version: v0.19.2
   name: secretgen-controller
   namespace: secretgen-controller
 spec:
@@ -776,7 +820,7 @@ spec:
         app: secretgen-controller
     spec:
       containers:
-      - image: ghcr.io/vmware-tanzu/carvel-secretgen-controller@sha256:00466d6beb98fdd8aed61642013ea0ba538bb496e84745c8c2e1871fdc54b1a9
+      - image: ghcr.io/carvel-dev/secretgen-controller@sha256:cf8524c3d781cffb957421c6f40f19e1980520f79b1898a820b93b5a1bfc8db8
         name: secretgen-controller
         resources:
           requests:
@@ -786,9 +830,11 @@ spec:
           allowPrivilegeEscalation: false
           capabilities:
             drop:
-            - all
+            - ALL
           readOnlyRootFilesystem: true
           runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
       serviceAccount: secretgen-controller-sa
 ---
 apiVersion: v1
