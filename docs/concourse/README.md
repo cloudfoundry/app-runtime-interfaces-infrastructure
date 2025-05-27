@@ -111,10 +111,26 @@ terragrunt run-all apply
 ## Recommendations
 ### Cloud SQL Instance deletion protection
 
-Terraform hashicorp provider includes a deletion protection flag however in some cases it's misleading as it's not setting it on Google Cloud.
-To avoid confusion we do not set it in the code and recommend altering your production SQL Instance to protect from the deletion on the cloud side.
+The [database.tf](../../terraform-modules/concourse/infra/database.tf) configuration enables deletion protection on multiple levels. The Terraform hashicorp provider includes a deletion protection flag:
+```
+resource "google_sql_database_instance" "concourse" {
 
-https://console.cloud.google.com/sql/instances/ -> select instance name -> edit ->  Data Protection -> tick: Enable delete protection
+  # This option prevents Terraform from deleting an instance
+  deletion_protection = true
+```
+Note that if you really want to delete the database, Terraform will not allow this because `deletion_protection = true` is stored in the state. You first have to disable this flag, then run `apply` and then you can run a deletion operation.
+
+In addition, we are setting a flag that enables the "Prevent instance deletion" option from the GCP console:
+```
+  settings {
+    deletion_protection_enabled = "true"
+  }
+```
+
+:warning: The option "Retain backups after instance deletion" should also be enabled. There is no Terraform configuration parameter,
+so you have to set it manually in the GCP console:
+
+Cloud SQL -> Instances -> Edit configuration -> Data Protection -> Retain backups after instance deletion
 
 ### End-to-end testing
 
