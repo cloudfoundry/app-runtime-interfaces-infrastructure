@@ -257,9 +257,24 @@ kubectl config current-context
 ## DR scenario
 Please see [DR scenario](disaster_recovery.md) for a fully automated recovery procedure.
 
-
 ## Automated secrets rotation for CloudSQL
 Please see [Secrets Rotation](secrets_rotation.md)
 
 ## Automated regeneration for certificates stored in CredHub
 Please see [Certificate Regeneration](certificate_regeneration.md)
+
+## GKE node migration to Linux cgroupv2
+
+Starting with version 1.33, the Google Kubernetes Engine (GKE) migrates clusters from Linux cgroupv1 to cgroupv2. The migration can be done manually in advance. The general migration procedure is explained on [Migrate nodes to Linux cgroupv2](https://cloud.google.com/kubernetes-engine/docs/how-to/migrate-cgroupv2#autopilot). Note however that we do not use an "Autopilot" GKE cluster, but a "Standard" cluster. The migration for a "Standard" cluster is not fully explained in the Google documentation, so we are documenting it here.
+
+1. Log on to the GKE cluster as explained in [How to obtain GKE credentials for your terminal](<#how-to-obtain-gke-credentials-for-your-terminal>).
+2. Create a system configuration file `cgroupv2.yaml`:
+   ```yaml
+   linuxConfig:
+     cgroupMode: 'CGROUP_MODE_V2'
+   ```
+3. Apply the configuration to the two node pools:
+   ```shell
+   gcloud container node-pools update default-pool --system-config-from-file=./cgroupv2.yaml --region europe-west3-a --cluster wg-ci
+   gcloud container node-pools update concourse-workers --system-config-from-file=./cgroupv2.yaml --region europe-west3-a --cluster wg-ci
+   ```
