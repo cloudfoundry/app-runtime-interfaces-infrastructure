@@ -17,7 +17,7 @@ dns_domain: ci.cloudfoundry.org
 gke_name: wg-ci
 
 # Concourse teams
-concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-approvers\\,cloudfoundry:wg-app-runtime-interfaces-capi-approvers"
+concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-approvers\\,cloudfoundry:wg-app-runtime-interfaces-capi-approvers\\,cloudfoundry:wg-app-runtime-interfaces-buildpacks-node-js-reviewers"
 concourse_github_mainTeamUser: ""
 
 # Concourse worker placement strategy: https://concourse-ci.org/container-placement.html
