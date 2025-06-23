@@ -8,11 +8,10 @@ directories:
   path: config/credhub/_ytt_lib/credhub
 - contents:
   - git:
-      commitTitle: 'build(deps): bump versions.tomcatCargoVersion from 9.0.104 to
-        9.0.105 (#3462)...'
-      sha: 591769505440f82e718afaaefbb429e316e011aa
+      commitTitle: fix more request errors (#3528)
+      sha: cb4422c09b737d09776ffb1cee7019a459006285
       tags:
-      - v77.33.0
+      - v77.35.0
     path: .
   path: config/uaa/_ytt_lib/uaa
 kind: LockConfig
