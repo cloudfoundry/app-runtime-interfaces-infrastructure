@@ -16,7 +16,10 @@ variable "zone" {
   nullable    = false
 }
 
-
+variable "database_version" {
+  nullable = false
+  default  = "POSTGRES_13"
+}
 variable "sql_instance_name" { nullable = false }
 variable "sql_instance_secondary_zone" { nullable = false }
 variable "sql_instance_backup_location" { nullable = false }

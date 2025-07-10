@@ -50,6 +50,7 @@ inputs = {
 
   gke_http_load_balancing_disabled = local.config.gke_http_load_balancing_disabled
 
+  database_version = "POSTGRES_16"
   sql_instance_name = "${local.config.gke_name}-concourse"
   sql_instance_tier = local.config.sql_instance_tier
   sql_instance_disk_size = local.config.sql_instance_disk_size

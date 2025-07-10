@@ -1,5 +1,5 @@
 resource "google_sql_database_instance" "concourse" {
-  database_version = "POSTGRES_13"
+  database_version = var.database_version
   name             = var.sql_instance_name
   project          = var.project
   region           = var.region
@@ -32,6 +32,8 @@ resource "google_sql_database_instance" "concourse" {
     disk_autoresize_limit = "0"
     disk_size             = var.sql_instance_disk_size
     disk_type             = "PD_SSD"
+
+    edition = "ENTERPRISE"
 
     ip_configuration {
       ipv4_enabled = "true"
