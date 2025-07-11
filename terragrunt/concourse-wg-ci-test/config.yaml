@@ -59,6 +59,7 @@ fly_target: ari-test
 # In most cases settings below are safe to keep as defaults
 # ---------------------------------------------------------
 # SQL
+database_version: "POSTGRES_16"
 sql_instance_tier: db-custom-1-4096
 sql_instance_backup_location: eu
 sql_instance_disk_size: 38
