@@ -278,3 +278,7 @@ Starting with version 1.33, the Google Kubernetes Engine (GKE) migrates clusters
    gcloud container node-pools update default-pool --system-config-from-file=./cgroupv2.yaml --region europe-west3-a --cluster wg-ci
    gcloud container node-pools update concourse-workers --system-config-from-file=./cgroupv2.yaml --region europe-west3-a --cluster wg-ci
    ```
+
+## Region Migration Guide
+
+Some regions are more expensive than others. For cost saving reasons, you can migrate the Concourse deployment to a different region. See [Region Change Guide](region_change.md) for detailed instructions.
