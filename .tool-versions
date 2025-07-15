@@ -4,7 +4,7 @@ helm 3.18.4
 kapp 0.64.2
 kubectl 1.33.2
 python 3.13.5
-terraform 1.12.0
+terraform 1.12.2
 terraform-lsp 0.0.12
 terragrunt 0.78.4
 vendir 0.44.0
