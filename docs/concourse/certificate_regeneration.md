@@ -17,7 +17,7 @@ certificates_to_regenerate: "/concourse/main/cert_1,/concourse/main/cert_2"
 
 Next, change to the directory `terragrunt/<concourse-instance>/automatic_certificate_regeneration` and call
 ```
-terragrunt apply --terragrunt-config cert_regen.hcl
+terragrunt apply --config=cert_regen.hcl
 ```
 You should see that Terraform creates a new resource:
 ```
@@ -65,5 +65,5 @@ The (self-signed) CA would be regenerated first and then the two certificates wo
 
 To delete the CronJob, change to the directory `terragrunt/<concourse-instance>/automatic_certificate_regeneration` and call
 ```
-terragrunt destroy --terragrunt-config cert_regen.hcl
+terragrunt destroy --config=cert_regen.hcl
 ```

@@ -3,6 +3,7 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
 
 ## Prerequisites
 - Access to the GCP account and the GKE cluster in the current region.
+- You have the "Owner" role in the GCP project ("Editor" is not sufficient).
 - "pg_dump" v16 is installed on the local machine.
 
 ## Backup Secrets and Databases
@@ -30,7 +31,7 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
    ```
    Copy the file from the pod to the local machine:
    ```bash
-   kubectl -n concourse cp credhub-cli-<id>:/credhub_backup.json credhub_backup.json
+   kubectl -n default cp credhub-cli-<id>:/go/credhub_backup.json credhub_backup.json
    ```
    :warning: The file `credhub_backup.json` contains sensitive data in plaintext, so handle it with care and delete it after the migration.
 
@@ -59,6 +60,11 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
    ```yaml
    gke_controlplane_version: "1.31"
    ```
+1. Revert the changes in the Terraform files:
+   - In `terraform-modules/concourse/dr_create/credhub_encryption_key.tf`, uncomment the "lifecycle" block.
+   - Uncomment module "assertion_encryption_key_identical" (if you commented it before).
+   - In `terraform-modules/concourse/infra/database.tf`, set `deletion_protection` and `deletion_protection_enabled` to `true`.
+   - In `terraform-modules/concourse/infra/gke_cluster.tf`, remove `deletion_protection = false`.
 1. Now you can check the Terraform plan:
    ```bash
    terragrunt run-all plan
@@ -68,20 +74,43 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
    ```bash
    terragrunt run-all apply
    ```
-1. To make the "e2e_test" pass, you must log on with the fly CLI and run the "apply" step again:
+1. Only for wg-ci-test: To make the "e2e_test" pass, you must log on with the fly CLI and run the "apply" step again:
    ```bash
    fly -t wg-ci-test login -c https://concourse-test.app-runtime-interfaces.ci.cloudfoundry.org
    ```
+1. Refresh your `kubectl` context to the new region:
+   ```bash
+   gcloud container clusters get-credentials wg-ci[-test] --region us-east1-b
+   ```
 1. Log on to CredHub with the [start-credhub-cli.sh](../../terragrunt/scripts/concourse/start-credhub-cli.sh) script. Copy the credential backup file from to the pod:
    ```bash
-   kubectl -n concourse cp credhub_backup.json credhub-cli-<id>:/credhub_backup.json
+   kubectl -n default cp credhub_backup.json credhub-cli-<id>:/go/credhub_backup.json
    ```
    Then import all data:
    ```bash
    credhub import -j -f credhub_backup.json
    ```
 1. Restart the Cloud SQL Auth Proxy with the new "Connection name".
+1. Stop the "web" pod:
+   ```bash
+   kubectl -n concourse scale deployment concourse-web --replicas=0
+   ```
+1. Retrieve the new database password:
+   ```bash
+   kubectl -n concourse get secret concourse-postgresql-password -o yaml | yq -r .data.password | base64 -d
+   ```
+1. Drop the existing "concourse" database:
+   ```bash
+   psql -h 127.0.0.1 -p 5432 -U concourse -d postgres
+   DROP DATABASE concourse;
+   CREATE DATABASE concourse;
+   ```
 1. Restore the Concourse database from the backup:
    ```bash
    psql -h 127.0.0.1 -p 5432 -U concourse -d concourse -f concourse_backup.sql
+   ```
+   There should be no errors like "relation already exists" or constraint violations.
+1. Restart the "web" pod:
+   ```bash
+   kubectl -n concourse scale deployment concourse-web --replicas=1
    ```
