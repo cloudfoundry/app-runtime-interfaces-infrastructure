@@ -47,11 +47,14 @@ tf_modules:
 # ---------------------------------------------------------
 # SQL
 database_version: "POSTGRES_16"
+db_terraform_deletion_protection: true
+db_engine_level_deletion_protection: true
 sql_instance_tier: db-custom-1-4096
 sql_instance_backup_location: eu
 sql_instance_disk_size: 38
 
 # Other GKE vars
+gke_deletion_protection : true
 gke_controlplane_version: "1.31"
 gke_cluster_ipv4_cidr: 10.104.0.0/14
 gke_services_ipv4_cidr_block: 10.108.0.0/20
@@ -76,6 +79,8 @@ gke_cloud_nat_min_ports_per_vm: 16384
 
 # provisioning of loadbalancers
 gke_http_load_balancing_disabled: false
+
+credhub_secret_prevent_destroy: true
 
 # IAM
 wg_ci_human_account_permissions: [
