@@ -31,7 +31,7 @@ resource "google_secret_manager_secret_version" "credhub_encryption_key" {
   secret      = google_secret_manager_secret.credhub_encryption_key.id
   secret_data = base64decode(data.kubernetes_secret_v1.credhub_encryption_key.binary_data.password)
   lifecycle {
-    prevent_destroy = true
+    prevent_destroy = var.credhub_secret_prevent_destroy
 
     # If omitted or unset terraform destroys previous versions which will make it impossible to
     # restore them. This is relevant in case of a desaster recovery where the

@@ -20,6 +20,28 @@ variable "database_version" {
   nullable = false
   default  = "POSTGRES_13"
 }
+
+variable "db_terraform_deletion_protection" {
+  description = "Enable deletion protection for the Cloud SQL instance via Terraform/GCP API"
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
+variable "db_engine_level_deletion_protection" {
+  description = "Enable engine-level deletion protection for Cloud SQL"
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
+variable "gke_deletion_protection" {
+  description = "Enable deletion protection for the GKE cluster"
+  type        = bool
+  default     = true
+  nullable    = false
+}
+
 variable "sql_instance_name" { nullable = false }
 variable "sql_instance_secondary_zone" { nullable = false }
 variable "sql_instance_backup_location" { nullable = false }

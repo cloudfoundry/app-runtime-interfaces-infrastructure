@@ -36,11 +36,13 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
    :warning: The file `credhub_backup.json` contains sensitive data in plaintext, so handle it with care and delete it after the migration.
 
 ## Destroy the Current Concourse Deployment
-1. Open file `terraform-modules/concourse/dr_create/credhub_encryption_key.tf`.
-1.1 In resource "google_secret_manager_secret_version", comment the "lifecycle" block (to disable `prevent_destroy = true`).
-1.1 Comment module "assertion_encryption_key_identical" (if you receive `Error: Unsupported OpenTofu Core version`).
-1. In `terraform-modules/concourse/infra/database.tf`, set `deletion_protection` and `deletion_protection_enabled` to `false`.
-1. In `terraform-modules/concourse/infra/gke_cluster.tf` add `deletion_protection = false` (the default is `true`).
+1. Credhub secret deletion prevention
+
+   1.1 In `config.yaml` set `credhub_secret_prevent_destroy` to `false` (the default is `true`).
+
+   1.1 Open file `terraform-modules/concourse/dr_create/credhub_encryption_key.tf` Comment module "assertion_encryption_key_identical" (if you receive `Error: Unsupported OpenTofu Core version`).
+1. In `config.yaml`, set `db_terraform_deletion_protection` and `db_engine_level_deletion_protection` to `false` (the default is `true`).
+1. In `config.yaml` set `gke_deletion_protection` to `false` (the default is `true`).
 1. Go to folder `terragrunt/concourse-wg-ci[-test]/infra` and run `terragrunt apply`. This updates the deletion protection settings for the Cloud SQL database and the GKE cluster.
 1. Go to folder `terragrunt/concourse-wg-ci[-test]`. Run `terragrunt run-all plan -destroy` to see what will be destroyed.
 1. If there were no errors, run `terragrunt run-all destroy` to destroy the Concourse deployment in the current region.
@@ -61,10 +63,10 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
    gke_controlplane_version: "1.31"
    ```
 1. Revert the changes in the Terraform files:
-   - In `terraform-modules/concourse/dr_create/credhub_encryption_key.tf`, uncomment the "lifecycle" block.
+   - In `config.yaml` set `credhub_secret_prevent_destroy` to `true`.
    - Uncomment module "assertion_encryption_key_identical" (if you commented it before).
-   - In `terraform-modules/concourse/infra/database.tf`, set `deletion_protection` and `deletion_protection_enabled` to `true`.
-   - In `terraform-modules/concourse/infra/gke_cluster.tf`, remove `deletion_protection = false`.
+   - In `config.yaml`, set `db_terraform_deletion_protection` and `db_engine_level_deletion_protection` to `true`.
+   - In `config.yaml`, set `gke_deletion_protection` to `true`.
 1. Now you can check the Terraform plan:
    ```bash
    terragrunt run-all plan

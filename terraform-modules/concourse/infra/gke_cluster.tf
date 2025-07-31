@@ -104,4 +104,6 @@ resource "google_container_cluster" "wg_ci" {
     enabled = "true"
   }
 
+  deletion_protection = var.gke_deletion_protection
+
 }

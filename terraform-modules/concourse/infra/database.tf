@@ -5,7 +5,7 @@ resource "google_sql_database_instance" "concourse" {
   region           = var.region
 
   # This option prevents Terraform from deleting an instance
-  deletion_protection = true
+  deletion_protection = var.db_terraform_deletion_protection
 
   settings {
     activation_policy = "ALWAYS"
@@ -26,7 +26,7 @@ resource "google_sql_database_instance" "concourse" {
       transaction_log_retention_days = "7"
     }
 
-    deletion_protection_enabled = "true"
+    deletion_protection_enabled = var.db_engine_level_deletion_protection
 
     disk_autoresize       = "true"
     disk_autoresize_limit = "0"
