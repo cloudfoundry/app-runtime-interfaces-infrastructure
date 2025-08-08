@@ -80,7 +80,6 @@ gke_cloud_nat_min_ports_per_vm: 16384
 # provisioning of loadbalancers
 gke_http_load_balancing_disabled: false
 
-credhub_secret_prevent_destroy: true
 
 # IAM
 wg_ci_human_account_permissions: [
