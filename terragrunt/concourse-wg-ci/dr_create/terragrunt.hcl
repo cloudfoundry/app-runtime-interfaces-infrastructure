@@ -35,5 +35,4 @@ inputs = {
   zone    = local.config.zone
 
   gke_name = local.config.gke_name
-  credhub_secret_prevent_destroy = local.config.credhub_secret_prevent_destroy
 }
