@@ -22,3 +22,9 @@ variable "concourse_max_days_to_retain_build_logs" {
   type        = number
   default     = null
 }
+
+variable "concourse_max_build_logs_to_retain" {
+  description = "Optional: Max build logs to retain in Concourse"
+  type        = number
+  default     = null
+}
