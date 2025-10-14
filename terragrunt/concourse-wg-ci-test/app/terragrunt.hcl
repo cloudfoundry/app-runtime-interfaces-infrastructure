@@ -52,4 +52,6 @@ inputs = {
   concourse_github_mainTeam = local.config.concourse_github_mainTeam
   concourse_github_mainTeamUser = local.config.concourse_github_mainTeamUser
   concourse_container_placement_strategy = local.config.concourse_container_placement_strategy
+  concourse_max_days_to_retain_build_logs = local.config.concourse_max_days_to_retain_build_logs
+  concourse_max_build_logs_to_retain = local.config.concourse_max_build_logs_to_retain
 }

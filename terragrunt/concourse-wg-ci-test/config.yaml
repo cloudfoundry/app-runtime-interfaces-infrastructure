@@ -23,6 +23,12 @@ concourse_github_mainTeamUser: ""
 # Concourse worker placement strategy: https://concourse-ci.org/container-placement.html
 # Use default strategy for test system
 concourse_container_placement_strategy: "volume-locality"
+# Optional: Set the maximum number of days to retain Concourse build logs.
+# If not set, the default Concourse is configured to feel very snappy!.
+concourse_max_days_to_retain_build_logs: 30
+# Optional: Set the maximum number of build logs to retain.
+# If not set or set to 0, the default Concourse is configured to feel very snappy!.
+concourse_max_build_logs_to_retain: 200
 
 # Concourse helm chart
 concourse_helm_version: "18.1.1"

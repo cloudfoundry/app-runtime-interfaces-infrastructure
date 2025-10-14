@@ -55,6 +55,22 @@ data "helm_template" "concourse" {
     name = "concourse.worker.runtime"
     value = "containerd"
   }
+
+  dynamic "set" {
+    for_each = var.concourse_max_days_to_retain_build_logs != null ? [1] : []
+    content {
+      name  = "concourse.web.maxDaysToRetainBuildLogs"
+      value = var.concourse_max_days_to_retain_build_logs
+    }
+  }
+
+  dynamic "set" {
+    for_each = var.concourse_max_build_logs_to_retain != null ? [1] : []
+    content {
+      name  = "concourse.web.maxBuildLogsToRetain"
+      value = var.concourse_max_build_logs_to_retain
+    }
+  }
 }
 
 data "carvel_ytt" "concourse_app" {

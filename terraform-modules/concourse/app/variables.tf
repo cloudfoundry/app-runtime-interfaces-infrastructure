@@ -16,3 +16,15 @@ variable "concourse_container_placement_strategy" { nullable = false }
 
 variable "load_balancer_ip" { nullable = false }
 variable "load_balancer_dns" { nullable = false }
+
+variable "concourse_max_days_to_retain_build_logs" {
+  description = "Optional: Max days to retain build logs in Concourse"
+  type        = number
+  default     = null
+}
+
+variable "concourse_max_build_logs_to_retain" {
+  description = "Optional: Max build logs to retain in Concourse"
+  type        = number
+  default     = null
+}
