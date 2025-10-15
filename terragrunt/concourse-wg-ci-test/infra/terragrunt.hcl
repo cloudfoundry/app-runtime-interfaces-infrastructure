@@ -30,6 +30,7 @@ inputs = {
   zone    = local.config.zone
 
   gke_name = local.config.gke_name
+  gke_deletion_protection = local.config.gke_deletion_protection
   gke_controlplane_version = local.config.gke_controlplane_version
   gke_cluster_ipv4_cidr = local.config.gke_cluster_ipv4_cidr
   gke_services_ipv4_cidr_block = local.config.gke_services_ipv4_cidr_block
@@ -51,6 +52,8 @@ inputs = {
   gke_http_load_balancing_disabled = local.config.gke_http_load_balancing_disabled
 
   database_version = local.config.database_version
+  db_terraform_deletion_protection = local.config.db_terraform_deletion_protection
+  db_engine_level_deletion_protection = local.config.db_engine_level_deletion_protection
   sql_instance_name = "${local.config.gke_name}-concourse"
   sql_instance_tier = local.config.sql_instance_tier
   sql_instance_disk_size = local.config.sql_instance_disk_size
