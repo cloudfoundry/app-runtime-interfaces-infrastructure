@@ -8,10 +8,10 @@ directories:
   path: config/credhub/_ytt_lib/credhub
 - contents:
   - git:
-      commitTitle: fix more request errors (#3528)
-      sha: cb4422c09b737d09776ffb1cee7019a459006285
+      commitTitle: Change nonce and state to length 22 (#3645)...
+      sha: cedec71e6305f3461d4eb68166a97bfbed3236a7
       tags:
-      - v77.35.0
+      - v78.5.0
     path: .
   path: config/uaa/_ytt_lib/uaa
 kind: LockConfig
