@@ -3,74 +3,62 @@ data "helm_template" "concourse" {
   repository  = "https://concourse-charts.storage.googleapis.com/"
   chart       = "concourse"
   version     = var.concourse_helm_version
-  values      = ["${file("files/${var.gke_workers_pool_machine_type}.yml")}"]
+  values      = [file("files/${var.gke_workers_pool_machine_type}.yml")]
 
-  set {
-    name  = "concourse.web.externalUrl"
-    value = "https://${var.load_balancer_dns}"
-  }
-
-  set {
-    name  = "web.service.api.loadBalancerIP"
-    value = var.load_balancer_ip
-  }
-
-  set {
-    name  = "concourse.web.auth.mainTeam.github.team"
-    value = var.concourse_github_mainTeam
-  }
-
-  set {
-    name  = "concourse.web.auth.mainTeam.github.user"
-    value = var.concourse_github_mainTeamUser
-  }
-
-  set {
-    # For security reasons, remove any local users
-    name  = "concourse.web.auth.mainTeam.localUser"
-    value = ""
-  }
-
-  set {
-    name = "concourse.web.containerPlacementStrategy"
-    value = var.concourse_container_placement_strategy
-  }
-
-  set {
-    name = "worker.replicas"
-    value = var.gke_workers_pool_node_count
-  }
-
-  set {
-    name = "worker.resources.requests.memory"
-    value = var.gke_workers_min_memory
-  }
-
-  set {
-    name = "web.replicas"
-    value = var.gke_default_pool_node_count
-  }
-
-  set {
-    name = "concourse.worker.runtime"
-    value = "containerd"
-  }
-
-  dynamic "set" {
-    for_each = var.concourse_max_days_to_retain_build_logs != null ? [1] : []
-    content {
+  # Provider version selected expects 'set' as an argument list of maps
+  set = concat([
+    {
+      name  = "concourse.web.externalUrl"
+      value = "https://${var.load_balancer_dns}"
+    },
+    {
+      name  = "web.service.api.loadBalancerIP"
+      value = var.load_balancer_ip
+    },
+    {
+      name  = "concourse.web.auth.mainTeam.github.team"
+      value = var.concourse_github_mainTeam
+    },
+    {
+      name  = "concourse.web.auth.mainTeam.github.user"
+      value = var.concourse_github_mainTeamUser
+    },
+    {
+      # For security reasons, remove any local users
+      name  = "concourse.web.auth.mainTeam.localUser"
+      value = ""
+    },
+    {
+      name  = "concourse.web.containerPlacementStrategy"
+      value = var.concourse_container_placement_strategy
+    },
+    {
+      name  = "worker.replicas"
+      value = var.gke_workers_pool_node_count
+    },
+    {
+      name  = "worker.resources.requests.memory"
+      value = var.gke_workers_min_memory
+    },
+    {
+      name  = "web.replicas"
+      value = var.gke_default_pool_node_count
+    },
+    {
+      name  = "concourse.worker.runtime"
+      value = "containerd"
+    }
+  ], var.concourse_max_days_to_retain_build_logs != null ? [
+    {
       name  = "concourse.web.maxDaysToRetainBuildLogs"
       value = var.concourse_max_days_to_retain_build_logs
     }
-  }
-
-  dynamic "set" {
-    for_each = var.concourse_max_build_logs_to_retain != null ? [1] : []
-    content {
+  ] : [], var.concourse_max_build_logs_to_retain != null ? [
+    {
       name  = "concourse.web.maxBuildLogsToRetain"
       value = var.concourse_max_build_logs_to_retain
     }
-  }
+  ] : [])
 }
 
 data "carvel_ytt" "concourse_app" {

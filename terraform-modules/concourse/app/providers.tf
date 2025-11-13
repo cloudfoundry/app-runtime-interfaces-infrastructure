@@ -4,7 +4,15 @@ terraform {
       source = "hashicorp/google"
     }
     carvel = {
-      source = "registry.terraform.io/carvel-dev/carvel"
+      source = "carvel-dev/carvel"
+    }
+    helm = {
+      source  = "hashicorp/helm"
+      version = ">= 3.0.0"
+    }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = ">= 2.15.0"
     }
   }
 }
@@ -34,9 +42,11 @@ provider "carvel" {
 }
 
 provider "helm" {
-  kubernetes {
-    host  = "https://${data.google_container_cluster.wg_ci.endpoint}"
-    token = data.google_client_config.provider.access_token
+  # Using argument map style due to provider version resolution picking a schema
+  # that expects "kubernetes" as an argument rather than a nested block.
+  kubernetes = {
+    host                   = "https://${data.google_container_cluster.wg_ci.endpoint}"
+    token                  = data.google_client_config.provider.access_token
     cluster_ca_certificate = base64decode(data.google_container_cluster.wg_ci.master_auth[0].cluster_ca_certificate)
   }
 }
