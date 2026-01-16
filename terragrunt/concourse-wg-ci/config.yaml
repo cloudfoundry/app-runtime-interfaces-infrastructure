@@ -76,8 +76,8 @@ gke_default_pool_ssd_count: 0
 gke_workers_pool_machine_type: n2-standard-4
 gke_workers_min_memory: 4Gi
 gke_workers_max_memory: 12Gi
-gke_workers_pool_node_count: 4
-gke_workers_pool_autoscaling_max: 4
+gke_workers_pool_node_count: 6
+gke_workers_pool_autoscaling_max: 6
 gke_workers_pool_ssd_count: 1
 
 # low number of preallocated ports will impact networking for heavy concourse pipelines
