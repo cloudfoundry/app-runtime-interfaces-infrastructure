@@ -55,7 +55,7 @@ tf_modules:
 database_version: "POSTGRES_16"
 db_terraform_deletion_protection: true
 db_engine_level_deletion_protection: true
-sql_instance_tier: db-custom-1-4096
+sql_instance_tier: db-custom-2-8192
 sql_instance_backup_location: eu
 sql_instance_disk_size: 38
 
