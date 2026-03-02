@@ -28,3 +28,9 @@ variable "concourse_max_build_logs_to_retain" {
   type        = number
   default     = null
 }
+
+variable "concourse_enable_redact_secrets" {
+  description = "Optional: Enable redacting secrets in build logs"
+  type        = bool
+  default     = null
+}
