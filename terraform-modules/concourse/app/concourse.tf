@@ -58,6 +58,11 @@ data "helm_template" "concourse" {
       name  = "concourse.web.maxBuildLogsToRetain"
       value = var.concourse_max_build_logs_to_retain
     }
+  ] : [], var.concourse_enable_redact_secrets != null ? [
+    {
+      name  = "concourse.web.enableRedactSecrets"
+      value = var.concourse_enable_redact_secrets
+    }
   ] : [])
 }
 
