@@ -27,6 +27,12 @@ kind: Password
 metadata:
   name: #@ name + "-postgresql-password"
   namespace: concourse
+spec:
+  length: 32
+  digits: 8
+  uppercaseLetters: 8
+  lowercaseLetters: 16
+  symbols: 0
 #@ end
 
 --- #@ template.replace(add_database_user("concourse"))
