@@ -4,10 +4,10 @@ data "carvel_ytt" "sqlproxy" {
     "files/config/cloud_sql_proxy",
   ]
   values = {
-    "google.project_id"       = var.project
-    "google.region"           = var.region
-    "database.instance"       = var.sql_instance_name
-    "sql_proxy_account.name"  = "${var.gke_name}-sql-proxy"
+    "google.project_id"      = var.project
+    "google.region"          = var.region
+    "database.instance"      = var.sql_instance_name
+    "sql_proxy_account.name" = "${var.gke_name}-sql-proxy"
   }
 }
 
