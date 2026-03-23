@@ -13,10 +13,10 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    bucket         = "${local.config.gcs_bucket}"
-    prefix         = "${local.config.gcs_prefix}/concourse-backend"
-    project        = "${local.config.project}"
-    location       = "${local.config.region}"
+    bucket   = local.config.gcs_bucket
+    prefix   = "${local.config.gcs_prefix}/concourse-backend"
+    project  = local.config.project
+    location = local.config.region
     # use for uniform bucket-level access
     # (https://cloud.google.com/storage/docs/uniform-bucket-level-access)
     enable_bucket_policy_only = false
