@@ -1,8 +1,8 @@
 resource "google_service_account" "sql_proxy" {
-  account_id  = "${var.gke_name}-sql-proxy"
+  account_id   = "${var.gke_name}-sql-proxy"
   display_name = "Used by Cloud SQL Auth proxy [${var.gke_name}]"
-  disabled    = "false"
-  project     = var.project
+  disabled     = "false"
+  project      = var.project
 }
 
 resource "google_service_account_iam_member" "sql_proxy" {
@@ -14,7 +14,7 @@ resource "google_service_account_iam_member" "sql_proxy" {
 resource "google_project_iam_member" "sql_proxy" {
   project = var.project
   member  = "serviceAccount:${google_service_account.sql_proxy.email}"
-  role = "roles/cloudsql.client"
+  role    = "roles/cloudsql.client"
 
 }
 
@@ -29,5 +29,5 @@ resource "kubectl_manifest" "sql_proxy_service_account" {
        iam.gke.io/gcp-service-account: ${google_service_account.sql_proxy.email}
   YAML
 
-  depends_on = [data.google_container_cluster.wg_ci, google_service_account.sql_proxy, kubectl_manifest.config_connector, kubernetes_namespace.concourse ]
+  depends_on = [google_service_account.sql_proxy, kubectl_manifest.config_connector, kubernetes_namespace.concourse]
 }
