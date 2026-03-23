@@ -18,7 +18,7 @@ Please note the process should be also useful for upgrading major versions.
 
 3. Confirm there are no pending changes for the Concourse stack
    ```
-   terragrunt run-all plan --terragrunt-source-update
+   terragrunt run --all plan --source-update
    ```
    Note: The Cloud SQL database has "automatic storage increases" enabled. So the disk could have grown larger than the initial value from the `config.yaml` file. In that case, Terraform would have to shrink the disk which is not possible. Instead, it tries to destroy the database and recreate it, losing all data including backups:
    ```
@@ -52,7 +52,7 @@ Make sure the following flags are enabled:
 
 7. Apply roll-out for new Concourse version
    ```
-   terragrunt run-all apply --terragrunt-source-update
+   terragrunt run --all apply --source-update
    ```
 
 At this point depending on your use case:
@@ -67,7 +67,7 @@ At this point depending on your use case:
 3. For `wg-ci-test` cluster: execute end-to-end test
    ```
    cd e2e_test
-   terragrunt apply --terragrunt-source-update
+   terragrunt apply --source-update
    cd ..
    ```
 
@@ -85,8 +85,8 @@ To guarantee SQL databases consistency delete Concourse deployment and restore S
 
 3. Run Concourse stack deployment
    ```
-   terragrunt run-all plan
-   terragrunt run-all apply
+   terragrunt run --all plan
+   terragrunt run --all apply
    ```
 
 4. Set back to the previous version of the `fly` binary
