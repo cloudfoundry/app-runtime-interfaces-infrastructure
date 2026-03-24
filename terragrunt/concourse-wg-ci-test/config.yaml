@@ -21,14 +21,16 @@ concourse_github_mainTeam: "cloudfoundry:wg-app-runtime-interfaces-autoscaler-ap
 concourse_github_mainTeamUser: ""
 
 # Concourse worker placement strategy: https://concourse-ci.org/container-placement.html
-# Use default strategy for test system
-concourse_container_placement_strategy: "volume-locality"
+# The cloud controller unit tests cause a high system load on workers, so place them on workers with few containers
+concourse_container_placement_strategy: "fewest-build-containers"
 # Optional: Set the maximum number of days to retain Concourse build logs.
 # If not set, the default Concourse is configured to feel very snappy!.
 concourse_max_days_to_retain_build_logs: 30
 # Optional: Set the maximum number of build logs to retain.
 # If not set or set to 0, the default Concourse is configured to feel very snappy!.
 concourse_max_build_logs_to_retain: 200
+
+concourse_enable_redact_secrets: true
 
 # Concourse helm chart
 concourse_helm_version: "18.1.1"
@@ -74,7 +76,7 @@ sql_instance_disk_size: 38
 
 # Other GKE vars
 gke_deletion_protection : true
-gke_controlplane_version: "1.31"
+gke_controlplane_version: "1.34"
 gke_cluster_ipv4_cidr: 10.104.0.0/14
 gke_services_ipv4_cidr_block: 10.108.0.0/20
 gke_master_ipv4_cidr_block: 172.16.0.32/28

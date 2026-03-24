@@ -3,7 +3,7 @@
 # Plan/apply terragrunt for changes to modules
 Update your terragrunt cache folders when terraform source modules code would change
 ```sh
-terragrunt run-all plan --terragrunt-source-update
+terragrunt run --all plan --source-update
 ```
 
 ## Upgrade components managed by kapp and vendir (when needed)
