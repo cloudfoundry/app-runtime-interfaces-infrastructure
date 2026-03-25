@@ -33,12 +33,12 @@ Please note the process should be also useful for upgrading major versions.
 4. Switch to `renovate's` pull request having bumped Concourse helm chart version
    ```
    git pull
-   git checkout renovate/concourse-17.x
+   git checkout origin/renovate/concourse-20.x
    ```
 
 5. Create on-demand SQL instance backup
    ```
-   ../terragrunt/scripts/concourse/create-sql-backup.sh
+   ../scripts/concourse/create-sql-backup.sh
    ```
 
 6. Check Cloud SQL "Data Protection" settings
@@ -57,7 +57,10 @@ Make sure the following flags are enabled:
 
 At this point depending on your use case:
 
-1. Update `fly` to new minor version i.e. change the version in `.tool-versions` and run `asdf install`
+1. Update `fly` to new minor version. Check for a `renovate` pull request that updates the version in `.tool-versions` file and switch to it:
+   ```
+   git checkout origin/renovate/concourse-concourse-8.x
+   ```
 
 2. Login to the new Concourse
    ```
