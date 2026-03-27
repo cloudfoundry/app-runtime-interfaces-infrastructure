@@ -45,6 +45,23 @@ spec:
       #@overlay/match missing_ok=True
       #@overlay/merge
       initContainers:
+      - name: wait-for-uaa
+        image: curlimages/curl:latest
+        command:
+        - sh
+        - -c
+        - |
+          MAX_RETRIES=35
+          for i in $(seq 1 $MAX_RETRIES); do
+            if curl -f -s --connect-timeout 3 --max-time 5 http://uaa.concourse.svc.cluster.local:8080/healthz > /dev/null; then
+              echo "UAA is ready!"
+              exit 0
+            fi
+            echo "Waiting for UAA... (attempt $i/$MAX_RETRIES)"
+            sleep 5
+          done
+          echo "ERROR: Timeout waiting for UAA after $((MAX_RETRIES * 5)) seconds.  UAA is not ready!"
+          exit 1
       - name: fix-secrets
         image: linuxserver/yq:amd64-latest
         command:
