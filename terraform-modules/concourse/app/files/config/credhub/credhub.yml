@@ -82,7 +82,7 @@ spec:
       #@overlay/match by=overlay.subset({"name": "credhub-server"})
       #@overlay/merge
       - name: credhub-server
-        image: pcfseceng/credhub:latest
+        image: pcfseceng/credhub:2.15.3
         env:
         #@overlay/append
         - name: CREDHUB_POSTGRES_HOST
