@@ -44,8 +44,8 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
 1. In `config.yaml`, set `db_terraform_deletion_protection` and `db_engine_level_deletion_protection` to `false` (the default is `true`).
 1. In `config.yaml` set `gke_deletion_protection` to `false` (the default is `true`).
 1. Go to folder `terragrunt/concourse-wg-ci[-test]/infra` and run `terragrunt apply`. This updates the deletion protection settings for the Cloud SQL database and the GKE cluster.
-1. Go to folder `terragrunt/concourse-wg-ci[-test]`. Run `terragrunt run-all plan -destroy` to see what will be destroyed.
-1. If there were no errors, run `terragrunt run-all destroy` to destroy the Concourse deployment in the current region.
+1. Go to folder `terragrunt/concourse-wg-ci[-test]`. Run `terragrunt run --all plan -destroy` to see what will be destroyed.
+1. If there were no errors, run `terragrunt run --all destroy` to destroy the Concourse deployment in the current region.
 
 ## Recreate the Concourse Deployment
 1. In the `config.yaml`, change the project's region and zones. Example for `us-east1`:
@@ -69,12 +69,12 @@ For cost saving reasons, you can migrate the Concourse deployment to a different
    - In `config.yaml`, set `gke_deletion_protection` to `true`.
 1. Now you can check the Terraform plan:
    ```bash
-   terragrunt run-all plan
+   terragrunt run --all plan
    ```
 1. If you see `Error: Unsupported OpenTofu Core version`, comment module "assertion_encryption_key_identical".
 1. If there are no errors, apply the changes:
    ```bash
-   terragrunt run-all apply
+   terragrunt run --all apply
    ```
 1. Only for wg-ci-test: To make the "e2e_test" pass, you must log on with the fly CLI and run the "apply" step again:
    ```bash

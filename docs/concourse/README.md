@@ -96,12 +96,12 @@ The following command needs to be run from within your root directory (containin
 
 *NOTE: it's not possible to `plan` for a fresh project due to the fact we can't test kubernetes resources against non-existing cluster*
 
-*NOTE: `terragrunt run-all` commands **do not** show changes before applying*
+*NOTE: `terragrunt run --all` commands **do not** show changes before applying*
 
-*NOTE: If you need to update the providers, run `terragrunt run-all init -upgrade`
+*NOTE: If you need to update the providers, run `terragrunt run --all init -upgrade`
 
 ```sh
-terragrunt run-all apply
+terragrunt run --all apply
 ```
 
 #### 5. Configure your local kubectl afterwards
@@ -220,7 +220,7 @@ gcloud secrets delete <gke_name>-credhub-encryption-key --project=<your project 
 
 To destroy:
 ```
-terragrunt run-all destroy
+terragrunt run --all destroy
 ```
 
 Delete terraform state gcp bucket from GCP console or via `gsutil`
