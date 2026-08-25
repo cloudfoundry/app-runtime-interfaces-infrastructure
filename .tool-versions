@@ -2,7 +2,7 @@ concourse 8.1.1
 gcloud 561.0.0
 helm 3.20.1
 opentofu 1.11.5
-kapp 0.65.1
+kapp 0.65.4
 kubectl 1.35.3
 python 3.14.3
 terraform-lsp 0.0.12
