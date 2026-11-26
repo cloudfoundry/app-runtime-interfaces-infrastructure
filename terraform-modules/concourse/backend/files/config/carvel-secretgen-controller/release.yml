@@ -87,7 +87,7 @@ spec:
                         last transition.
                       type: string
                     reason:
-                      description: Unique, this should be a short, machine understandable
+                      description: Unique; this should be a short, machine-understandable
                         string that gives the reason for condition's last transition.
                         If it reports "ResizeStarted" that means the underlying persistent
                         volume is being resized.
@@ -167,7 +167,7 @@ spec:
                         last transition.
                       type: string
                     reason:
-                      description: Unique, this should be a short, machine understandable
+                      description: Unique; this should be a short, machine-understandable
                         string that gives the reason for condition's last transition.
                         If it reports "ResizeStarted" that means the underlying persistent
                         volume is being resized.
@@ -243,8 +243,8 @@ spec:
                   order they are defined. An Input resource's name can be evaluated
                   dynamically from data in a previously evaluated input resource.
                 items:
-                  description: InputResource is references a single Kubernetes resource
-                    along with a identifying name
+                  description: InputResource references a single Kubernetes resource
+                    along with an identifying name
                   properties:
                     name:
                       description: The name of InputResource. This is used as the
@@ -261,7 +261,7 @@ spec:
                           description: The name of the input resource. This field
                             can itself contain JSONPATH syntax to load the name dynamically
                             from other input resources. For example this field could
-                            be set to a static value of "my-secret" or a dynamic valid
+                            be set to a static value of "my-secret" or a dynamic value
                             of "$(.anotherinputresource.spec.name)".
                           type: string
                       required:
@@ -332,7 +332,7 @@ spec:
                         last transition.
                       type: string
                     reason:
-                      description: Unique, this should be a short, machine understandable
+                      description: Unique; this should be a short, machine-understandable
                         string that gives the reason for condition's last transition.
                         If it reports "ResizeStarted" that means the underlying persistent
                         volume is being resized.
@@ -355,8 +355,7 @@ spec:
                   you locate the referenced object inside the same namespace.
                 properties:
                   name:
-                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
@@ -418,8 +417,7 @@ spec:
                   you locate the referenced object inside the same namespace.
                 properties:
                   name:
-                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
-                      TODO: Add other useful fields. apiVersion, kind, uid?'
+                    description: 'Name of the referent. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                     type: string
                 type: object
                 x-kubernetes-map-type: atomic
@@ -467,7 +465,7 @@ spec:
                         last transition.
                       type: string
                     reason:
-                      description: Unique, this should be a short, machine understandable
+                      description: Unique; this should be a short, machine-understandable
                         string that gives the reason for condition's last transition.
                         If it reports "ResizeStarted" that means the underlying persistent
                         volume is being resized.
@@ -579,7 +577,7 @@ spec:
                         last transition.
                       type: string
                     reason:
-                      description: Unique, this should be a short, machine understandable
+                      description: Unique; this should be a short, machine-understandable
                         string that gives the reason for condition's last transition.
                         If it reports "ResizeStarted" that means the underlying persistent
                         volume is being resized.
@@ -673,7 +671,7 @@ spec:
                         last transition.
                       type: string
                     reason:
-                      description: Unique, this should be a short, machine understandable
+                      description: Unique; this should be a short, machine-understandable
                         string that gives the reason for condition's last transition.
                         If it reports "ResizeStarted" that means the underlying persistent
                         volume is being resized.
@@ -767,7 +765,7 @@ spec:
                         last transition.
                       type: string
                     reason:
-                      description: Unique, this should be a short, machine understandable
+                      description: Unique; this should be a short, machine-understandable
                         string that gives the reason for condition's last transition.
                         If it reports "ResizeStarted" that means the underlying persistent
                         volume is being resized.
@@ -801,11 +799,11 @@ metadata:
         - git:
             dirty: true
             remoteURL: https://github.com/carvel-dev/secretgen-controller
-            sha: 8af1ddf89d1ee89e0423427c8fc54b808cb3c33e
+            sha: 6f71ae8b90e7c2255df9259ad68bdd1effee3644
             tags:
-            - v0.20.1
-        url: ghcr.io/carvel-dev/secretgen-controller@sha256:a4f3f07023b852c83244a2bfad67b139729c5c8f9320542dee8dd3fc2b739f23
-    secretgen-controller.carvel.dev/version: v0.20.1
+            - v0.22.0
+        url: ghcr.io/carvel-dev/secretgen-controller@sha256:64418b386a57757ebf64ac9276cd0260b44f3f0663d85118e35f3fcc230e914e
+    secretgen-controller.carvel.dev/version: v0.22.0
   name: secretgen-controller
   namespace: secretgen-controller
 spec:
@@ -820,7 +818,7 @@ spec:
         app: secretgen-controller
     spec:
       containers:
-      - image: ghcr.io/carvel-dev/secretgen-controller@sha256:a4f3f07023b852c83244a2bfad67b139729c5c8f9320542dee8dd3fc2b739f23
+      - image: ghcr.io/carvel-dev/secretgen-controller@sha256:64418b386a57757ebf64ac9276cd0260b44f3f0663d85118e35f3fcc230e914e
         name: secretgen-controller
         resources:
           requests:
