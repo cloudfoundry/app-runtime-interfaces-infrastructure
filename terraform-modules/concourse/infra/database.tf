@@ -37,6 +37,10 @@ resource "google_sql_database_instance" "concourse" {
 
     ip_configuration {
       ipv4_enabled = "true"
+      # Reject unencrypted connections to the public IP. The Cloud SQL Auth
+      # Proxy always connects over TLS, so this does not affect Concourse,
+      # UAA or CredHub (which reach the DB via the node-local proxy).
+      ssl_mode = "ENCRYPTED_ONLY"
     }
 
     location_preference {
