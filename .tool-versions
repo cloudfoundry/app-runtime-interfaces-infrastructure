@@ -1,7 +1,7 @@
 concourse 8.3.4
 gcloud 561.0.0
 helm 4.3.2
-opentofu 1.11.5
+opentofu 1.13.10
 kapp 0.66.2
 kubectl 1.35.3
 python 3.15.2
